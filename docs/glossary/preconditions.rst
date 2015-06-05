@@ -1,0 +1,4 @@
+Preconditions
+=============
+
+See :doc:`fixtures`.
