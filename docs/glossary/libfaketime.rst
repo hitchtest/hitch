@@ -5,7 +5,7 @@ libfaketime intercepts various system calls which :doc:`services <service>`
 use to retrieve the current date and time. It can then report faked dates
 and times (specified by you, the user) to these services.
 
-It is currently *included* in saddle and compiled for your architecture upon
+It is currently *included* in Hitch and compiled for your architecture upon
 installation (e.g. from pypi).
 
 It works on Linux and Mac OS.

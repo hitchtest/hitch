@@ -1,4 +1,4 @@
-Saddle State Directory
-======================
+Hitch State Directory
+=====================
 
 Not yet implemented.

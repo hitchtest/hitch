@@ -1,13 +1,15 @@
-Saddle directory
-================
+Hitch directory
+===============
 
-$ .saddle
+$ .hitch
 
-The saddle directory contains all of the runtime files required by
-saddle to run the tests, including:
+The Hitch directory contains all of the runtime files required by
+Hitch to run the tests, including:
 
-* :doc:`saddle_state_directory`
+* :doc:`hitch_state_directory`
 * :doc:`snapshot_directory`
 * :doc:`artefacts_directory`
-* :doc:`running.json`
+* :doc:`hitch_virtualenv`
 * :doc:`test.log`
+
+It can be deleted and regenerated at any time.

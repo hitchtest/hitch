@@ -1,7 +1,7 @@
 Ready
 =====
 
-A :doc:`service` in Saddle can be said to be ready when:
+A :doc:`service` in Hitch can be said to be ready when:
 
 * The :doc:`setup` method completes without errors.
 * The process has started.

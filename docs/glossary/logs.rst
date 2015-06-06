@@ -1,7 +1,7 @@
 Logs
 ====
 
-Saddle has several different types of logs.
+Hitch has several different types of logs.
 
 It has the following types of logs for *each* service:
 

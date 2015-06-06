@@ -1,7 +1,7 @@
 Shutdown timeout
 ================
 
-Shutdown timeout is the duration which saddle waits after
+Shutdown timeout is the duration which Hitch waits after
 sending a SIGINT/SIGQUIT before sending a SIGKILL.
 
 Unless directly specified, it is assumed that the shutdown

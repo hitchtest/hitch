@@ -1,7 +1,7 @@
 Stop
 ====
 
-In saddle, the a 'stop' message is sent under the following circumstances:
+In Hitch, the a 'stop' message is sent under the following circumstances:
 
 * At the end of a successfully completed test with no errors.
 * Once an error is detected during a test.

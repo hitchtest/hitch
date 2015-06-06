@@ -21,11 +21,13 @@ Test isolation should be maximized as far as possible.
 
 Isolation means that tests set themselves up and clean up after themselves.
 
+Isolation also means that test code and libraries are kept separate from the code and libraries of the application under test.
+
 
 Repeatable
 ----------
 
-Tests must be able to be run repeatedly without intervention.
+Tests must be able to be run repeatedly without intervention, and it should not matter what order they are run in.
 
 
 Self-verifying

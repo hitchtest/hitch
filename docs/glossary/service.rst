@@ -1,7 +1,7 @@
 Service
 =======
 
-A service in Saddle is a process which must be run for the
+A service in Hitch is a process which must be run for the
 duration of the test.
 
 It is either:
@@ -10,7 +10,7 @@ It is either:
 * A process that is required for the software under test to function
 (e.g. a database).
 * A mock service - a service imitating a real external service
-required by the software under test (e.g. :doc:`saddle_smtp`).
+required by the software under test (e.g. :doc:`hitchsmtp`).
 
 All services have a :doc:`setup` and :doc:`poststart` method that runs
 just before the process starts and just after it is :doc:`ready`.
