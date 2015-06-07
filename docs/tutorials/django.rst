@@ -11,11 +11,12 @@ particularly not loosely coupled automated tests. Hitch aims to solve this probl
 This is a tutorial that will guide you through the steps you need to
 to create a test harness and write a simple test for this Django app.
 
-This tutorial assumes a rudimentary level of Python and Django knowledge and access to a UNIX
-machine of some sort (Linux, Mac, Linux VM of some sort, etc.).
+This tutorial assumes a rudimentary level of Python and Django knowledge and access
+to a UNIX machine of some sort (Linux, Mac, Linux VM of some sort, etc.).
 
 If you are very familiar with Python and/or Django, I recommended that you
-just check out the django-remindme repository and look at these three files in particular:
+just check out the django-remindme repository and then check out the
+django-remindme-tests repository inside it and take a look around that.
 
 
 
@@ -57,7 +58,11 @@ Or, if you'd prefer not to use root, you can install it through pipsi_::
 Create your hitch environment
 -----------------------------
 
-Go to the django-remindme directory and run the following::
+Go to the django-remindme directory and create a tests directory::
+
+    $ mkdir tests
+
+Inside the tests directory, run this command::
 
     $ hitch init
 
@@ -79,8 +84,8 @@ Test setup #1: Create the skeleton engine and test
 
 Before you can write a line of test code for your harness, you first
 need to write some simple code to run your code. This is known as the
-execution engine_. In hitch, this takes the form of a very basic
-python unit test test case, looking like this:
+execution engine. In hitch, this takes the form of a very basic
+python unit test case, looking like this:
 
 .. code-block:: python
 
@@ -100,7 +105,8 @@ python unit test test case, looking like this:
         def tearDown(self):
             pass
 
-You can save this file in the tests directory of your project.
+You can save this file in the tests directory. It must be in the same
+directory as your .hitch folder.
 
 In the same directory, you need to create a stub test case (call it stub.yml), like so::
 
@@ -112,18 +118,19 @@ You can run this, by running the following command::
 
     $ hitch test tests/template.yml
 
-All this test and engine does is start an IPython prompt, currently,
+All this test and engine does is start an IPython prompt currently,
 but it serves as a base which we can use to build more.
 
 Test setup #2: Install a virtualenv using your test
 ------------------------------------------------
 
-The first thing your engine needs to do is to create a virtualenv_
+The first thing your engine needs to do is to create a virtualenv
 for your django application. This is an isolated folder that
-contains all of the 3rd party python packages that your Django app
-needs to run. The list of packages are stored in requirements.txt_.
+contains all of the python packages that your Django app
+needs to run. The list of packages are stored in requirements.txt in
+the project folder.
 
-So, after running revup, try running these commands::
+So, after running the test, try running these commands::
 
     In [1]: from os import path, chdir
 
@@ -193,28 +200,30 @@ the environment details of your machine::
 
     In [1]: import hitchserve
 
-    In [2]: hitchserve.environment.class_definition()
-    environment.Environment("linux2", 64, True)        # Yours may look different to this
+    In [2]: import hitchenvironment
+
+    In [3]: hitchenvironment.class_definition()
+    hitchenvironment.Environment("linux2", 64, True)        # Yours may look different to this
 
 What this means is that the machine I ran this on runs linux, is 64 bit and currently
-has access to the Internet. You can assign this to a variable like so, and change requires_internet to False (since Django-RemindMe
-tests won't require internet to run)::
+has access to the Internet. You can assign this to a variable like so, and change requires_internet
+to False (since Django-RemindMe tests won't require internet to run)::
 
-    In [3]: environment = hitchserve.environment.Environment("linux2", 64, False)
+    In [4]: environment = hitchenvironment.Environment("linux2", 64, False)
 
 And create an empty ServiceBundle like so::
 
-    In [3]: self.services = hitchserve.ServiceBundle(project_directory=PROJECT_DIRECTORY, environment=environment)
+    In [5]: self.services = hitchserve.ServiceBundle(project_directory=PROJECT_DIRECTORY, environment=environment)
 
 You can then start it like so::
 
-    In [4]: self.services.startup(interactive=True)
+    In [6]: self.services.startup(interactive=True)
 
 But, it wont do anything yet.
 
 You can stop it again by running the shutdown command::
 
-    In [5]: self.services.shutdown()
+    In [7]: self.services.shutdown()
 
 Now, you can copy and paste all the code that you just ran (using %history) into your engine.py. It should look something like this now:
 
@@ -252,7 +261,7 @@ Test Setup #4: Add your first service to the ServiceBundle
 
 We'll start with Redis, since it's a pretty simple service with few dependencies.
 
-Run this command to install the (very simple) redis plugin::
+Run this command to install the (very simple) hitchredis plugin::
 
     $ hitch install hitchredis
 
@@ -330,6 +339,7 @@ Or (hit ctrl-D), you can interact with the database you just created::
     Type "help" for help.
 
     remindme=#
+
 
 Test Setup #6: Start Django and Celery
 --------------------------------------
