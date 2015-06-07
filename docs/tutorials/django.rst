@@ -27,7 +27,7 @@ You need several prerequisite packages installed before you can begin here:
 
 On Ubuntu::
 
-    $ sudo apt-get install python python-virtualenv python-pip postgresql redis-server git firefox node-less
+    $ sudo apt-get install python python-virtualenv python-pip postgresql redis-server git firefox node-less libtool automake
 
 
 On a Mac (make sure firefox is installed first)::
