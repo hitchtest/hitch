@@ -43,16 +43,17 @@ def init():
             hitchreqs_handle.write(pip_freeze)
 
 
+# TODO: Repeat and get % pass/fail.
+
 @command()
 @argument('filename')
-@option('-r', '--repeat', default=1, help='Number of times to run the test. Report % success and failure.')
 @option('-s', '--settings', default=None, help="Load settings from file.")
 @option('-e', '--extra', default=None, help="""Load extra vars on command line as JSON (e.g. --extra '{"postgres_version": "3.5.5"}'""")
-def test(filename, repeat, settings, extra):
+def test(filename, settings, extra):
     """Run test"""
     if filename.endswith(".yml") and path.exists(filename):
         python = path.join(hitchdir.get_hitch_directory(), "virtualenv", "bin", "test")
-        command = [python, path.abspath(filename), '-r', str(repeat), ]
+        command = [python, path.abspath(filename), ]
         if settings is not None:
             command = command + ['--settings', settings, ]
         if extra is not None:
@@ -97,10 +98,9 @@ def freeze():
 
 @command()
 def clean():
-    """Clean out all hitch data and set up from scratch."""
-    run_checks()
+    """Remove the hitch directory entirely."""
+    hitch_directory = hitchdir.get_hitch_directory_or_fail()
     shutil.rmtree(".hitch")
-    up()
 
 
 def run():
