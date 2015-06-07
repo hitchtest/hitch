@@ -116,6 +116,7 @@ tested on Ubuntu and Mac OS X. Currently, hitchserve will not run on Windows.
 .. _HitchSelenium: https://github.com/hitchtest/hitchselenium
 .. _HitchRedis: https://github.com/hitchtest/hitchredis
 .. _HitchDjango: https://github.com/hitchtest/hitchdjango
+.. _HitchPostgres: https://github.com/hitchtest/hitchpostgres
 .. _HitchCelery: https://github.com/hitchtest/hitchcelery
 .. _pipsi: https://github.com/mitsuhiko/pipsi
 
