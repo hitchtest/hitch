@@ -47,13 +47,16 @@ def init():
 
 @command()
 @argument('filename')
+@option('-y', '--yaml', is_flag=True, help='Output the YAML test (for debugging).')
 @option('-s', '--settings', default=None, help="Load settings from file.")
 @option('-e', '--extra', default=None, help="""Load extra vars on command line as JSON (e.g. --extra '{"postgres_version": "3.5.5"}'""")
-def test(filename, settings, extra):
+def test(filename, yaml, settings, extra):
     """Run test"""
     if filename.endswith(".yml") and path.exists(filename):
         python = path.join(hitchdir.get_hitch_directory(), "virtualenv", "bin", "test")
         command = [python, path.abspath(filename), ]
+        if yaml:
+            command = command + ['--yaml', ]
         if settings is not None:
             command = command + ['--settings', settings, ]
         if extra is not None:
