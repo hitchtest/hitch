@@ -1,11 +1,13 @@
-"""Command line interface to hitch."""
+"""High level command line interface to hitch."""
+from subprocess import call, check_output, PIPE, CalledProcessError
 from click import command, group, argument, option
-from subprocess import call, check_output, PIPE
-from os import path, makedirs
-from sys import stderr, exit
+from sys import stderr, exit, modules, argv
+from os import path, makedirs, listdir
 import hitchdir
 import shutil
 import signal
+import copy
+
 
 @group()
 def cli():
@@ -34,40 +36,34 @@ def init():
     if path.exists("hitchreqs.txt"):
         call([pip, "install", "-r", "hitchreqs.txt"])
     else:
-        call([pip, "install", "hitch"])
-        call([pip, "install", "hitchserve"])
+        call([pip, "install", "hitchtest"])
 
         pip_freeze = check_output([pip, "freeze"])
 
         with open("hitchreqs.txt", "w") as hitchreqs_handle:
             hitchreqs_handle.write(pip_freeze)
 
+def update_requirements():
+    """Check hitchreqs.txt match what's installed via pip freeze. If not, update."""
+    pip = path.join(hitchdir.get_hitch_directory_or_fail(), "virtualenv", "bin", "pip")
+    hitchreqs_filename = path.join(hitchdir.get_hitch_directory_or_fail(), "..", "hitchreqs.txt")
+    pip_freeze = check_output([pip, "freeze"])
+    hitchreqs_handle = ""
+    with open(hitchreqs_filename, "r") as hitchreqs_handle:
+        hitchreqs = hitchreqs_handle.read()
+    if not pip_freeze == hitchreqs:
+        call([pip, "install", "-r", "hitchreqs.txt"])
 
-# TODO: Repeat and get % pass/fail.
 
-@command()
-@argument('filename')
-@option('-y', '--yaml', is_flag=True, help='Output the YAML test (for debugging).')
-@option('-s', '--settings', default=None, help="Load settings from file.")
-@option('-e', '--extra', default=None, help="""Load extra vars on command line as JSON (e.g. --extra '{"postgres_version": "3.5.5"}'""")
-def test(filename, yaml, settings, extra):
-    """Run test"""
-    if filename.endswith(".yml") and path.exists(filename):
-        python = path.join(hitchdir.get_hitch_directory(), "virtualenv", "bin", "test")
-        command = [python, path.abspath(filename), ]
-        if yaml:
-            command = command + ['--yaml', ]
-        if settings is not None:
-            command = command + ['--settings', settings, ]
-        if extra is not None:
-            command = command + ['--extra', extra, ]
-        return_code = call(command)
-        exit(return_code)
-    else:
-        stderr.write("I didn't understand {}\n".format(filename))
-        stderr.flush()
-        exit(1)
-
+@command(context_settings={'help_option_names':[],'ignore_unknown_options':True}, help="dd")
+@argument('arguments', nargs=-1)
+def runpackage(arguments):
+    # Generic method to run any installed app in the virtualenv whose name starts with hitch*
+    update_requirements()
+    binfile = path.join(hitchdir.get_hitch_directory(), "virtualenv", "bin", "hitch{}".format(argv[1]))
+    command = [binfile, ] + argv[2:]
+    return_code = call(command)
+    exit(return_code)
 
 @command()
 @argument('package', required=True)
@@ -111,12 +107,40 @@ def run():
     signal.signal(signal.SIGINT, signal.SIG_IGN)
     signal.signal(signal.SIGTERM, signal.SIG_IGN)
 
+    if hitchdir.hitch_exists():
+        # Get packages from bin folder that are hitch related
+        python_bin = path.join(hitchdir.get_hitch_directory(), "virtualenv", "bin", "python")
+        packages = [
+            package.replace("hitch", "") for package in listdir(
+                path.join(hitchdir.get_hitch_directory(), "virtualenv", "bin")
+            )
+            if package.startswith("hitch") and package != "hitch"
+        ]
+
+        # Add packages that start with hitch* to the list of commands available
+        for package in packages:
+            cmd = copy.deepcopy(runpackage)
+            cmd.name = package
+            try:
+                description = check_output([
+                    python_bin, '-c',
+                    'import sys;sys.stdout.write(__import__("hitch{}").commandline.cli.help)'.format(
+                        package
+                    )
+                ], stderr=PIPE)
+            except CalledProcessError:
+                description = ""
+            cmd.help = description
+            cmd.short_help = description
+            cli.add_command(cmd)
+
+
+        cli.add_command(install)
+        cli.add_command(uninstall)
+        cli.add_command(clean)
+        cli.add_command(freeze)
+
     cli.add_command(init)
-    cli.add_command(install)
-    cli.add_command(uninstall)
-    cli.add_command(test)
-    cli.add_command(clean)
-    cli.add_command(freeze)
     cli()
 
 if __name__ == '__main__':
