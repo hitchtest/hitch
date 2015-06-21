@@ -106,8 +106,9 @@ change. However, since few people are using it I will be quick to provide
 support and more open to feature requests during this period. It has been
 tested on Ubuntu and Mac OS X. Currently, hitchserve will not run on Windows.
 
+See the roadmap_ for planned future features.
 
-
+.. _roadmap: https://github.com/hitchtest/hitch/ROADMAP.rst
 .. _HitchTest: https://github.com/hitchtest/hitchtest
 .. _HitchServe: https://github.com/hitchtest/hitchserve
 .. _HitchEnvironment: https://github.com/hitchtest/hitchenvironment
