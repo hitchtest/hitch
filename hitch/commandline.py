@@ -11,7 +11,6 @@ import copy
 
 @group()
 def cli():
-    """Hitch bootstrapper and test runner."""
     pass
 
 @command()
@@ -22,6 +21,13 @@ def init():
         stderr.flush()
         exit(1)
 
+    if call(["which", "python3"], stdout=PIPE):
+        stderr.write("To use Hitch, you must have python 3 installed and available on the system path with the name 'python3'.\n")
+        stderr.flush()
+        exit(1)
+
+    python3 = check_output(["which", "python3"]).replace("\n", "")
+
     if hitchdir.hitch_exists():
         stderr.write("Hitch has already been initialized in this directory.\n")
         stderr.flush()
@@ -30,7 +36,7 @@ def init():
     makedirs(".hitch")
     pip = path.abspath(path.join(".hitch", "virtualenv", "bin", "pip"))
 
-    call(["virtualenv", ".hitch/virtualenv", "--no-site-packages"])
+    call(["virtualenv", ".hitch/virtualenv", "--no-site-packages", "--distribute", "-p", python3])
     call([pip, "install", "-U", "pip"])
 
     if path.exists("hitchreqs.txt"):
@@ -47,12 +53,18 @@ def update_requirements():
     """Check hitchreqs.txt match what's installed via pip freeze. If not, update."""
     pip = path.join(hitchdir.get_hitch_directory_or_fail(), "virtualenv", "bin", "pip")
     hitchreqs_filename = path.join(hitchdir.get_hitch_directory_or_fail(), "..", "hitchreqs.txt")
-    pip_freeze = check_output([pip, "freeze"])
+    pip_freeze = check_output([pip, "freeze"]).split('\n')
     hitchreqs_handle = ""
     with open(hitchreqs_filename, "r") as hitchreqs_handle:
-        hitchreqs = hitchreqs_handle.read()
-    if not pip_freeze == hitchreqs:
+        hitchreqs = hitchreqs_handle.read().split('\n')
+
+    if not sorted(pip_freeze) == sorted(hitchreqs):
         call([pip, "install", "-r", "hitchreqs.txt"])
+
+    pip_freeze = check_output([pip, "freeze"])
+
+    with open("hitchreqs.txt", "w") as hitchreqs_handle:
+        hitchreqs_handle.write(pip_freeze)
 
 
 @command(context_settings={'help_option_names':[],'ignore_unknown_options':True}, help="dd")
@@ -139,8 +151,10 @@ def run():
         cli.add_command(uninstall)
         cli.add_command(clean)
         cli.add_command(freeze)
-
-    cli.add_command(init)
+        cli.help = "Hitch test runner for:\n\n  {}.".format(hitchdir.get_hitch_directory())
+    else:
+        cli.add_command(init)
+        cli.help = "Hitch bootstrapper - '.hitch' directory not detected here."
     cli()
 
 if __name__ == '__main__':
