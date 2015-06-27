@@ -74,6 +74,13 @@ def runpackage(arguments):
     update_requirements()
     binfile = path.join(hitchdir.get_hitch_directory(), "virtualenv", "bin", "hitch{}".format(argv[1]))
     command = [binfile, ] + argv[2:]
+
+    # Stop responding to signals - the calling command should take over.
+    signal.signal(signal.SIGINT, signal.SIG_IGN)
+    signal.signal(signal.SIGTERM, signal.SIG_IGN)
+    signal.signal(signal.SIGHUP, signal.SIG_IGN)
+    signal.signal(signal.SIGQUIT, signal.SIG_IGN)
+
     return_code = call(command)
     exit(return_code)
 
@@ -113,11 +120,16 @@ def clean():
     hitch_directory = hitchdir.get_hitch_directory_or_fail()
     shutil.rmtree(".hitch")
 
-
 def run():
     """Run hitch bootstrap CLI"""
-    signal.signal(signal.SIGINT, signal.SIG_IGN)
-    signal.signal(signal.SIGTERM, signal.SIG_IGN)
+    def stop_everything(sig, frame):
+        """Exit hitch."""
+        exit(1)
+
+    signal.signal(signal.SIGINT, stop_everything)
+    signal.signal(signal.SIGTERM, stop_everything)
+    signal.signal(signal.SIGHUP, stop_everything)
+    signal.signal(signal.SIGQUIT, stop_everything)
 
     if hitchdir.hitch_exists():
         # Get packages from bin folder that are hitch related
