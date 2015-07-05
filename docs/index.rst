@@ -16,5 +16,4 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-   tutorials/index
    glossary/index
