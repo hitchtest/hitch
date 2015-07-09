@@ -1,8 +1,7 @@
 Hitch
 =====
 
-Hitch is a testing framework built upon python's unittest that
-helps you write functional and unit tests that are:
+Hitch is a testing framework to help you write functional tests that are:
 
 * Simple
 * Easy to read and maintain
@@ -16,4 +15,6 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
+   quickstart/index
+   faq/index
    glossary/index
