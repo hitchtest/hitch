@@ -14,7 +14,7 @@ To begin, the minimum you need to have python 3 and virtualenv installed on your
 
 On Ubuntu::
 
-  $ sudo apt-get install python3 python-virtualenv python-pip
+  $ sudo apt-get install python3 python-virtualenv python-pip make
 
 On a Mac::
 

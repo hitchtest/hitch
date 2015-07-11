@@ -17,4 +17,6 @@ Contents:
 
    quickstart/index
    faq/index
+   api/index
    glossary/index
+

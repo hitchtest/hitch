@@ -12,6 +12,8 @@ To run, define the service after initializing the ServiceBundle object but befor
 
 .. code-block:: python
 
+        import hitchsmtp
+
         # Service definition in your test execution engine's setUp
         self.services['HitchSMTP'] = hitchsmtp.HitchSMTPService(
             port=10025                                                 # Optional (default: 10025)
