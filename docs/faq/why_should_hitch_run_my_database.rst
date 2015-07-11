@@ -14,10 +14,9 @@ any queries that you run will also pick up the new time.
 :doc:`/glossary/isolation`
 --------------------------
 
-If Hitch runs your database, the files it creates are kept completely
-isolated from other tests and other databases installed on your system.
-This protects your tests from modifications to the system DB environment
-and vice versa.
+If Hitch runs your database, the data files are kept isolated from other
+tests and other databases installed on your system. This protects your tests
+from modifications to the system DB environment and vice versa.
 
 
 Version fixing

@@ -87,11 +87,13 @@ Create an engine called 'engine.py' like so::
         def tear_down(self):
             pass
 
-And a test called 'stub.test', written in YAML, like so::
+And a test called 'stub.test', written in YAML, like so:
+
+.. code-block:: yaml
 
   - name: Stub
     engine: engine.py:YourProjectTestExecutionEngine
-    scenario: 
+    scenario:
       - Pause
 
 You can run this test by running the command inside your tests directory::

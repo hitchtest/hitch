@@ -1,5 +1,5 @@
-Defining and Running the Mock SMTP Service
-==========================================
+Mock SMTP Service
+=================
 
 The mock SMTP service is an SMTP server that you can use to test that your
 applications have sent an email at the right time with the right contents.

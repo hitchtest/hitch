@@ -1,7 +1,11 @@
-Defining and running a Django service
-=====================================
+Django
+======
 
-Install the hitch python package::
+.. warning::
+
+    Currently the only supported version of Django is version 1.8. This will change soon.
+
+First, if it is not already installed, install the hitch python package::
 
     $ hitch install hitchpython
 
@@ -25,7 +29,7 @@ Like so:
         needs=[self.services['Postgres'], ]              # Optional (default: no prerequisites)
     )
 
-Once it is running, you can interact with the service like so::
+Once it is running, you can interact with the service::
 
     In [1]: self.services['Django'].manage("help").run()
     [ Prints help ]
@@ -34,3 +38,4 @@ Once it is running, you can interact with the service like so::
     http://127.0.0.1:18080/
 
     In [3]: self.services['Django'].savefixture("fixtures/database_current_state.json").run()
+    [ Saves the current state of the database as a fixture to file ]

@@ -53,7 +53,7 @@ You can add a preconditions value::
     scenario:
       - Pause
 
-These values are available to you in your test like so::
+These values are available to you when you run the test::
 
    In [1]: self.preconditions
    Out[1]: {'precondition1': 'value1', 'precondition2': 100}
@@ -61,8 +61,8 @@ These values are available to you in your test like so::
 What goes in here is basically settings used for *individual*
 tests. The exact contents and structure are left up to you.
 
-It could be fixtures filenames, specific versions of software
-or even different configurations of services.
+It could be databse fixtures filenames, specific versions
+of software or even different configurations of services.
 
 Again, like the settings file, this is just YAML, so your
 preconditions can be nothing at all, a dict, a list and
