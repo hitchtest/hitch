@@ -1,4 +1,4 @@
-2: Building a python environment for your application
+3: Building a python environment for your application
 =====================================================
 
 To test a python application, you first need to give your application a
@@ -6,7 +6,9 @@ python environment of its own to test with.
 
 Hitch assumes that it will set up this environment for you.
 
-See also: :doc:`faq/why_should_my_tests_set_up_their_own_python_environment`
+.. note::
+
+    :doc:`/faq/why_should_my_tests_set_up_their_own_python_environments`
 
 Steps in your set up that you need to use to build a test::
 
@@ -23,6 +25,7 @@ Now you can use the hitchpython module in your tests::
   In [4]: python_package = hitchpython.PythonPackage(python_version=self.settings['python_version'], directory=pydir)
 
   In [5]: python_package.build()
+  [ This might take a few minutes. Now is a great time to grab a coffee. ]
 
   In [6]: python_package.verify()
 
@@ -36,12 +39,12 @@ some packages in it too::
 
   In [8]: from subprocess import call
 
-  In [9]: call([python_package.pip, "install", "-r", "requirements.txt"])
+  In [9]: call([python_package.pip, "install", "-r", path.join(PROJECT_DIRECTORY, "requirements.txt")])
 
 Now, you can copy these lines of code to the set_up method in your test.
 
 Note that this will take a while to run the first time that you run it. Downloading and compiling
-python is not quick. Once it is built, however, subsequent runs will be much quicker as they will
+python is not quick. Once it is built, however, subsequent test runs will be much quicker as they will
 not attempt to download and rebuild python if it is already there.
 
 pip install requirements.txt should be run each time so that if you change a version of package

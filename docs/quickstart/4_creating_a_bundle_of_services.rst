@@ -1,4 +1,4 @@
-3: Creating a bundle of services
+4: Creating a bundle of services
 ================================
 
 To do most forms of integration testing requires services. The example application,
@@ -35,7 +35,7 @@ this:
 
     class YourProjectTestExecutionEngine(hitchtest.ExecutionEngine):
         def set_up(self):
-            # From previous page
+            # From previous tutorial step
             pydir = path.join(PROJECT_DIRECTORY, "py")
             python_package = hitchpython.PythonPackage(python_version=self.settings['python_version'], directory=pydir)
             python_package.build()
@@ -56,7 +56,7 @@ this:
 
         def pause(self):
             if hasattr(self, 'services'):
-                # hasattr(self, 'services') allows pause to be run prior to the service bundle being defined as well as after.
+                # hasattr(self, 'services') allows self.pause() to be run prior to the service bundle being defined as well as after.
                 self.services.start_interactive_mode()  # hitchserve yields control of screen output so that ipython can take over.
             hitchtest.ipython_embed()
             if hasattr(self, 'services'):
@@ -64,7 +64,6 @@ this:
 
         def tear_down(self):
             if hasattr(self, 'services'):
-                self.services.shutdown()                # hitchserve shuts down all of its services (of which there are none).
+                self.services.shutdown()                # hitchserve shuts down all of its services (of which there are currently none).
 
 
-The next step contains a list of services which you can choose to run your app using.

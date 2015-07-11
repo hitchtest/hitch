@@ -4,10 +4,8 @@ Why YAML?
 YAML is a markup language for presenting structured data. It is
 effectively a more readable version of JSON.
 
-For settings
-------------
-
-This makes it ideal
+It is used for configuration - for the settings file - because
+it is 
 
 It is used both for writing test scripts and for settings files.
 

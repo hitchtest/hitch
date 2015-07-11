@@ -7,7 +7,7 @@ that the application code runs in.
 Hitch is different.
 
 Hitch is designed to test at as high a level as possible and to isolate
-all possible sources of bugs and test :doc:`glossary/indeterminacy`.
+all possible sources of bugs and test :doc:`/glossary/indeterminacy`.
 
 The specific version and environment of python you test with is such
 a potential source of bugs.

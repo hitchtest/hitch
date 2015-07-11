@@ -1,9 +1,11 @@
-1: Creating test settings and test preconditions
+2: Creating test settings and test preconditions
 ================================================
 
-Note: it's recommended that you gain a familiarity with :doc:`glossary/YAML`.
+Note: it's recommended that you gain a familiarity with :doc:`/glossary/YAML`.
 
-See also: :doc:`faq/why_yaml`
+.. note::
+
+    :doc:`/faq/why_yaml`
 
 Now that you have a skeleton test, but you need to be able to configure
 it properly to be able to get it to do useful things in your tests.
