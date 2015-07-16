@@ -1,9 +1,13 @@
 Django
 ======
 
+.. note::
+
+    This documentation applies to the latest version of hitchpython: version 0.1
+
 .. warning::
 
-    Currently the only supported version of Django is version 1.8. This will change soon.
+    Currently the only supported version of Django is version 1.8.
 
 First, if it is not already installed, install the hitch python package::
 

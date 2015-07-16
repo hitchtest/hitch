@@ -1,6 +1,10 @@
 Celery
 ======
 
+.. note::
+
+    This documentation applies to hitchpython version 0.1
+
 Install the hitch python package::
 
     $ hitch install hitchpython

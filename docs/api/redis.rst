@@ -1,20 +1,32 @@
 Redis
 =====
 
-Install like so::
+.. note::
+
+    This documentation applies to the latest version of hitchredis: version 0.3
+
+Install the plugin::
 
     $ hitch install hitchredis
+
+In your test, define the redis package you will use:
+
+.. code-block:: python
+
+    redis_package = hitchredis.RedisPackage(
+        version="2.8.4",
+        bin_directory="/usr/local/bin",
+    )
+    redis_package.verify()
 
 To use, define the service after initializing the ServiceBundle object but before starting it.
 
 .. code-block:: python
 
-        self.services['Redis'] = hitchredis.RedisService(
-            version="2.8.4"                                     # Mandatory
-            redis_exec="redis-server",                          # Optional (default: redis-server)
-            redis_cli="redis-cli",                              # Optional (default: redis-cli)
-            port=16379,                                         # Optional (default: 16379)
-        )
+    self.services['Redis'] = hitchredis.RedisService(
+        redis_package=redis_package                         # Mandatory
+        port=16379,                                         # Optional (default: 16379)
+    )
 
 Once it is running, you can interact with the service::
 

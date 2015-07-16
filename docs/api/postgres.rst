@@ -1,9 +1,23 @@
 Postgres
 ========
 
-Install like so::
+.. note::
+
+    This documentation applies to the latest version of hitchpostgres: version 0.3
+
+Install the plugin::
 
     $ hitch install hitchpostgres
+
+In your test, define the postgres installation you will use, e.g. a system postgres:
+
+.. code-block:: python
+
+    postgres_package = hitchpostgres.PostgresPackage(
+        version="9.3.9",
+        bin_directory="/usr/local/bin"],
+    )
+    postgres_package.verify()
 
 To use, define the service after initializing the ServiceBundle object but before starting it.
 
@@ -15,11 +29,8 @@ To use, define the service after initializing the ServiceBundle object but befor
         postgres_user = hitchpostgres.PostgresUser("newpguser", "pguserpassword")
 
         self.services['Postgres'] = hitchpostgres.PostgresService(
-            version="9.3.6",                                                            # Mandatory
+            postgres_package=postgres_package,                                          # Mandatory
             port=15432,                                                                 # Optional (default: 15432)
-            postgres_installation=hitchpostgres.PostgresInstallation(                   # Optional (default: assumes postgres commands are on path)
-                bin_directory = "/usr/lib/postgresql/9.3/bin/"
-            ),
             users=[postgres_user, ],                                                    # Optional (default: no users)
             databases=[hitchpostgres.PostgresDatabase("databasename", newpguser), ]     # Optional (default: no databases)
             pgdata=None,                                                                # Optional location for pgdata dir (default: put in .hitch)
@@ -28,10 +39,10 @@ To use, define the service after initializing the ServiceBundle object but befor
 
 Once it is running, you can interact with the service::
 
-        In [1]: self.services['Postgres'].databases[0].psql("-c", "SELECT * FROM yourtable;").run()
-        [ Prints output ]
+    In [1]: self.services['Postgres'].databases[0].psql("-c", "SELECT * FROM yourtable;").run()
+    [ Prints output ]
 
-        In [2]: self.services['Postgres'].databases[0].psql().run()
-        [ Launches into postgres shell ]
+    In [2]: self.services['Postgres'].databases[0].psql().run()
+    [ Launches into postgres shell ]
 
 

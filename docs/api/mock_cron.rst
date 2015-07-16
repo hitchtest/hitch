@@ -16,7 +16,7 @@ To use, define the service after initializing the ServiceBundle object but befor
         import hitchcron
 
         self.services['Cron'] = hitchcron.CronService(
-            run=self.services['Django'].manage("trigger").command,      # List containing command + args
-            every=1,                                                    # Run every 1 seconds
+            run=['command', 'arg1', 'arg2', 'arg3'],    # List containing command + args
+            every=1,                                    # Run every 1 seconds
         )
 
