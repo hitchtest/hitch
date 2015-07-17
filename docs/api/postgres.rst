@@ -15,7 +15,7 @@ In your test, define the postgres installation you will use, e.g. a system postg
 
     postgres_package = hitchpostgres.PostgresPackage(
         version="9.3.9",
-        bin_directory="/usr/local/bin"],
+        bin_directory="/usr/local/bin",
     )
     postgres_package.verify()
 
@@ -23,18 +23,18 @@ To use, define the service after initializing the ServiceBundle object but befor
 
 .. code-block:: python
 
-        import hitchpostgres
+    import hitchpostgres
 
-        # Service definition in engine's setUp:
-        postgres_user = hitchpostgres.PostgresUser("newpguser", "pguserpassword")
+    # Service definition in engine's setUp:
+    postgres_user = hitchpostgres.PostgresUser("newpguser", "pguserpassword")
 
-        self.services['Postgres'] = hitchpostgres.PostgresService(
-            postgres_package=postgres_package,                                          # Mandatory
-            port=15432,                                                                 # Optional (default: 15432)
-            users=[postgres_user, ],                                                    # Optional (default: no users)
-            databases=[hitchpostgres.PostgresDatabase("databasename", newpguser), ]     # Optional (default: no databases)
-            pgdata=None,                                                                # Optional location for pgdata dir (default: put in .hitch)
-        )
+    self.services['Postgres'] = hitchpostgres.PostgresService(
+        postgres_package=postgres_package,                                          # Mandatory
+        port=15432,                                                                 # Optional (default: 15432)
+        users=[postgres_user, ],                                                    # Optional (default: no users)
+        databases=[hitchpostgres.PostgresDatabase("databasename", newpguser), ]     # Optional (default: no databases)
+        pgdata=None,                                                                # Optional location for pgdata dir (default: put in .hitch)
+    )
 
 
 Once it is running, you can interact with the service::

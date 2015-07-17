@@ -145,3 +145,34 @@ The psutil Process class API can be used to inspect the CPU usage of the process
 
 The full API docs for psutil's Process class are here: https://pythonhosted.org/psutil/#process-class
 
+
+Running Arbitrary Code Before and After Starting
+------------------------------------------------
+
+Some services can just be started and stopped, but others require special
+code to be run before and/or after. A good example of this is postgresql,
+which needs initdb run before starting the database service, and CREATE
+USER / CREATE DATABASE to be run after.
+
+If your service has special requirements, you can subclass the hitchserve
+Service object:
+
+.. code-block:: python
+
+    from hitchserve import Service
+    import signal
+
+
+    class MyService(Service):
+        def __init__(self, **kwargs):
+            kwargs['log_line_ready_checker'] = lambda line: "line in logs that signals readiness" in line
+            kwargs['command'] = ["start_service_command", "arg1", "arg2", "arg3", ]
+            super(MyService, self).__init__(**kwargs)
+
+        def setup(self):
+            """This is where you run all of the code you want run before starting the service."""
+            pass
+
+        def poststart(self):
+            """This is where you run all of the code you want run after starting the service."""
+            pass

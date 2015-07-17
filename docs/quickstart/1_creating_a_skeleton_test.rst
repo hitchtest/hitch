@@ -10,7 +10,7 @@ To begin, the minimum you need to have python 3 and virtualenv installed on your
 
 .. note::
 
-    You can still test your python 2 application without installing python 2 through your package manager. How? Read on and find out.
+    You can use hitch to test your app using python 2 or python 3 or even both.
 
 On Ubuntu::
 
@@ -43,7 +43,7 @@ or::
 Create your test directory
 --------------------------
 
-First create a directory inside your project to put your tests in. For example::
+Next, create a directory inside your project to put your tests in. For example::
 
   $ mkdir tests
   $ cd tests
