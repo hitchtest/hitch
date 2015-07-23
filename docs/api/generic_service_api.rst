@@ -71,7 +71,7 @@ You can tail the logs too::
     [ Continues logging in real time until you hit ctrl-C ]
 
 A unique feature of hitchserve is also the ability to parse log lines looking for JSON
-logs and then parse them and present them to you as python list of lists and dicts::
+logs and then parse them and present them to you as python list of dicts/lists::
 
     In [5]: self.service['HitchSMTP'].logs.json()
     Out[5]:
@@ -116,8 +116,47 @@ You can also tail the logs until a specific JSON line is seen::
     [ outputs dict representation of line representing email once it has been received ]
 
 
-Process API
+Time Travel
 -----------
+
+The service bundle object has a special command which can be used to mock the forward (or even backward)
+passage of time. It works by feeding a different time via the UNIX system API to all of the services
+run by the service bundle.
+
+To move forward relatively you can use the following API::
+
+    In [1]: self.services.time_travel(days=1)
+    Time traveling to 23 hours from now
+
+    In [2]: self.services.time_travel(hours=25)
+    Time traveling to 2 days from now
+
+    In [3]: self.services.time_travel(minutes=60)
+    Time traveling to 2 days from now
+
+    In [4]: self.services.time_travel(seconds=60)
+    Time traveling to 2 days from now
+
+    In [5]: from datetime import timedelta
+
+    In [6]: self.services.time_travel(timedelta=timedelta(hours=1))
+    Time traveling to 2 days from now
+
+You can get the current (mocked) time via::
+
+    In [7]: self.services.now()
+    Out[7]: datetime.datetime(2015, 7, 19, 16, 21, 33, 703669)
+
+To move to an absolute time use::
+
+    In [8]: from datetime import datetime
+
+    In [9]: self.services.time_travel(datetime=datetime.now())
+    Time traveling to now
+
+
+Service Process API
+-------------------
 
 To see a service's process ID::
 
@@ -146,16 +185,29 @@ The psutil Process class API can be used to inspect the CPU usage of the process
 The full API docs for psutil's Process class are here: https://pythonhosted.org/psutil/#process-class
 
 
+Service Sub-commands
+--------------------
+
+Many services have special commands which are run during their operation.
+For example, Django has the manage command, Redis has redis-cli and
+Postgresql has psql.
+
+Hitch provides an API to let you run these commands in the same environment
+as the service you are running. This means that they will inherit the same
+environment variables and system time::
+
+    In [1]: self.services['']
+
 Running Arbitrary Code Before and After Starting
 ------------------------------------------------
 
 Some services can just be started and stopped, but others require special
-code to be run before and/or after. A good example of this is postgresql,
-which needs initdb run before starting the database service, and CREATE
+code to be run before and after. A good example of this is postgresql,
+which requires initdb be run before starting the database service, and CREATE
 USER / CREATE DATABASE to be run after.
 
-If your service has special requirements, you can subclass the hitchserve
-Service object:
+If your service has special requirements like this, you can subclass the
+hitchserve Service object:
 
 .. code-block:: python
 
@@ -174,5 +226,5 @@ Service object:
             pass
 
         def poststart(self):
-            """This is where you run all of the code you want run after starting the service."""
+            """This is where you put all of the code you want run after the service is ready."""
             pass

@@ -2,8 +2,8 @@
 =================================
 
 Now that you have a working bundle, you can add services to it. Once the
-test is started, these services will be run. At the pause step they will
-all be running. After
+test is started, these services will be run. Once the pause step is reached
+they will all be running.
 
 .. note::
 
@@ -15,4 +15,4 @@ A list of service you can install, set up and run are listed here:
    :glob:
    :maxdepth: 2
 
-   ../api/*
+   ../services/*
