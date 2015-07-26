@@ -1,8 +1,9 @@
 """High level command line interface to hitch."""
-from subprocess import call, check_output, PIPE, CalledProcessError
+from subprocess import call, check_output, PIPE, CalledProcessError, Popen
 from click import command, group, argument, option
 from sys import stderr, exit, modules, argv
 from os import path, makedirs, listdir, getpgrp, killpg
+from functools import partial
 import hitchdir
 import shutil
 import signal
@@ -76,15 +77,15 @@ def runpackage(arguments):
     command = [binfile, ] + argv[2:]
 
     # When receiving a signal, distribute it to the process group
-    def distribute_signal_to_process_group(signum, frame):
-        killpg(getpgrp(), signum)
+    def forward_signal_to_child(pid, signum, frame):
+        kill(pid, signum)
 
-    signal.signal(signal.SIGINT, distribute_signal_to_process_group)
-    signal.signal(signal.SIGTERM, distribute_signal_to_process_group)
-    signal.signal(signal.SIGHUP, distribute_signal_to_process_group)
-    signal.signal(signal.SIGQUIT, distribute_signal_to_process_group)
-
-    return_code = call(command)
+    process = Popen(command)
+    signal.signal(signal.SIGINT, partial(forward_signal_to_child, process.pid))
+    signal.signal(signal.SIGTERM, partial(forward_signal_to_child, process.pid))
+    signal.signal(signal.SIGHUP, partial(forward_signal_to_child, process.pid))
+    signal.signal(signal.SIGQUIT, partial(forward_signal_to_child, process.pid))
+    return_code = process.wait()
     exit(return_code)
 
 @command()
