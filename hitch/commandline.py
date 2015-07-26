@@ -2,7 +2,7 @@
 from subprocess import call, check_output, PIPE, CalledProcessError, Popen
 from click import command, group, argument, option
 from sys import stderr, exit, modules, argv
-from os import path, makedirs, listdir, getpgrp, killpg
+from os import path, makedirs, listdir, kill
 from functools import partial
 import hitchdir
 import shutil
