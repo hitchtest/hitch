@@ -2,7 +2,7 @@
 from subprocess import call, check_output, PIPE, CalledProcessError
 from click import command, group, argument, option
 from sys import stderr, exit, modules, argv
-from os import path, makedirs, listdir
+from os import path, makedirs, listdir, getpgrp, killpg
 import hitchdir
 import shutil
 import signal
@@ -75,11 +75,14 @@ def runpackage(arguments):
     binfile = path.join(hitchdir.get_hitch_directory(), "virtualenv", "bin", "hitch{}".format(argv[1]))
     command = [binfile, ] + argv[2:]
 
-    # Stop responding to signals - the calling command should take over.
-    signal.signal(signal.SIGINT, signal.SIG_IGN)
-    signal.signal(signal.SIGTERM, signal.SIG_IGN)
-    signal.signal(signal.SIGHUP, signal.SIG_IGN)
-    signal.signal(signal.SIGQUIT, signal.SIG_IGN)
+    # When receiving a signal, distribute it to the process group
+    def distribute_signal_to_process_group(signum, frame):
+        killpg(getpgrp(), signum)
+
+    signal.signal(signal.SIGINT, distribute_signal_to_process_group)
+    signal.signal(signal.SIGTERM, distribute_signal_to_process_group)
+    signal.signal(signal.SIGHUP, distribute_signal_to_process_group)
+    signal.signal(signal.SIGQUIT, distribute_signal_to_process_group)
 
     return_code = call(command)
     exit(return_code)
