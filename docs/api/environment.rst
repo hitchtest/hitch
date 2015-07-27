@@ -1,6 +1,10 @@
 Environment API
 ===============
 
+.. note::
+
+    This documentation applies to the latest version of hitchtest: version 0.6.5
+
 Hitch provides a group of checks which you can use to verify that the environment
 you are running the test in is suitable for it. If a problem with the environment is
 detected, the test fails early, with a clear error. This feature is to enable your

@@ -3,7 +3,7 @@ Celery
 
 .. note::
 
-    This documentation applies to hitchpython version 0.1
+    This documentation applies to hitchpython version 0.2
 
 Install the hitch python package::
 
@@ -19,8 +19,8 @@ To use, define the service after initializing the ServiceBundle object but befor
             python="{}/venv/bin/python".format(PROJECT_DIRECTORY),  # Mandatory
             app="remindme",                                         # Mandatory
             beat=False,                                             # Optional (default: False)
-            concurrency=2,                                          # Optional (default: 2)
             loglevel="INFO",                                        # Optional (default: INFO)
+            concurrency=2,                                          # Optional (default: 2)
             broker=None,                                            # Optional (default: None)
             needs=[ self.services['Redis'], ]                       # Optional (default: no prerequisites)
         )

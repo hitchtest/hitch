@@ -3,7 +3,7 @@ Redis
 
 .. note::
 
-    This documentation applies to the latest version of hitchredis: version 0.3
+    This documentation applies to the latest version of hitchredis: version 0.4.1
 
 Install the plugin::
 
@@ -13,10 +13,10 @@ In your test, define the redis package you will use:
 
 .. code-block:: python
 
-    redis_package = hitchredis.RedisPackage(
-        version="2.8.4",
-        bin_directory="/usr/local/bin",
-    )
+    import hitchredis
+
+    redis_package = hitchredis.RedisPackage(version="2.8.4")
+    redis_package.build()
     redis_package.verify()
 
 To use, define the service after initializing the ServiceBundle object but before starting it.

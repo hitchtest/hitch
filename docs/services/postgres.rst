@@ -3,7 +3,7 @@ Postgres
 
 .. note::
 
-    This documentation applies to the latest version of hitchpostgres: version 0.3
+    This documentation applies to the latest version of hitchpostgres: version 0.6.1
 
 Install the plugin::
 
@@ -13,17 +13,15 @@ In your test, define the postgres installation you will use, e.g. a system postg
 
 .. code-block:: python
 
-    postgres_package = hitchpostgres.PostgresPackage(
-        version="9.3.9",
-        bin_directory="/usr/local/bin",
-    )
+    import hitchpostgres
+
+    postgres_package = hitchpostgres.PostgresPackage(version="9.3.9")
+    postgres_package.build()
     postgres_package.verify()
 
 To use, define the service after initializing the ServiceBundle object but before starting it.
 
 .. code-block:: python
-
-    import hitchpostgres
 
     # Service definition in engine's setUp:
     postgres_user = hitchpostgres.PostgresUser("newpguser", "pguserpassword")

@@ -3,7 +3,7 @@ Django
 
 .. note::
 
-    This documentation applies to the latest version of hitchpython: version 0.1
+    This documentation applies to the latest version of hitchpython: version 0.2
 
 .. warning::
 
@@ -24,13 +24,16 @@ Like so:
 
     # Service definition in engine's setUp:
     self.services['Django'] = hitchpython.DjangoService(
-        version="1.8",                                   # Mandatory
-        python=python_package.python,                    # Mandatory
-        managepy=None,                                   # Optional full path to manage.py (default: None, assumes in project directory)
-        django_fixtures=['fixture1.json',],              # Optional (default: None)
-        port=18080,                                      # Optional (default: 18080)
-        settings="remindme.settings",                    # Optional (default: settings)
-        needs=[self.services['Postgres'], ]              # Optional (default: no prerequisites)
+        version="1.8",                       # Django version. Mandatory
+        python=python_package.python,        # Python executable path. Mandatory
+        port=18080,                          # Optional (default: 18080)
+        managepy=None,                       # Optional full path to manage.py (default: None, assumes in project directory)
+        settings="remindme.settings",        # Optional (default: settings)
+        fixtures=['fixture1.json',],         # Optional (default: None)
+        sites=False,                         # Optional (default: False - Put http://127.0.0.1:18080/ (with specified port) into django_sites table.)
+        syncdb=False,                        # Optional (default: False - Run syncdb (for versions of django below 1.8))
+        migrations=True,                     # Optional (default: True - Run migrate (for Django 1.8 or earlier versions using South))
+        needs=[self.services['Postgres'], ]  # Optional (default: no prerequisites)
     )
 
 Once it is running, you can interact with the service::
