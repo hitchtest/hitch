@@ -30,7 +30,8 @@ def init():
     python3 = check_output(["which", "python3"]).replace("\n", "")
 
     if hitchdir.hitch_exists():
-        stderr.write("Hitch has already been initialized in this directory.\n")
+        stderr.write("Hitch has already been initialized in this directory or a directory above it.\n")
+        stderr.write("If you wish to re-initialize hitch in this directory, delete the .hitch directory and run hitch init here again.\n")
         stderr.flush()
         exit(1)
 
@@ -167,6 +168,7 @@ def run():
         cli.add_command(uninstall)
         cli.add_command(clean)
         cli.add_command(freeze)
+        cli.add_command(init)
         cli.help = "Hitch test runner for:\n\n  {}.".format(hitchdir.get_hitch_directory())
     else:
         cli.add_command(init)
