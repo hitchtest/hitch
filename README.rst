@@ -68,14 +68,12 @@ You can install the hitch bootstrapping script with::
 
 Or::
 
-  $ pipsi_ install hitch (if you do not want to use root)
+  $ pipsi install hitch (if you do not want to use root)
 
 This is a very simple script (with one dependency: click), which creates its own
 virtualenv that you can use to install all the other components.
 
-There is currently one tutorial for Hitch:
-
-* Getting started testing with Hitch and Django, Celery, Cron, Redis and Postgresql
+Documentation is here : http://hitchtest.readthedocs.org/
 
 
 Components
@@ -86,7 +84,6 @@ together, or not at all. Those are:
 
 * HitchTest_         - simple declarative test description language based on YAML and jinja2.
 * HitchServe_        - simple service orchestration to let you easily write functional tests for service based applications.
-* HitchEnvironment_  - plugin to let you define the environment your tests will run on.
 * HitchSMTP_         - Mock SMTP server - to test email sending in your functional tests.
 * HitchCron_         - Mock cron server - to test applications require cron-like behavior.
 * HitchSelenium_     - Simple wrapper around selenium to let you mock browser usage.
@@ -111,7 +108,6 @@ See the roadmap_ for planned future features.
 .. _roadmap: https://github.com/hitchtest/hitch/ROADMAP.rst
 .. _HitchTest: https://github.com/hitchtest/hitchtest
 .. _HitchServe: https://github.com/hitchtest/hitchserve
-.. _HitchEnvironment: https://github.com/hitchtest/hitchenvironment
 .. _HitchSMTP: https://github.com/hitchtest/hitchsmtp
 .. _HitchCron: https://github.com/hitchtest/hitchcron
 .. _HitchSelenium: https://github.com/hitchtest/hitchselenium
