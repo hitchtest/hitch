@@ -4,7 +4,7 @@ from click import command, group, argument, option
 from sys import stderr, exit, modules, argv
 from os import path, makedirs, listdir, kill
 from functools import partial
-import hitchdir
+from hitch import hitchdir
 import shutil
 import signal
 import copy
@@ -27,7 +27,7 @@ def init():
         stderr.flush()
         exit(1)
 
-    python3 = check_output(["which", "python3"]).replace("\n", "")
+    python3 = check_output(["which", "python3"]).decode('utf8').replace("\n", "")
 
     if hitchdir.hitch_exists():
         stderr.write("Hitch has already been initialized in this directory or a directory above it.\n")
@@ -55,7 +55,7 @@ def update_requirements():
     """Check hitchreqs.txt match what's installed via pip freeze. If not, update."""
     pip = path.join(hitchdir.get_hitch_directory_or_fail(), "virtualenv", "bin", "pip")
     hitchreqs_filename = path.join(hitchdir.get_hitch_directory_or_fail(), "..", "hitchreqs.txt")
-    pip_freeze = check_output([pip, "freeze"]).split('\n')
+    pip_freeze = check_output([pip, "freeze"]).decode('utf8').split('\n')
     hitchreqs_handle = ""
     with open(hitchreqs_filename, "r") as hitchreqs_handle:
         hitchreqs = hitchreqs_handle.read().split('\n')
@@ -63,7 +63,7 @@ def update_requirements():
     if not sorted(pip_freeze) == sorted(hitchreqs):
         call([pip, "install", "-r", "hitchreqs.txt"])
 
-    pip_freeze = check_output([pip, "freeze"])
+    pip_freeze = check_output([pip, "freeze"]).decode('utf8')
 
     with open("hitchreqs.txt", "w") as hitchreqs_handle:
         hitchreqs_handle.write(pip_freeze)
