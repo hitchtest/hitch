@@ -5,9 +5,6 @@ Django
 
     This documentation applies to the latest version of hitchpython: version 0.2
 
-.. warning::
-
-    Currently the only supported version of Django is version 1.8.
 
 First, if it is not already installed, install the hitch python package::
 
