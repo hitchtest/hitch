@@ -20,8 +20,7 @@ substantially the more CPU power, RAM and CPU cores you have.
 As an example, the django-remindme-tests project runs the following
 services:
 
-* Postgresql (including running initdb to create all necessary database
-files and creating a user and database after service start-up)
+* Postgresql (including running initdb to create all necessary database files and creating a user and database after service start-up)
 * Django (including installing fixtures and running migrations)
 * Mock Cron server
 * Mock SMTP server
@@ -48,12 +47,7 @@ test is automatically notified without the need for polling.
 
 This is used in the following situations:
 
-* To ascertain service readiness - the instant that Postgresql logs the
-line "database system is ready to accept connections", for example, Hitch
-will move straight on to creating users and databases.
+* To ascertain service readiness - the instant that Postgresql logs the line "database system is ready to accept connections", for example, Hitch will move straight on to creating users and databases.
 
-* Mock service interactions - the instant that the mock SMTP server
-receives an email, it logs out a snippet of JSON. The watcher on the mock
-SMTP logs receives the epoll trigger during that split second and the test
-can continue.
+* Mock service interactions - the instant that the mock SMTP server receives an email, it logs out a snippet of JSON. The watcher on the mock SMTP logs receives the epoll trigger during that split second and the test can continue.
 
