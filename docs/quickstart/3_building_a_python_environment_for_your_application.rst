@@ -10,9 +10,27 @@ Hitch assumes that it will set up this environment for you.
 
     :doc:`/faq/why_should_my_tests_set_up_their_own_python_environments`
 
-Steps in your set up that you need to use to build a test::
+Steps in your set up that you need to use to build a test.
+
+On Ubuntu/Debian::
 
   $ sudo apt-get install automake libtool patch libreadline6 libreadline6-dev zlib1g-dev make build-essential libssl-dev libbz2-dev libreadline-dev libsqlite3-dev llvm
+
+On Fedora/Red Hat/Centos::
+
+  $ sudo yum install python-devel automake libtool patch readline-devel zlib-devel libxml2 libxml2-devel gcc-make openssl-devel bzip2-libs zlib-devel bzip2-devel sqlite-devel llvm
+
+On Arch::
+
+  $ sudo pacman -S m4 base-devel automake readline zlib libxml2 gcc make openssl bzip2 zlib sqlite3 wget curl llvm
+
+On Mac OS X::
+
+  $ brew install libtool automake npm readline
+
+  $ brew link readline
+
+Then go to your tests directory and run::
 
   $ hitch install hitchpython
 
