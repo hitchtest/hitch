@@ -12,6 +12,8 @@ Hitch assumes that it will set up this environment for you.
 
 Steps in your set up that you need to use to build a test::
 
+  $ sudo apt-get install automake libtool patch libreadline6 libreadline6-dev zlib1g-dev make build-essential libssl-dev libbz2-dev libreadline-dev libsqlite3-dev llvm
+
   $ hitch install hitchpython
 
 Now you can use the hitchpython module in your tests::
