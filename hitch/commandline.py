@@ -17,12 +17,12 @@ def cli():
 @command()
 def init():
     """Initialize hitch in this directory."""
-    if call(["which", "virtualenv"], stdout=PIPE):
+    if call(["which", "virtualenv"], stdout=PIPE, stderr=PIPE):
         stderr.write("You must have python-virtualenv installed to use hitch.\n")
         stderr.flush()
         exit(1)
 
-    if call(["which", "python3"], stdout=PIPE):
+    if call(["which", "python3"], stdout=PIPE, stderr=PIPE):
         stderr.write("To use Hitch, you must have python 3 installed and available on the system path with the name 'python3'.\n")
         stderr.flush()
         exit(1)
@@ -68,6 +68,9 @@ def update_requirements():
     with open("hitchreqs.txt", "w") as hitchreqs_handle:
         hitchreqs_handle.write(pip_freeze)
 
+def get_pip():
+    """Get the file path to the hitch pip."""
+    return path.join(hitchdir.get_hitch_directory_or_fail(), "virtualenv", "bin", "pip")
 
 @command(context_settings={'help_option_names':[],'ignore_unknown_options':True}, help="dd")
 @argument('arguments', nargs=-1)
@@ -77,7 +80,7 @@ def runpackage(arguments):
     binfile = path.join(hitchdir.get_hitch_directory(), "virtualenv", "bin", "hitch{}".format(argv[1]))
     command = [binfile, ] + argv[2:]
 
-    # When receiving a signal, distribute it to the process group
+    # When receiving an exit signal, just forward it to process child.
     def forward_signal_to_child(pid, signum, frame):
         kill(pid, signum)
 
@@ -93,7 +96,7 @@ def runpackage(arguments):
 @argument('package', required=True)
 def uninstall(package):
     """Uninstall hitch package."""
-    pip = path.join(hitchdir.get_hitch_directory_or_fail(), "virtualenv", "bin", "pip")
+    pip = get_pip()
 
     call([pip, "uninstall", package] )
     pip_freeze = check_output([pip, "freeze"])
@@ -105,7 +108,7 @@ def uninstall(package):
 @argument('package', required=True)
 def install(package):
     """Install hitch package."""
-    pip = path.join(hitchdir.get_hitch_directory_or_fail(), "virtualenv", "bin", "pip")
+    pip = get_pip()
 
     call([pip, "install", package, "-U", ])
     pip_freeze = check_output([pip, "freeze"])
@@ -114,8 +117,26 @@ def install(package):
         hitchreqs_handle.write(pip_freeze)
 
 @command()
+def upgrade():
+    """Upgrade all installed hitch packages."""
+    pip = get_pip()
+    package_list = [
+        p for p in check_output([pip, "freeze"]).decode('utf8').split('\n')
+            if p != "" and "==" in p
+    ]
+    version_fixed_package_list = [p.split("==")[0] for p in package_list]
+
+    for package in version_fixed_package_list:
+        call([pip, "install", package, "-U", ])
+
+    pip_freeze = check_output([pip, "freeze"])
+
+    with open("hitchreqs.txt", "w") as hitchreqs_handle:
+        hitchreqs_handle.write(pip_freeze)
+
+@command()
 def freeze():
-    """List install hitch packages."""
+    """List installed hitch packages."""
     pip = path.join(hitchdir.get_hitch_directory_or_fail(), "virtualenv", "bin", "pip")
     call([pip, "freeze", ])
 
@@ -166,6 +187,7 @@ def run():
 
         cli.add_command(install)
         cli.add_command(uninstall)
+        cli.add_command(upgrade)
         cli.add_command(clean)
         cli.add_command(freeze)
         cli.add_command(init)
