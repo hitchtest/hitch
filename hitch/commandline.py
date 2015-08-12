@@ -99,7 +99,7 @@ def uninstall(package):
     pip = get_pip()
 
     call([pip, "uninstall", package] )
-    pip_freeze = check_output([pip, "freeze"])
+    pip_freeze = check_output([pip, "freeze"]).decode('utf8')
 
     with open("hitchreqs.txt", "w") as hitchreqs_handle:
         hitchreqs_handle.write(pip_freeze)
@@ -111,7 +111,7 @@ def install(package):
     pip = get_pip()
 
     call([pip, "install", package, "-U", ])
-    pip_freeze = check_output([pip, "freeze"])
+    pip_freeze = check_output([pip, "freeze"]).decode('utf8')
 
     with open("hitchreqs.txt", "w") as hitchreqs_handle:
         hitchreqs_handle.write(pip_freeze)
@@ -129,7 +129,7 @@ def upgrade():
     for package in version_fixed_package_list:
         call([pip, "install", package, "-U", ])
 
-    pip_freeze = check_output([pip, "freeze"])
+    pip_freeze = check_output([pip, "freeze"]).decode('utf8')
 
     with open("hitchreqs.txt", "w") as hitchreqs_handle:
         hitchreqs_handle.write(pip_freeze)
