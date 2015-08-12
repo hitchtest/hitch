@@ -3,9 +3,29 @@ Postgres
 
 .. note::
 
-    This documentation applies to the latest version of hitchpostgres: version 0.6.1
+    This documentation applies to the latest version of hitchpostgres: version 0.6.2
 
-Install the plugin::
+First, install the necessary prerequisites for building postgres.
+
+On Ubuntu/Debian::
+
+    $ sudo apt-get install libpq-dev build-essential libreadline6-dev zlib1g-dev
+
+On Mac OS X::
+
+    $ brew install libtool automake readline
+
+    $ brew link readline
+
+On Arch::
+
+    $ sudo pacman -S m4 base-devel automake readline zlib postgresql-libs
+
+On Red Hat/CentOS/Fedora::
+
+    $ sudo yum install make automake gcc eadline-devel zlib-devel llvm postgresql-libs postgresql-devel
+
+Next, install the the plugin in your tests directory::
 
     $ hitch install hitchpostgres
 
