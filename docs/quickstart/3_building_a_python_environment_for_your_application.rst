@@ -10,7 +10,9 @@ Hitch assumes that it will set up this environment for you.
 
     :doc:`/faq/why_should_my_tests_set_up_their_own_python_environments`
 
-Steps in your set up that you need to use to build a test.
+
+Prerequisites
+-------------
 
 On Ubuntu/Debian::
 
@@ -30,9 +32,17 @@ On Mac OS X::
 
   $ brew link readline
 
-Then go to your tests directory and run::
+
+Install Plugin
+--------------
+
+In your tests directory (where the .hitch directory is), run::
 
   $ hitch install hitchpython
+
+
+Using hitchpython in your tests
+-------------------------------
 
 Now you can use the hitchpython module in your tests::
 
@@ -54,8 +64,8 @@ Now you can use the hitchpython module in your tests::
 
 If the build step fails for a reason you don't understand, please, please, please raise an issue here: http://github.com/hitch/hitchpython/issues
 
-This gives your project its own version of python, which you can use, but you probably want to install
-some packages in it too::
+This gives your project its own version of python, which you can use straight away, but you probably
+also want to install some packages in it too::
 
   In [8]: from subprocess import call
 
