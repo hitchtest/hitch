@@ -1,6 +1,10 @@
 Hitch
 =====
 
+.. image:: https://badges.gitter.im/Join%20Chat.svg
+   :alt: Join the chat at https://gitter.im/hitchtest/hitch
+   :target: https://gitter.im/hitchtest/hitch?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
+
 Hitch is a loosely-coupled, isolated by design testing framework built upon python's
 unittest that lets you write simple, easy to read and easy to debug tests for *any*
 software (not just web apps and not just python apps).
