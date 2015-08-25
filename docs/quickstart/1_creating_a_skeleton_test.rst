@@ -6,15 +6,24 @@ This is a basic introduction to getting your first skeleton test up and running.
 Prerequisites
 -------------
 
-To begin, the minimum you need to have python 3 and virtualenv installed on your system.
+To begin, make sure you have a reasonably up to date system (no more than two years old) and
+install the following packages:
 
 .. note::
 
-    You can use hitch to test your app using python 2 or python 3 or even both.
+    Your application can still be tested using python 2. Read on to find out more.
 
 On Ubuntu::
 
   $ sudo apt-get install python3 python-virtualenv python-dev python-pip build-essential
+
+On Red Hat/Fedora::
+
+  $ sudo yum install python3 python-setuptools python-devel python-pip python-virtualenv automake libtool patch gcc
+
+On Arch::
+
+  $ sudo pacman -S python3 python-setuptools python-pip python-virtualenv base-devel
 
 On a Mac::
 
@@ -22,18 +31,28 @@ On a Mac::
 
   $ pip install -U setuptools pip virtualenv
 
+
+Make sure that you have the correct version(s) of python 3 installed::
+
+  $ python3 -V
+  Python 3.4.3
+
+It should be python 3.3 or above.
+
 Install
 -------
 
 The first thing that you need to install after this is the hitch bootstrap
 script::
 
-  $ pip install hitch
+  $ pip install -U hitch
 
 or::
 
-  $ sudo pip install hitch
+  $ sudo pip install -U hitch
 
+You can install this in a virtualenv if you wish, but it's more
+convenient to install it with your system python.
 
 .. note::
 
@@ -77,7 +96,7 @@ Create an engine called 'engine.py' like so::
 
     PROJECT_DIRECTORY = path.abspath(path.join(path.dirname(__file__), '..'))
 
-    class YourProjectTestExecutionEngine(hitchtest.ExecutionEngine):
+    class ExecutionEngine(hitchtest.ExecutionEngine):
         def set_up(self):
             pass
 
@@ -92,7 +111,6 @@ And a test called 'stub.test', written in YAML, like so:
 .. code-block:: yaml
 
   - name: Stub
-    engine: engine.py:YourProjectTestExecutionEngine
     scenario:
       - Pause
 
