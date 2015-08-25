@@ -1,5 +1,5 @@
 """High level command line interface to hitch."""
-from subprocess import call, check_output, PIPE, CalledProcessError, Popen
+from subprocess import call, PIPE, STDOUT, CalledProcessError, Popen
 from click import command, group, argument, option
 from sys import stderr, exit, modules, argv
 from os import path, makedirs, listdir, kill
@@ -9,36 +9,78 @@ import shutil
 import signal
 import copy
 
+def check_output(command, stdout=PIPE, stderr=PIPE):
+    """Re-implemented subprocess.check_output since it is not available < python 2.7."""
+    return Popen(command, stdout=stdout, stderr=stderr).communicate()[0]
 
 @group()
 def cli():
     pass
 
 @command()
-def init():
+@option(
+    '-p', '--python', default=None,
+    help="""Create hitch virtualenv using specific python version"""
+         """ (e.g. /usr/bin/python3). Defaults to using python3 on the system path."""
+)
+@option(
+    '-v', '--virtualenv', default=None,
+    help="""Create hitch virtualenv using specific virtualenv"""
+         """ (e.g. /usr/bin/virtualenv). Defaults to using virtualenv on the system path."""
+)
+def init(python, virtualenv):
     """Initialize hitch in this directory."""
-    if call(["which", "virtualenv"], stdout=PIPE, stderr=PIPE):
-        stderr.write("You must have python-virtualenv installed to use hitch.\n")
-        stderr.flush()
-        exit(1)
+    if virtualenv is None:
+        if call(["which", "virtualenv"], stdout=PIPE, stderr=PIPE):
+            stderr.write("You must have virtualenv installed to use hitch.\n")
+            stderr.flush()
+            exit(1)
+        virtualenv = check_output(["which", "virtualenv"]).decode('utf8').replace("\n", "")
+    else:
+        if path.exists(virtualenv):
+            if python is None:
+                python = path.join(path.dirname(virtualenv), "python")
+        else:
+            stderr.write("{} not found.\n".format(virtualenv))
 
-    if call(["which", "python3"], stdout=PIPE, stderr=PIPE):
-        stderr.write("To use Hitch, you must have python 3 installed and available on the system path with the name 'python3'.\n")
-        stderr.flush()
-        exit(1)
+    if python is None:
+        if call(["which", "python3"], stdout=PIPE, stderr=PIPE):
+            stderr.write(
+                "To use Hitch, you must have python 3 installed on your system "
+                "and available. If your python3 is not on the system path with "
+                "the name python3, specify its exact location using --python.\n"
+            )
+            stderr.flush()
+            exit(1)
+        python3 = check_output(["which", "python3"]).decode('utf8').replace("\n", "")
+    else:
+        if path.exists(python):
+            python3 = python
+        else:
+            stderr.write("{} not found.\n".format(python))
+            exit(1)
 
-    python3 = check_output(["which", "python3"]).decode('utf8').replace("\n", "")
+    str_version = check_output([python3, "-V"], stderr=STDOUT).decode('utf8').replace('\n', '')
+    tuple_version = tuple([int(v) for v in str_version.replace('Python ', '').split('.')])
+
+    if tuple_version < (3, 3):
+        stderr.write(
+            "The hitch environment must have python >=3.3 installed to be built.\n Your "
+            "app can run with earlier versions of python, but the testing environment can't.\n"
+        )
+        exit(1)
 
     if hitchdir.hitch_exists():
         stderr.write("Hitch has already been initialized in this directory or a directory above it.\n")
-        stderr.write("If you wish to re-initialize hitch in this directory, delete the .hitch directory and run hitch init here again.\n")
+        stderr.write("If you wish to re-initialize hitch in this directory, run 'hitch clean' in the")
+        stderr.write("directory containing the .hitch directory and run hitch init here again.\n")
         stderr.flush()
         exit(1)
 
     makedirs(".hitch")
     pip = path.abspath(path.join(".hitch", "virtualenv", "bin", "pip"))
 
-    call(["virtualenv", ".hitch/virtualenv", "--no-site-packages", "--distribute", "-p", python3])
+    call([virtualenv, ".hitch/virtualenv", "--no-site-packages", "--distribute", "-p", python3])
     call([pip, "install", "-U", "pip"])
 
     if path.exists("hitchreqs.txt"):
@@ -177,7 +219,7 @@ def run():
                     'import sys;sys.stdout.write(__import__("hitch{}").commandline.cli.help)'.format(
                         package
                     )
-                ], stderr=PIPE).decode('utf8')
+                ]).decode('utf8')
             except CalledProcessError:
                 description = ""
             cmd.help = description

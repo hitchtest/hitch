@@ -2,10 +2,19 @@
 from setuptools.command.install import install
 from setuptools import find_packages
 from setuptools import setup
-import subprocess
+from sys import version_info, stderr, exit
 import codecs
 import sys
 import os
+
+if version_info[0] == 2:
+    if version_info[1] < 6:
+        stderr.write("Hitch will not run on python 2 versions below 2.6 or python 3 versions below 3.3.\n")
+        exit(1)
+if version_info[0] == 3:
+    if version_info[1] < 3:
+        stderr.write("Hitch will not run on python 2 versions below 2.6 or python 3 versions below 3.3.\n")
+        exit(1)
 
 def read(*parts):
     # intentionally *not* adding an encoding option to open
@@ -14,7 +23,7 @@ def read(*parts):
 
 setup(name="hitch",
       version="0.4.9",
-      description="Loosely coupled testing framework",
+      description="Bootstrapper for hitchtest - the loosely coupled integration testing framework",
       long_description=read('README.rst'),
       classifiers=[
           'Development Status :: 3 - Alpha',
