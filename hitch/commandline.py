@@ -185,8 +185,12 @@ def freeze():
 @command()
 def clean():
     """Remove the hitch directory entirely."""
-    hitch_directory = hitchdir.get_hitch_directory_or_fail()
-    shutil.rmtree(".hitch")
+    if hitchdir.hitch_exists():
+        hitch_directory = hitchdir.get_hitch_directory_or_fail()
+        shutil.rmtree(hitch_directory)
+    else:
+        stderr.write("No hitch directory found. Doing nothing.\n")
+        stderr.flush()
 
 def run():
     """Run hitch bootstrap CLI"""
