@@ -246,6 +246,7 @@ def run():
         cli.help = "Hitch test runner for:\n\n  {0}.".format(hitchdir.get_hitch_directory())
     else:
         cli.add_command(init)
+        cli.add_command(clean)
         cli.help = "Hitch bootstrapper - '.hitch' directory not detected here."
     cli()
 
