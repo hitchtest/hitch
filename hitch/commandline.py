@@ -204,6 +204,12 @@ def run():
     signal.signal(signal.SIGQUIT, stop_everything)
 
     if hitchdir.hitch_exists():
+        if not path.exists(path.join(hitchdir.get_hitch_directory(), "virtualenv", "bin")):
+            stderr.write("Hitch was initialized in this directory (or one above it), but something.\n")
+            stderr.write("was corrupted. Try running 'hitch clean' and then run 'hitch init' again.")
+            stderr.flush()
+            exit(1)
+
         # Get packages from bin folder that are hitch related
         python_bin = path.join(hitchdir.get_hitch_directory(), "virtualenv", "bin", "python")
         packages = [
