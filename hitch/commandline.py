@@ -1,6 +1,6 @@
 """High level command line interface to hitch."""
 from subprocess import call, PIPE, STDOUT, CalledProcessError, Popen
-from click import command, group, argument, option
+from hitch.click import command, group, argument, option
 from sys import stderr, exit, modules, argv
 from os import path, makedirs, listdir, kill
 from functools import partial
