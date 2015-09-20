@@ -9,11 +9,11 @@ import os
 
 if version_info[0] == 2:
     if version_info[1] < 6:
-        stderr.write("Hitch will not run on python 2 versions below 2.6 or python 3 versions below 3.3.\n")
+        stderr.write("The hitch bootstrapper will not run on versions of python below v2.6.\n")
         exit(1)
 if version_info[0] == 3:
     if version_info[1] < 3:
-        stderr.write("Hitch will not run on python 2 versions below 2.6 or python 3 versions below 3.3.\n")
+        stderr.write("The hitch bootstrapper will not run on python 3.0.x, 3.1.x or 3.2.x.\n")
         exit(1)
 
 def read(*parts):
