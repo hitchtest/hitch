@@ -1,36 +1,37 @@
 What does the init script do?
 =============================
 
-The init script is an easy one step means to set up a hitch environment and run
-all the tests in a directory (if there are any). It largely automates the process
-of setting up an integration testing / development environment on your Linux
-machine or Mac.
+The init script is a one step method of setting up a hitch environment and running
+all the tests in a directory. It is intended to be a low friction way of getting a
+development and testing environment up and running.
 
-The script does the following:
-
-
-1. Checks for the existence of python, pip and virtualenv on your system
-------------------------------------------------------------------------
-
-If they are installed it continues. If they are not, it tries to install them using
-the system's package manager (apt-get, yum or pacman).
+If you'd prefer instead to perform the steps manually, you can use this as a guide.
 
 
-2. Install the hitch bootstrap script
--------------------------------------
+1. Installs python, pip, virtualenv, python-dev, automake and libtool (requires sudo)
+-------------------------------------------------------------------------------------
 
-The hitch bootstrap script is a very simple app used to initialize a testing
-environment, clean the environment and trigger test runs. It short and has no
-other python package dependencies.
+On Ubuntu/Debian::
 
-It does not require root, but it does need to be on the user's path so it can
-be run from any directory.
+  $ sudo apt-get install python python3 python-dev python-setuptools python-virtualenv python3-dev automake libtool
 
-If pipsi is found, the init script will attempt::
+On Fedora/Red Hat/CentOS::
+
+  $ sudo yum install python python-devel python-setuptools python-virtualenv python3 python3-devel automake libtool
+
+On Arch::
+
+  $ sudo pacman -Sy python python-setuptools python-virtualenv python automake libtool
+
+
+2. Install or upgrades the hitch bootstrap script (may require sudo)
+--------------------------------------------------------------------
+
+If pipsi is found, the script will attempt::
 
   $ pipsi install --upgrade hitch
 
-If not found, on, the Mac::
+On the Mac it will run::
 
   $ pip install --upgrade hitch
 
@@ -38,30 +39,61 @@ Or on Linux::
 
   $ sudo pip install --upgrade hitch
 
+This script has zero package dependencies.
 
-3. Run hitch init
------------------
+See also:
 
-"Hitch init" installs a virtualenv in the current directory using python 3 to run your tests.
-It is *not* the virtualenv used to run your code. It is purely for running tests. If you
-are using hitch to test a python app, the tests you run in this environment will
-set up a separate virtual environment to run your application's code in using the
-version(s) of python specified in your test.
-
-Hitch init will install all of the packages listed in the file "hitchreqs.txt". These
-are the python packages required to run your testing code only - not your application code.
-E.g. the tests used to test django require the "hitchpython" package, but not the "Django"
-package.
+* :doc:`/faq/what_does_the_hitch_bootstrap_script_do`
+* :doc:`/faq/why_install_hitch_on_the_system_path`
 
 
-4. Run "hitch test ." if tests are found
-----------------------------------------
+3. Runs "hitch clean" and "hitch init" in the current directory (does not require sudo)
+---------------------------------------------------------------------------------------
+
+If no hitch environment is already installed then this command does nothing. If a .hitch
+directory *is* found, it will remove it::
+
+  $ hitch clean
+
+This creates a .hitch directory in the current directory, where all of the
+packages required to run tests will be installed in a python virtualenv::
+
+  $ hitch init
+
+
+* :doc:`/faq/what_does_hitch_init_do`
+
+
+4. Run "hitch test ." if tests are found (may require sudo)
+-----------------------------------------------------------
 
 If there are tests in the directory where the init script is run, hitch will run all
 of them.
 
+During the course of running the tests, the test may attempt to use sudo to install
+necessary packages. It will always print the exact command it is trying to run
+(e.g. sudo apt-get install xvfb). If you run this command in another terminal, it
+won't complain. If the packages are already installed, hitch will not attempt to
+install them.
+
 See also:
 
-* :doc:`why_does_the_first_test_run_take_so_long`
-* :doc:`why_is_my_test_downloading_and_compiling_software`
 * :doc:`why_does_my_test_require_me_to_sudo_and_install_packages`
+
+During the course of running the tests it will also attempt to download and compile
+certain pieces of software (e.g. postgres). The software will be installed in the
+"~/.hitchpkg" directory. Doing this does not require root and it will not interfere
+at all with other software you may have installed.
+
+See also:
+
+* :doc:`why_is_my_test_downloading_and_compiling_software`
+* :doc:`why_does_the_first_test_run_take_so_long`
+
+All software installed there can be easily removed by deleting the "~/.hitchpkg"
+directory or running the command "hitch cleanpkg". If a test does not detect its
+presence it will download and compile it again.
+
+See also:
+
+* :doc:`how_do_i_uninstall_hitch_completely`
