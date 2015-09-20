@@ -1,8 +1,8 @@
 """High level command line interface to hitch."""
 from subprocess import call, PIPE, STDOUT, CalledProcessError, Popen
 from hitch.click import command, group, argument, option
+from os import path, makedirs, listdir, kill, remove
 from sys import stderr, exit, modules, argv
-from os import path, makedirs, listdir, kill
 from functools import partial
 from hitch import hitchdir
 import shutil
@@ -182,6 +182,7 @@ def freeze():
     pip = path.join(hitchdir.get_hitch_directory_or_fail(), "virtualenv", "bin", "pip")
     call([pip, "freeze", ])
 
+
 @command()
 def clean():
     """Remove the hitch directory entirely."""
@@ -191,6 +192,30 @@ def clean():
     else:
         stderr.write("No hitch directory found. Doing nothing.\n")
         stderr.flush()
+
+
+@command()
+@option(
+    '-p', '--packages', default=None, help=(
+        "Specify precise packages to remove - "
+        "e.g. postgresql, postgresql-9.3.9, python, python2.6.8"
+    )
+)
+def cleanpkg(packages):
+    """Remove installed packages from the .hitchpkg directory."""
+    hitchpkg = path.join(path.expanduser("~"), ".hitchpkg")
+
+    if path.exists(hitchpkg):
+        if packages is None:
+            shutil.rmtree(hitchpkg)
+        else:
+            for file_or_dir in os.listdir(hitchpkg):
+                if file_or_dir.startswith(packages):
+                    if path.isdir(file_or_dir)
+                        shutil.rmtree(path.join(hitchpkg, file_or_dir))
+                    else:
+                        remove(path.join(hitchpkg, file_or_dir))
+
 
 def run():
     """Run hitch bootstrap CLI"""
