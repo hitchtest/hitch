@@ -3,7 +3,7 @@ Selenium
 
 .. note::
 
-    This documentation applies to the latest version of hitchselenium: version 0.4
+    This documentation applies to the latest version of hitchselenium: version 0.4.1
 
 Install the hitch selenium plugin like so::
 
@@ -15,7 +15,7 @@ Install the hitch selenium plugin like so::
 
         # Service definition in engine's setUp:
         self.services['Firefox'] = hitchselenium.SeleniumService(
-            xvfb=False           # Optional (default: False). If xvfb is installed, this will run firefox hidden.
+            xvfb=False           # Optional (default: False). If true, this will run firefox hidden.
             shunt_window=True    # Optional (default: True). This will move the window out of the way of the mouse, to coordinates (0, 0).
             implicitly_wait=5.0  # Optional (default: 5.0). Set implicitly_wait value of the selenium driver.
         )

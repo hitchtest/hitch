@@ -1,6 +1,10 @@
 Mock Cron Service
 =================
 
+.. note::
+
+    This documentation applies to the latest version of hitchcron: version 0.2
+
 The mock cron service is a service that will run a specified command periodically.
 
 It can be used to mimic the effect of a real cron in a live environment.

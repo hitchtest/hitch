@@ -3,7 +3,7 @@ Celery
 
 .. note::
 
-    This documentation applies to hitchpython version 0.2
+    This documentation applies to the latest version of hitchpython: version 0.3.5
 
 Install the hitch python package::
 
