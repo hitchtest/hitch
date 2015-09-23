@@ -46,7 +46,6 @@ This is a small python script with zero dependencies.
 See also:
 
 * :doc:`/faq/what_does_the_hitch_bootstrap_script_do`
-* :doc:`/faq/why_install_hitch_on_the_system_path`
 
 
 3. Runs "hitch clean" and "hitch init" in the current directory (does not require sudo)
