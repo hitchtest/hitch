@@ -13,23 +13,25 @@ If you'd prefer instead to perform the steps manually, you can use this as a gui
 
 On Ubuntu/Debian::
 
-  $ sudo apt-get install python python3 python-dev python-setuptools python-virtualenv python3-dev automake libtool
+  $ sudo apt-get install -y python python3 python-dev python-setuptools python-virtualenv python3-dev automake libtool
 
 On Fedora/Red Hat/CentOS::
 
-  $ sudo yum install python python-devel python-setuptools python-virtualenv python3 python3-devel automake libtool
+  $ yum -y install python python-devel python-setuptools python-virtualenv python-pip python3 python3-devel automake libtool gcc-c++
 
 On Arch::
 
-  $ sudo pacman -Sy python python-setuptools python-virtualenv python automake libtool
+  $ pacman -Sy python python-setuptools python-virtualenv python automake libtool
+
+On Mac OS X::
+
+  $ brew install python python3 libtool automake cmake
+
+  $ pip install --upgrade pip setuptools virtualenv
 
 
 2. Install or upgrades the hitch bootstrap script (may require sudo)
 --------------------------------------------------------------------
-
-If pipsi is found, the script will attempt::
-
-  $ pipsi install --upgrade hitch
 
 On the Mac it will run::
 
@@ -39,7 +41,7 @@ Or on Linux::
 
   $ sudo pip install --upgrade hitch
 
-This script has zero package dependencies.
+This is a small python script with zero dependencies.
 
 See also:
 
@@ -72,9 +74,9 @@ of them.
 
 During the course of running the tests, the test may attempt to use sudo to install
 necessary packages. It will always print the exact command it is trying to run
-(e.g. sudo apt-get install xvfb). If you run this command in another terminal, it
-won't complain. If the packages are already installed, hitch will not attempt to
-install them.
+(e.g. sudo apt-get install xvfb).
+
+If the packages are already installed, hitch will not attempt to install them.
 
 See also:
 
