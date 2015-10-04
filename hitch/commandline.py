@@ -41,7 +41,7 @@ def init(python, virtualenv):
             if python is None:
                 python = path.join(path.dirname(virtualenv), "python")
         else:
-            stderr.write("{} not found.\n".format(virtualenv))
+            stderr.write("{0} not found.\n".format(virtualenv))
 
     if python is None:
         if call(["which", "python3"], stdout=PIPE, stderr=PIPE):
@@ -57,7 +57,7 @@ def init(python, virtualenv):
         if path.exists(python):
             python3 = python
         else:
-            stderr.write("{} not found.\n".format(python))
+            stderr.write("{0} not found.\n".format(python))
             exit(1)
 
     str_version = check_output([python3, "-V"], stderr=STDOUT).decode('utf8').replace('\n', '')
@@ -110,16 +110,18 @@ def update_requirements():
     with open("hitchreqs.txt", "w") as hitchreqs_handle:
         hitchreqs_handle.write(pip_freeze)
 
+
 def get_pip():
     """Get the file path to the hitch pip."""
     return path.join(hitchdir.get_hitch_directory_or_fail(), "virtualenv", "bin", "pip")
+
 
 @command(context_settings={'help_option_names':[],'ignore_unknown_options':True}, help="dd")
 @argument('arguments', nargs=-1)
 def runpackage(arguments):
     # Generic method to run any installed app in the virtualenv whose name starts with hitch*
     update_requirements()
-    binfile = path.join(hitchdir.get_hitch_directory(), "virtualenv", "bin", "hitch{}".format(argv[1]))
+    binfile = path.join(hitchdir.get_hitch_directory(), "virtualenv", "bin", "hitch{0}".format(argv[1]))
     command = [binfile, ] + argv[2:]
 
     # When receiving an exit signal, just forward it to process child.
@@ -244,14 +246,14 @@ def run():
             if package.startswith("hitch") and package != "hitch"
         ]
 
-        # Add packages that start with hitch* to the list of commands available
+        # Add commands that start with "hitch" to the list of commands available (e.g. hitchtest, hitchsmtp)
         for package in packages:
             cmd = copy.deepcopy(runpackage)
             cmd.name = package
             try:
                 description = check_output([
                     python_bin, '-c',
-                    'import sys;sys.stdout.write(__import__("hitch{}").commandline.cli.help)'.format(
+                    'import sys;sys.stdout.write(__import__("hitch{0}").commandline.cli.help)'.format(
                         package
                     )
                 ]).decode('utf8')
