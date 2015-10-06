@@ -86,25 +86,33 @@ def init(python, virtualenv):
         absdir_handle.write(hitch_dir)
 
     pip = path.abspath(path.join(".hitch", "virtualenv", "bin", "pip"))
-    unixpackage = path.abspath(path.join(".hitch", "virtualenv", "bin", "unixpackage"))
 
     try:
-        check_call([virtualenv, ".hitch/virtualenv", "--no-site-packages", "--distribute", "-p", python3])
+        check_call([
+            virtualenv, ".hitch/virtualenv", "--no-site-packages", "--distribute", "-p", python3
+        ])
         check_call([pip, "install", "-U", "pip"])
+
+        check_call([pip, "install", "unixpackage"])
+
+        unixpackage = path.abspath(path.join(".hitch", "virtualenv", "bin", "unixpackage"))
+        if path.exists("system.packages"):
+            check_call([unixpackage, "install", "--polite", "-r", "system.packages"])
+
+        check_call([
+            unixpackage, "install", "--polite",
+            "python-dev", "python3-dev", "libtool", "automake", "cmake"
+        ])
 
         if path.exists("hitchreqs.txt"):
             check_call([pip, "install", "-r", "hitchreqs.txt"])
         else:
-            check_call([pip, "install", "unixpackage"])
             check_call([pip, "install", "hitchtest"])
 
             pip_freeze = check_output([pip, "freeze"]).decode('utf8')
 
             with open("hitchreqs.txt", "w") as hitchreqs_handle:
                 hitchreqs_handle.write(pip_freeze)
-
-        if path.exists("system.packages"):
-            check_call([unixpackage, "-r", "system.packages"])
     except CalledProcessError:
         stderr.write(languagestrings.ERROR_INITIALIZING_HITCH)
         hitchdir.remove_hitch_directory_if_exists()
