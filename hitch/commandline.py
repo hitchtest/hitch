@@ -76,7 +76,7 @@ def init(python, virtualenv):
     if hitchdir.hitch_exists():
         stderr.write(languagestrings.HITCH_ALREADY_INITIALIZED)
         stderr.flush()
-        exit(1)
+        exit(0)
 
     makedirs(".hitch")
 
