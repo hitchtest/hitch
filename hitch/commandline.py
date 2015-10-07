@@ -242,9 +242,9 @@ def cleanpkg(packages):
         if packages is None:
             shutil.rmtree(hitchpkg)
         else:
-            for file_or_dir in os.listdir(hitchpkg):
+            for file_or_dir in listdir(hitchpkg):
                 if file_or_dir.startswith(packages):
-                    if path.isdir(file_or_dir):
+                    if path.isdir(path.join(hitchpkg, file_or_dir)):
                         shutil.rmtree(path.join(hitchpkg, file_or_dir))
                     else:
                         remove(path.join(hitchpkg, file_or_dir))
@@ -297,11 +297,13 @@ def run():
             stderr.write(languagestrings.SOMETHING_CORRUPTED)
 
         cli.add_command(clean)
+        cli.add_command(cleanpkg)
         cli.add_command(init)
         cli.help = "Hitch test runner for:\n\n  {0}.".format(hitchdir.get_hitch_directory())
     else:
         cli.add_command(init)
         cli.add_command(clean)
+        cli.add_command(cleanpkg)
         cli.help = "Hitch bootstrapper - '.hitch' directory not detected here."
     cli()
 
