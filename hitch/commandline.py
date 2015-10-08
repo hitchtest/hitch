@@ -9,13 +9,16 @@ import shutil
 import signal
 import copy
 
+
 class CalledProcessError(Exception):
     """Re-implemented CalledProcessError, since it is not available < python 2.7."""
     pass
 
+
 def check_output(command, stdout=PIPE, stderr=PIPE):
     """Re-implemented subprocess.check_output since it is not available < python 2.7."""
     return Popen(command, stdout=stdout, stderr=stderr).communicate()[0]
+
 
 def check_call(command, shell=False):
     """Re-implemented subprocess.check_call since it is not available < python 2.7."""
@@ -24,6 +27,12 @@ def check_call(command, shell=False):
     if process.returncode != 0:
         raise CalledProcessError
     return
+
+
+def stop_everything(sig, frame):
+    """Exit hitch."""
+    exit(1)
+
 
 @group()
 def cli():
@@ -92,17 +101,13 @@ def init(python, virtualenv):
             virtualenv, ".hitch/virtualenv", "--no-site-packages", "--distribute", "-p", python3
         ])
         check_call([pip, "install", "-U", "pip"])
+        check_call([pip, "install", "unixpackage", "hitchsystem"])
 
-        check_call([pip, "install", "unixpackage"])
+        hitchsystem = path.abspath(path.join(".hitch", "virtualenv", "bin", "hitchsystem"))
 
-        unixpackage = path.abspath(path.join(".hitch", "virtualenv", "bin", "unixpackage"))
-        if path.exists("system.packages"):
-            check_call([unixpackage, "install", "--polite", "-r", "system.packages"])
-
-        check_call([
-            unixpackage, "install", "--polite",
-            "python-dev", "python3-dev", "libtool", "automake", "cmake"
-        ])
+        signal.signal(signal.SIGINT, signal.SIG_IGN)
+        check_call([hitchsystem, "installpackages", ])
+        signal.signal(signal.SIGINT, stop_everything)
 
         if path.exists("hitchreqs.txt"):
             check_call([pip, "install", "-r", "hitchreqs.txt"])
@@ -113,6 +118,10 @@ def init(python, virtualenv):
 
             with open("hitchreqs.txt", "w") as hitchreqs_handle:
                 hitchreqs_handle.write(pip_freeze)
+
+        signal.signal(signal.SIGINT, signal.SIG_IGN)
+        check_call([hitchsystem, "installpackages", ])
+        signal.signal(signal.SIGINT, stop_everything)
     except CalledProcessError:
         stderr.write(languagestrings.ERROR_INITIALIZING_HITCH)
         hitchdir.remove_hitch_directory_if_exists()
@@ -252,10 +261,6 @@ def cleanpkg(packages):
 
 def run():
     """Run hitch bootstrap CLI"""
-    def stop_everything(sig, frame):
-        """Exit hitch."""
-        exit(1)
-
     signal.signal(signal.SIGINT, stop_everything)
     signal.signal(signal.SIGTERM, stop_everything)
     signal.signal(signal.SIGHUP, stop_everything)
