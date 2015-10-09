@@ -34,6 +34,14 @@ def stop_everything(sig, frame):
     exit(1)
 
 
+def installpackages():
+    """Install packages with hitchsystem."""
+    hitchsystem = path.abspath(path.join(".hitch", "virtualenv", "bin", "hitchsystem"))
+    signal.signal(signal.SIGINT, signal.SIG_IGN)
+    check_call([hitchsystem, "installpackages", ])
+    signal.signal(signal.SIGINT, stop_everything)
+
+
 @group()
 def cli():
     pass
@@ -103,11 +111,7 @@ def init(python, virtualenv):
         check_call([pip, "install", "-U", "pip"])
         check_call([pip, "install", "unixpackage", "hitchsystem"])
 
-        hitchsystem = path.abspath(path.join(".hitch", "virtualenv", "bin", "hitchsystem"))
-
-        signal.signal(signal.SIGINT, signal.SIG_IGN)
-        check_call([hitchsystem, "installpackages", ])
-        signal.signal(signal.SIGINT, stop_everything)
+        installpackages()
 
         if path.exists("hitchreqs.txt"):
             check_call([pip, "install", "-r", "hitchreqs.txt"])
@@ -119,9 +123,7 @@ def init(python, virtualenv):
             with open("hitchreqs.txt", "w") as hitchreqs_handle:
                 hitchreqs_handle.write(pip_freeze)
 
-        signal.signal(signal.SIGINT, signal.SIG_IGN)
-        check_call([hitchsystem, "installpackages", ])
-        signal.signal(signal.SIGINT, stop_everything)
+        installpackages()
     except CalledProcessError:
         stderr.write(languagestrings.ERROR_INITIALIZING_HITCH)
         hitchdir.remove_hitch_directory_if_exists()
@@ -199,6 +201,9 @@ def install(package):
     with open("hitchreqs.txt", "w") as hitchreqs_handle:
         hitchreqs_handle.write(pip_freeze)
 
+    installpackages()
+
+
 @command()
 def upgrade():
     """Upgrade all installed hitch packages."""
@@ -217,6 +222,9 @@ def upgrade():
 
     with open("hitchreqs.txt", "w") as hitchreqs_handle:
         hitchreqs_handle.write(pip_freeze)
+
+    installpackages()
+
 
 @command()
 def freeze():
