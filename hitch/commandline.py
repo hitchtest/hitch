@@ -3,7 +3,7 @@ from subprocess import call, PIPE, STDOUT, Popen
 from hitch.click import command, group, argument, option
 from os import path, makedirs, listdir, kill, remove
 from sys import stderr, exit, modules, argv
-from functools import partial
+from functools import partial, reduce
 from hitch import hitchdir, languagestrings
 import shutil
 import signal
