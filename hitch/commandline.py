@@ -75,8 +75,10 @@ def init(python, virtualenv):
             stderr.write("{0} not found.\n".format(python))
             exit(1)
 
-    str_version = check_output([python3, "-V"], stderr=STDOUT).decode('utf8').replace('\n', '')
-    tuple_version = tuple([int(v) for v in str_version.replace('Python ', '').split('.')])
+    python_version = check_output([python3, "-V"], stderr=STDOUT).decode('utf8')
+    replacements = ('Python ', ''), ('\n', '')
+    str_version = reduce(lambda a, kv: a.replace(*kv), replacements, python_version)
+    tuple_version = tuple([int(x) for x in str_version.split('.')[:2]])
 
     if tuple_version < (3, 3):
         stderr.write(languagestrings.YOU_MUST_HAVE_VERSION_ABOVE_PYTHON33)
