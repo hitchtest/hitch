@@ -1,15 +1,31 @@
 What does the init script do?
 =============================
 
+.. note::
+
+    This script tries to respect your existing environment as much as possible and
+    avoids the use of sudo except where necessary to install packages via your
+    system's package manager.
+
 The init script is a one step method of setting up a hitch environment and running
-all the tests in a directory. It is intended to be a low friction way of getting a
-development and testing environment up and running.
+all the tests in a directory. It is intended to be a low friction way of:
 
-If you'd prefer instead to perform the steps manually, you can use this as a guide.
+* Getting a CI or test driven development environment up and running.
+* Rebuilding an environment from scratch that may have been broken.
+
+If you'd prefer instead to perform the steps manually, you can use this document
+as a guide.
+
+Note that the first three steps take about 5 minutes and the last step can take
+roughly 15 minutes (or longer, sometimes).
 
 
-1. Installs python, pip, virtualenv, python-dev, automake and libtool (requires sudo)
--------------------------------------------------------------------------------------
+1. Installs python, pip, virtualenv, python-dev, automake and libtool (may require sudo)
+----------------------------------------------------------------------------------------
+
+Takes approximately: 1 minute
+
+These packages are required for hitch to initialize.
 
 On Ubuntu/Debian::
 
@@ -17,11 +33,11 @@ On Ubuntu/Debian::
 
 On Fedora/Red Hat/CentOS::
 
-  $ yum -y install python python-devel python-setuptools python-virtualenv python-pip python3 python3-devel automake libtool gcc-c++
+  $ sudo yum -y install python python-devel python-setuptools python-virtualenv python-pip python3 python3-devel automake libtool gcc-c++
 
 On Arch::
 
-  $ pacman -Sy python python-setuptools python-virtualenv python automake libtool
+  $ sudo pacman -Sy python python-setuptools python-virtualenv python automake libtool
 
 On Mac OS X::
 
@@ -33,31 +49,44 @@ On Mac OS X::
 2. Install or upgrades the hitch bootstrap script (may require sudo)
 --------------------------------------------------------------------
 
-On the Mac it will run::
+Takes approximately: 5 seconds
+
+This is a small python script with no dependencies that bootstraps your testing
+environment and lets you trigger test runs. It installs a single command ('hitch')
+on your system's path.
+
+On the Mac the init script will run::
 
   $ pip install --upgrade hitch
 
-Or on Linux::
+On Linux::
 
   $ sudo pip install --upgrade hitch
-
-This is a small python script with zero dependencies.
 
 See also:
 
 * :doc:`/faq/what_does_the_hitch_bootstrap_script_do`
 
 
-3. Runs "hitch clean" and "hitch init" in the current directory (does not require sudo)
----------------------------------------------------------------------------------------
+3. Runs "hitch clean", "hitch cleanpkg" and "hitch init" in the current directory (may require sudo)
+----------------------------------------------------------------------------------------------------
 
-If no hitch environment is already installed then this command does nothing. If a .hitch
+Takes approximately: 2 minutes
+
+If no ".hitch" directory is already installed then this command does nothing. If a .hitch
 directory *is* found, it will remove it::
 
   $ hitch clean
 
-This creates a .hitch directory in the current directory, where all of the
-packages required to run tests will be installed in a python virtualenv::
+If no "~/.hitchpkg" directory is found, this will also do nothing. If you already used hitch
+before you may have packages downloaded into this directory, in which case it will destroy it
+so it can be rebuilt::
+
+  $ hitch cleanpkg
+
+This builds a .hitch directory in the current directory and installs any more required
+system packages via unixpackage. This asks to install system packages specified in
+hitch plugins and packages specified in the system.packages file::
 
   $ hitch init
 
@@ -65,35 +94,26 @@ packages required to run tests will be installed in a python virtualenv::
 * :doc:`/faq/what_does_hitch_init_do`
 
 
-4. Run "hitch test ." if tests are found (may require sudo)
------------------------------------------------------------
+4. Run "hitch test ." to run all tests (does not require sudo)
+--------------------------------------------------------------
 
-If there are tests in the directory where the init script is run, hitch will run all
+Takes approximately: 15 minutes (subsequent test runs will be quicker)
+
+If there are tests in the directory where the init script is run, it will run all
 of them.
 
-During the course of running the tests, the test may attempt to use sudo to install
-necessary packages. It will always print the exact command it is trying to run
-(e.g. sudo apt-get install xvfb).
-
-If the packages are already installed, hitch will not attempt to install them.
-
-See also:
-
-* :doc:`why_does_my_test_require_me_to_sudo_and_install_packages`
-
-During the course of running the tests it will also attempt to download and compile
+During the course of running the tests it will attempt to download and compile
 certain pieces of software (e.g. postgres). The software will be installed in the
-"~/.hitchpkg" directory. Doing this does not require root and it will not interfere
-at all with other software you may have installed.
+"~/.hitchpkg" directory. This does not require sudo and it will not interfere
+with software you may already have installed.
 
 See also:
 
 * :doc:`why_is_my_test_downloading_and_compiling_software`
 * :doc:`why_does_the_first_test_run_take_so_long`
 
-All software installed there can be easily removed by deleting the "~/.hitchpkg"
-directory or running the command "hitch cleanpkg". If a test does not detect its
-presence it will download and compile it again.
+All software installed there can easily be removed by deleting the "~/.hitchpkg"
+directory or running the command "hitch cleanpkg".
 
 See also:
 
