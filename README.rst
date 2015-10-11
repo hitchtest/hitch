@@ -94,8 +94,7 @@ together, or not at all. Those are:
 * HitchPostgres_     - Simple wrapper around Postgres.
 * HitchSelenium_     - Simple wrapper around Selenium.
 * HitchRedis_        - Simple wrapper around Redis.
-* HitchDjango_       - Simple wrapper around Django.
-* HitchCelery_       - Simple wrapper around Celery.
+* HitchPython_       - Simple wrapper around python programs including Django and Celery.
 
 More coming soon.
 
@@ -116,8 +115,7 @@ See the roadmap_ for planned future features.
 .. _HitchCron: https://github.com/hitchtest/hitchcron
 .. _HitchSelenium: https://github.com/hitchtest/hitchselenium
 .. _HitchRedis: https://github.com/hitchtest/hitchredis
-.. _HitchDjango: https://github.com/hitchtest/hitchdjango
 .. _HitchPostgres: https://github.com/hitchtest/hitchpostgres
-.. _HitchCelery: https://github.com/hitchtest/hitchcelery
+.. _HitchPython: https://github.com/hitchtest/hitchpython
 .. _pipsi: https://github.com/mitsuhiko/pipsi
 
