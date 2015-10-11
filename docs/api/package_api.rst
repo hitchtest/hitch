@@ -3,21 +3,21 @@ Hitch Package API
 
 .. note::
 
-    This documentation applies to the latest version of hitchtest: version 0.6.5
+    This documentation applies to the latest version of hitchtest.
 
 Hitch strives to be self-bootstrapping. To enable this, it uses the concept of a
-package. A package is an object representation of a piece of software (like python
-or postgres) that your software relies upon.
+"hitch package". A hitch package is an object representation of a piece of software
+(like python or postgres) that your software relies upon.
 
 To use, you must initialize this object in your engine set_up method and call
 the .build() command. Once it is downloaded and built, your test can use it to
 run your application code.
 
-Running .build() will make your first test run very slow (downloading and building
-python or postgres will take minutes), but the subsequent test runs will be much
+Running .build() will make your first test run very slow (downloading and compiling
+python/postgres/mysql will take minutes), but the subsequent test runs will be much
 faster.
 
-Running .verify() is a necessary next step that simply checks that the software
+Running .verify() is a necessary next step that checks that the software
 runs without complaint and is the specified version.
 
 The main advantage of your test downloading and building its own versions of software
@@ -27,58 +27,45 @@ may break your tests. Additionally, if your team mates have different versions o
 python installed to you, this could lead to them getting different functional test
 outcomes and different bugs.
 
-Fixing the version and decoupling from the system versions of software installed
-gives you more confidence that you are running the same code in the same way.
+Fixing the version and decoupling your tests from the system versions of software
+installed should give you more confidence that you are running the same code in the
+same way on all of the machines you test your code on. You can use it to
+match your versions of software to versions you have running in production and gain
+extra confidence that your code will run the same way in both environments.
 
+Another benefit is that you can trivially run the same tests with more than one
+version of the software. For example, you could run the same scenarios on your application
+and only change the version of python your code is run with - say, from 2.7.10
+to 3.5.0.
 
-Python Example: Build from Scratch
-----------------------------------
+Using Hitch Packages in Hitch Plugins
+-------------------------------------
 
-..  note::
+Hitch currently has plugins that package and install all of the following software:
 
-    :doc:`/faq/why_should_my_tests_set_up_their_own_python_environments`
-
-.. code-block:: python
-
-    import hitchpython
-
-    python_package = hitchpython.PythonPackage(version="2.7.9")
-    python_package.build()      # Takes about 5 minutes during the first run. Instantaneous thereafter.
-    python_package.verify()
-
-    python.package.python       # This property now contains the full path to the built python
-
-
-Python Example: Using a Specified System Python
------------------------------------------------
-
-..  warning::
-
-    If you use the system python, will cause the test to fail with a complaint about the version
-    of python being wrong when your package manager upgrades it. This is to protect you from
-    a source of obscure bugs.
-
-    If you have versions of python installed a specific locations using, say, pyenv, this method
-    can be used, but it not recommended otherwise.
-
-
-If you wish to specify an installation of python instead of having your test download and install
-its own, you can simply specify a bin_directory and remove the .build() step.
-
-.. code-block:: python
-
-    import hitchpython
-
-    python_package = hitchpython.PythonPackage(version="2.7.6", bin_directory="/usr/bin")
-    python_package.verify()
-
-    python.package.python # this property now contains "/usr/bin/python"
+* MySQL
+* Postgresql
+* Python
+* Elastic Search
+* Redis
+* RabbitMQ
+* Memcache
 
 
 Creating your own Package
 -------------------------
 
-Hitch contains some plugins for software you can use, but it is not fully comprehensive. You may
+..  note::
+
+    Please note that the following API is not 100% stable yet.
+
+
+..  note::
+
+    Also note that I take requests. If there's a package you really need, feel free to raise an issue.
+    If there is sufficient demand I will build it.
+
+Hitch contains some the above for software you can use, but it is not fully comprehensive. You may
 wish to create your own packages. To do this, you subclass the HitchPackage class.
 
 .. code-block:: python
@@ -117,5 +104,11 @@ wish to create your own packages. To do this, you subclass the HitchPackage clas
                 raise RuntimeError("bin_directory not set.")
             return join(self.bin_directory, "maincommand")
 
+Examples of existing package API code you can use for inspiration:
 
-
+* https://github.com/hitchtest/hitchpostgres/blob/master/hitchpostgres/postgres_package.py
+* https://github.com/hitchtest/hitchredis/blob/master/hitchredis/redis_package.py
+* https://github.com/hitchtest/hitchrabbit/blob/master/hitchrabbit/rabbit_package.py
+* https://github.com/hitchtest/hitchelastic/blob/master/hitchelastic/elastic_package.py
+* https://github.com/hitchtest/hitchmemcache/blob/master/hitchmemcache/memcache_package.py
+* https://github.com/hitchtest/hitchmysql/blob/master/hitchmysql/mysql_package.py
