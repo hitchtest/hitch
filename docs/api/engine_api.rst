@@ -24,11 +24,21 @@ The basic Hitch Engine looks something like this:
             # code that always runs at the end
 
 
+For a test like this:
+
+.. code-block:: yaml
+
+    - name: Example scenario
+      scenario:
+        - Do something
+        - Do something else
+
+
 Step Translation
 ----------------
 
-Test steps and their properties are fed to the engine directly as method calls
-and arguments. All step names and properties are first changed into underscore_case.
+Test steps and their arguments are fed to the engine directly as method calls
+and arguments. All step names and arguments are first changed into underscore_case.
 
 For example, putting this as a test step:
 
