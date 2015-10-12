@@ -23,7 +23,8 @@ Contents:
 
    quickstart/index
    howto/index
-   faq/index
    api/index
+   misc/index
+   faq/index
    glossary/index
 
