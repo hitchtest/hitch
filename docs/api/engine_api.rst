@@ -30,31 +30,31 @@ Step Translation
 Test steps and their properties are fed to the engine directly as method calls
 and arguments. All step names and properties are first changed into underscore_case.
 
-Example 2 (without variables):
+For example, putting this as a test step:
 
 .. code-block:: yaml
 
   - Do something
 
-Is translated into the following method call:
+Would be equivalent to calling this in your engine:
 
 .. code-block:: python
 
   self.do_something()
 
-Example 2 (with a single variable):
+This, on the other hand (note the semicolon):
 
 .. code-block:: yaml
 
   - Do something else: value 1
 
-Is translated into the following method call:
+Would be translated into:
 
 .. code-block:: python
 
   self.do_something_else("value 1")
 
-Example 3 (with more than one variable):
+You can include as many arguments as you like in steps like so:
 
 .. code-block:: yaml
 
@@ -62,13 +62,13 @@ Example 3 (with more than one variable):
       Variable 1: Value 1
       Variable 2: 2
 
-Is translated into the following method call:
+If the equivalent were written in python it would look like this:
 
 .. code-block:: python
 
   self.do_complicated_thing(variable_1="Value 1", variable_2="2")
 
-Example 4 (with a variable that contains a list):
+Your steps can also contain arguments that contain lists:
 
 .. code-block:: yaml
 
@@ -78,13 +78,13 @@ Example 4 (with a variable that contains a list):
         - List item 1
         - List item 2
 
-Is translated into the following method call:
+The python equivalent of that would look like this:
 
 .. code-block:: python
 
   self.do_another_complicated_thing(variable_1="value 1", variable_2=["list item 1", "list item 2",])
 
-Example 5 (with a variable that contains a dict):
+They can contain dicts (or associative arrays) as well:
 
 .. code-block:: yaml
 
@@ -94,7 +94,7 @@ Example 5 (with a variable that contains a dict):
         Dict item 1: val 1
         Dict item 2: val 2
 
-Is translated into the following method call:
+Which in python would be equivalent to this:
 
 .. code-block:: python
 
@@ -105,14 +105,16 @@ Careful with semicolons and braces like { and }
 -----------------------------------------------
 
 Since the tests are written in YAML with optional Jinja2, braces and
-semicolons have special meanings.
+semicolons have special meanings and must be escaped if you want
+to use them.
 
 
 Preconditions
 -------------
 
 self.preconditions is a dictionary representation of the YAML snippet in the test being run.
-What goes in this variable is up to you. Anything that is valid YAML is allowed.
+What goes in this snippet is up to you. Anything that is valid YAML and an associative arrays
+is allowed.
 
 Example:
 
@@ -123,21 +125,21 @@ Example:
         - fixture1.sql
       python_version: 2.7.3
 
-This will mean your preconditions variable is::
+This will mean your preconditions variable will be::
 
     In [1]: self.preconditions
     Out[1]: {'db_fixtures': ['fixture1.sql'], 'python_version': '2.7.3'}
 
-If no preconditions are set, it will set to be an empty dict::
-
-    In [1]: self.preconditions
-    Out[1]: {}
-
-You can access any properties you set here using python's get method, which
-you can also use to program in a sensible default::
+You can access any properties you set here using python's get method (which
+you can also use to program in a sensible default)::
 
     In [1]: self.preconditions.get('db_fixtures', [])
     Out[1]: ['fixture1.sql']
+
+If no preconditions are set, self.preconditions will be an empty dict::
+
+    In [1]: self.preconditions
+    Out[1]: {}
 
 Note that while preconditions can contain lists, you can't set preconditions
 to be a list.
@@ -146,7 +148,7 @@ Tags
 ----
 
 Tests can also have tags, which let you single out individual tests to run
-or to run individual tests together:
+or to run groups of tests together. Example:
 
   - name: Test with tags
     tags:
@@ -157,7 +159,7 @@ or to run individual tests together:
       - Step 1
       - Step 2
 
-You can use these to run related sets of tests together like so::
+You can use these tags to run related sets of tests together like so::
 
   $ hitch test . --tags registration
 
@@ -169,8 +171,9 @@ Or, if you want to be more specific, you can list the tags, separated by a comma
 Description
 -----------
 
-You can also include comments in the description property. This is to help people
-understand what the test is doing and why.
+You can also include comments in the description property. This where you can
+put comments in your tests to help explain to people what your test is doing
+and why.
 
 It is ignored by the engine.
 
@@ -192,16 +195,15 @@ It is ignored by the engine.
 Stacktrace
 ----------
 
-self.stacktrace is an object representation of the stack trace that occurred
-after an exception occurred. It is set to None if no error has occurred while
-running the test.
+self.stacktrace is an object representation of the stack trace that occurs after a failure
+occurs in your test. It is set to None if no error has occurred while running the test.
 
 You can use it to pretty-print a representation of the last error that occurred::
 
     In [1]: print(self.stacktrace.to_template())
     [ prints colorized, pretty printed version of the stacktrace ]
 
-You can also use it to *dive into* the specific code where the exception occurred,
+You can also use it to *dive into* the specific engine code where the exception occurred,
 so that you can check the contents of variables at that point or even re-run the code::
 
     In [1]: self.stacktrace[0].ipython()
