@@ -19,18 +19,18 @@ This feature is based upon the twin principles of :doc:`/glossary/isolation` and
 :doc:`/glossary/fail_fast`.
 
 To use these checks, simply put them in your settings file under the property 'environment'
-or use them in your code as described.
+or use them in your engine as described.
 
 This list of checks is by no means all that you might need. Additional ideas for environment
 checks are very welcome. If there is one that you want, please raise an issue at
-http://github.com/hitchtest/hitchtest/issues/create
+http://github.com/hitchtest/hitchtest/issues/new
 
 
 
 System Packages
 ---------------
 
-This check verifies that a unixpackage package is installed:
+This check verifies that a unixpackage ( http://github.com/unixpackage/unixpackage/ ) package is installed:
 
 .. code-block:: yaml
 

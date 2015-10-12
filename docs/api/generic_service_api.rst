@@ -3,9 +3,9 @@ Generic Service API
 
 .. note::
 
-    This documentation applies to the latest version of hitchserve: version 0.3.8
+    This documentation applies to the latest version of hitchserve.
 
-All of the services listed are created using the generic service API. This API lets
+All of the services listed are run using the generic service API. This API lets
 you start, monitor and stop any kind of process during a test.
 
 Basic Usage
@@ -70,8 +70,8 @@ You can tail the logs too::
     [ Prints logs from two lines before the command starts. ]
     [ Continues logging in real time until you hit ctrl-C ]
 
-A unique feature of hitchserve is also the ability to parse log lines looking for JSON
-logs and then parse them and present them to you as python list of dicts/lists::
+Hitch also lets you grab a list of log lines encoded as JSON and return them
+as a list of dicts/lists. For example::
 
     In [5]: self.service['HitchSMTP'].logs.json()
     Out[5]:
@@ -104,24 +104,26 @@ logs and then parse them and present them to you as python list of dicts/lists::
     'sent_to': ['django@reinhardt.com'],
     'subject': 'Reminder'}]
 
-This is a useful feature for verifying interactions with mock services.
+This is a useful feature for verifying interactions with mock services went according to plan.
 
-You can also tail the logs until a specific JSON line is seen::
+You can also tail the logs until a specific condition is met in a JSON line, for instance::
 
     In [5]: self.services['HitchSMTP'].logs.out.tail.until_json(
                 lambda email: containing in email['payload'] or containing in email['subject'],
                 timeout=15,
                 lines_back=1,
             )
-    [ outputs dict representation of line representing email once it has been received ]
+    [ returns full dict representation of JSON snippet representing email once it has been received ]
 
 
 Time Travel
 -----------
 
+Some test scenarios require you to move forward through time. Hitch provides a high level way of
+making your code *think* that the time is by hijacking the standard UNIX time API and lying via it.
+
 The service bundle object has a special command which can be used to mock the forward (or even backward)
-passage of time. It works by feeding a different time via the UNIX system API to all of the services
-run by the service bundle.
+passage of time.
 
 To move forward relatively you can use the following API::
 
@@ -154,6 +156,10 @@ To move to an absolute time use::
     In [9]: self.services.time_travel(datetime=datetime.now())
     Time traveling to now
 
+This feature has been tested and works with Postgres and Python code run as a service, but has been
+tried with and will not yet work with node.JS code, Java code or Firefox.
+
+Note that it will not work if no_libfaketime is set to True.
 
 Service Process API
 -------------------
@@ -180,7 +186,7 @@ To interact with or inspect the service's process::
     self.services['HitchSMTP'].process.io_counters       self.services['HitchSMTP'].process.open_files        self.services['HitchSMTP'].process.username
     self.services['HitchSMTP'].process.ionice            self.services['HitchSMTP'].process.parent            self.services['HitchSMTP'].process.wait
 
-The psutil Process class API can be used to inspect the CPU usage of the process, memory usage, list open files and much much more is available.
+The psutil Process class API can be used to inspect the CPU usage of the process, memory usage, list open files and much much more.
 
 The full API docs for psutil's Process class are here: https://pythonhosted.org/psutil/#process-class
 
@@ -196,10 +202,11 @@ Hitch provides an API to let you run these commands in the same environment
 as the service you are running. This means that they will inherit the same
 environment variables and system time::
 
-    In [1]: self.services['']
+    In [1]: self.services['Django'].manage("help").run()
 
-Running Arbitrary Code Before and After Starting
-------------------------------------------------
+
+Running Arbitrary Code Before and After Starting a Service
+----------------------------------------------------------
 
 Some services can just be started and stopped, but others require special
 code to be run before and after. A good example of this is postgresql,
