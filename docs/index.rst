@@ -22,6 +22,7 @@ Contents:
    :maxdepth: 2
 
    quickstart/index
+   howto/index
    faq/index
    api/index
    glossary/index

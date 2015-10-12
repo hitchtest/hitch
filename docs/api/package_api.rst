@@ -5,9 +5,21 @@ Hitch Package API
 
     This documentation applies to the latest version of hitchtest.
 
-Hitch strives to be self-bootstrapping. To enable this, it uses the concept of a
-"hitch package". A hitch package is an object representation of a piece of software
-(like python or postgres) that your software relies upon.
+Hitch strives to be self-bootstrapping and to provide a reasonable level of :doc:`/glossary/isolation`.
+
+To allow this, it can package, install and runs some of the software that you use
+to test your code with. These are called 'hitch packages'. Here are some examples:
+
+* MySQL
+* Postgresql
+* Python
+* Elastic Search
+* Redis
+* RabbitMQ
+* Memcache
+
+Each one of these has a 'hitch package'. A hitch package is an python object
+representation of that piece of software that your code is tested with.
 
 To use, you must initialize this object in your engine set_up method and call
 the .build() command. Once it is downloaded and built, your test can use it to
@@ -37,20 +49,6 @@ Another benefit is that you can trivially run the same tests with more than one
 version of the software. For example, you could run the same scenarios on your application
 and only change the version of python your code is run with - say, from 2.7.10
 to 3.5.0.
-
-Using Hitch Packages in Hitch Plugins
--------------------------------------
-
-Hitch currently has plugins that package and install all of the following software:
-
-* MySQL
-* Postgresql
-* Python
-* Elastic Search
-* Redis
-* RabbitMQ
-* Memcache
-
 
 Creating your own Package
 -------------------------
