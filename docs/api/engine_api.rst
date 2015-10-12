@@ -123,8 +123,7 @@ Preconditions
 -------------
 
 self.preconditions is a dictionary representation of the YAML snippet in the test being run.
-What goes in this snippet is up to you. Anything that is valid YAML and an associative arrays
-is allowed.
+What goes in this snippet is up to you. Anything that is valid YAML is allowed.
 
 Example:
 
@@ -159,6 +158,8 @@ Tags
 
 Tests can also have tags, which let you single out individual tests to run
 or to run groups of tests together. Example:
+
+.. code-block:: yaml
 
   - name: Test with tags
     tags:
@@ -197,9 +198,12 @@ It is ignored by the engine.
       It registers, recieves an email and checks the email arrived.
     scenario:
       - Step 1
-      - Step 2
-      db_fixtures:
-        - fixture1.sql
+      - Step 2: with parameter
+      - Step 3:
+          var 1: 1
+          var 2: 2
+          var 3: 3
+      - Last step
 
 
 Stacktrace
