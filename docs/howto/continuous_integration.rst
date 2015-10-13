@@ -21,15 +21,19 @@ See here for examples:
 * https://github.com/hitchtest/django-remindme-tests/blob/master/ci.settings
 * https://github.com/hitchtest/django-remindme-tests/blob/master/tdd.settings
 
+The following two examples assume that you already have a ci.settings file with settings appropriate
+for your CI environment and that your tests are in a directory in your repo called tests.
 
 Jenkins
 -------
 
 On your jenkins machine you should first log in as root and do steps #1 and #2 from :doc:`/faq/what_does_the_init_script_do`
 
-Once that's done, create a job for your project.
+You should then ensure that the jenkins user can sudo without a password.
 
-Once you have a Jenkins project checked out, you'll need the following commands::
+Once that's done, create a job for your project using the web interface.
+
+The job should then be configured to run the following three commands::
 
     cd tests
     hitch init
@@ -37,12 +41,17 @@ Once you have a Jenkins project checked out, you'll need the following commands:
 
 That should be all that's required.
 
-Note that the first run should take a while but subsequent runs will be much faster.
 
 Travis
 ------
 
-A .travis.yml file should look like this::
+.. note::
+
+    Although it says python 3.4 below, your code will be tested with the version of python you
+    specified in your tests (assuming you are testing python code at all).
+    python 3.4 will *only* be used to run the bootstrap script.
+
+Your .travis.yml file should look something like this::
 
     before_install:
       - sudo apt-get update -qq
@@ -57,5 +66,7 @@ A .travis.yml file should look like this::
     script:
       - "hitch test . --settings ci.settings"
 
-Note that test runs using Travis will be slow due to the virtual machine being used to
-run your tests being destroyed and rebuilt from scratch each time.
+.. note::
+
+    Test runs using Travis may be very slow (> ~30 minutes) due to the virtual machine being used to
+    run your tests being destroyed and rebuilt from scratch each time.
