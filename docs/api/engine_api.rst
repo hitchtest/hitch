@@ -4,7 +4,17 @@ Hitch Engine API
 The Hitch Engine is a python class which is tasked with executing your tests
 and responding to successes and failures.
 
-The basic Hitch Engine looks something like this:
+For a test like this, written in YAML:
+
+.. code-block:: yaml
+
+    - name: Example scenario
+      scenario:
+        - Do something
+        - Do something else
+
+
+The basic Hitch Engine, written in python, would need to look something like this:
 
 .. code-block:: python
 
@@ -23,15 +33,6 @@ The basic Hitch Engine looks something like this:
         def tear_down(self):
             # code that always runs at the end
 
-
-For a test like this:
-
-.. code-block:: yaml
-
-    - name: Example scenario
-      scenario:
-        - Do something
-        - Do something else
 
 
 Step Translation
