@@ -36,12 +36,12 @@ mostly requiring a yes or no answer and will then generate a skeleton project te
 Apart from installing all of the required packages and creating a .hitch directory,
 the following files are created in your tests directory:
 
-* :doc:`glossary/hitchreqs.txt`
-* :doc:`glossary/engine.py`
-* tdd.settings (:doc:`glossary/hitch_settings`)
+* :doc:`/glossary/hitchreqs.txt`
+* :doc:`/glossary/engine.py`
+* tdd.settings (:doc:`/glossary/hitch_settings`)
 * ci.settings
 * all.settings
-* :doc:`stub.test`
+* :doc:`/glossary/stub.test`
 * README.rst
 
 You might want to take a look around these files. They all try to be self-explanatory.
@@ -107,15 +107,15 @@ Happy testing!
 Further reading
 ---------------
 
-* :doc:`howto/web_applications`
-* :doc:`howto/command_line_applications`
+* :doc:`/howto/web_applications`
+* :doc:`/howto/command_line_applications`
 
 Advanced topics
 ---------------
 
-* :doc:`howto/test_driven_development`
-* :doc:`howto/parameterize_test_cases`
-* :doc:`howto/continuous_integration`
+* :doc:`/howto/test_driven_development`
+* :doc:`/howto/parameterize_test_cases`
+* :doc:`/howto/continuous_integration`
 
 .. note::
 
