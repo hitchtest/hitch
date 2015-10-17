@@ -2,7 +2,8 @@ How to Parameterize your Test Cases with Hitch
 ==============================================
 
 Test case parameterization is a way of taking an existing test case and
-tweaking it to run multiple times, each in a slightly different way.
+tweaking it to run multiple times, each in a slightly different way with
+just a couple of lines.
 
 For example:
 
@@ -10,61 +11,56 @@ For example:
 * Taking a test case that runs on firefox and making it run on 4 other browsers.
 * Creating a group of test cases for a particular feature that differ only slightly.
 
+I'd recommend parameterization only *after* noticing that your test cases
+have gotten somewhat repetitive. In general it is something that you should
+*avoid* doing pre-emptively.
+
 Strictly speaking it is not *necessary* to parameterize your test cases since
 you can just copy and paste and tweak the things that you need. However, it's
-a *really* good idea to make your test cases :doc:`/glossary/DRY` just like
-any other code to make it more maintainable.
+a good idea to make your test cases :doc:`/glossary/DRY` just like any other
+code to make them easier to maintain.
 
-To parameterize your test cases, you will need to become familiar with YAML and
-Jinja2.
 
 Example
 -------
 
-In a base template called base.template, put the following::
+In your all.settings, put the following variable::
+
+    python_versions:
+      - 2.7.10
+      - 3.4.3
+      - 3.5.0
+
+This is a list of 3 python versions. This list is made available to jinja2 (jinja2 is basically anything surrounded by { or }).
+
+Now put a test in the same directory, with the extension .test and make it look something like this::
 
     {% for python_version in python_versions %}
-    {% block test scoped %}
-    {% endblock %}
-    {% endfor %}
-
-Your test, in the same directory, with the extension .test should look like this::
-
-    {% extends "base.template" %}
-    {% block test %}
-    - name: Sign up, create reminder and wait for email reminder to arrive in python {{ python_version }}
+    - name: Load website and click register (python {{ python_version }})
       preconditions:
         python_version: "{{ python_version }}"
+      tags:
+        - registration
+        - py{{ python_version }}
       scenario:
         - Load website
         - Click: register
-        - Fill form:
-            id_username: django
-            id_email: django@reinhardt.com
-            id_password1: jazzguitar
-            id_password2: jazzguitar
-        - Click submit
-        - Click: create
-        - Fill form:
-            id_description: Remind me about upcoming gig.
-            id_when: 30 days
-        - Click: create
-        - Wait for email:
-           Containing: Confirm E-mail Address
-        - Confirm emails sent: 1
-        - Time travel:
-           Days: 30
-        - Wait for email:
-           Containing: Remind me about upcoming gig.
-    {% endblock %}
+    {% endfor %}
 
-The .test file inherits from the base template, which contains a for loop. It "fills
-in" the everything in the block named test.
+This code with a for loop - will *generate* three *almost identical* test cases with the following differences:
 
-Anything surrounded by {{ or }} is treated as a variable. Note that python_version
-is set in the for loop in the base template and used in the test. If there are two
-python versions in python_versions (set in settings), then running this test will
-run it twice on two different versions.
+* The name (each one will have the *same* name except with a different python version number at the end)
+* One of the tags - the tags will be py3.5.0, py3.4.3 and py2.7.10 respectively. All three will have the tag "registration" though.
+* The precondition "python_version" - each one of them will have the preconditions set differently.
+
+This is what it does:
+
+* The {% for python_version in python_versions %} and {% endfor %} surround a *block* of test description that it repeats.
+* It loops 3 times because python_versions, set in all.settings, has 3 versions.
+* Anything surrounded by {{ and }} in the block is set to 2.7.10, 3.4.3 and 3.5.0.
 
 There are plenty more tricks you can play with parameterized test cases. I recommend
-gaining familiarity with Jinja2.
+gaining familiarity with Jinja2 if you want to do more.
+
+Careful, though - parameterization can help with reducing the repetitiveness of your
+test cases but it can also make them less readable.
