@@ -2,7 +2,7 @@
 from subprocess import call, PIPE, STDOUT, Popen
 from hitch.click import command, group, argument, option
 from os import path, makedirs, listdir, kill, remove
-from sys import stderr, exit, modules, argv
+from sys import stderr, stdout, exit, modules, argv
 from functools import partial, reduce
 from hitch import hitchdir, languagestrings
 import shutil
@@ -40,6 +40,25 @@ def installpackages():
     signal.signal(signal.SIGINT, signal.SIG_IGN)
     check_call([hitchsystem, "installpackages", ])
     signal.signal(signal.SIGINT, stop_everything)
+
+
+def update_requirements():
+    """Check hitchreqs.txt match what's installed via pip freeze. If not, update."""
+    stdout.write(languagestrings.UPDATING_REQUIREMENTS)
+    pip = path.join(hitchdir.get_hitch_directory_or_fail(), "virtualenv", "bin", "pip")
+    hitchreqs_filename = path.join(hitchdir.get_hitch_directory_or_fail(), "..", "hitchreqs.txt")
+    pip_freeze = check_output([pip, "freeze"]).decode('utf8').split('\n')
+    hitchreqs_handle = ""
+    with open(hitchreqs_filename, "r") as hitchreqs_handle:
+        hitchreqs = hitchreqs_handle.read().split('\n')
+
+    if not sorted(pip_freeze) == sorted(hitchreqs):
+        call([pip, "install", "-r", "hitchreqs.txt"])
+
+    pip_freeze = check_output([pip, "freeze"]).decode('utf8')
+
+    with open("hitchreqs.txt", "w") as hitchreqs_handle:
+        hitchreqs_handle.write(pip_freeze)
 
 
 @group()
@@ -93,8 +112,7 @@ def init(python, virtualenv):
         exit(1)
 
     if hitchdir.hitch_exists():
-        stderr.write(languagestrings.HITCH_ALREADY_INITIALIZED)
-        stderr.flush()
+        update_requirements()
         exit(0)
 
     makedirs(".hitch")
@@ -132,25 +150,6 @@ def init(python, virtualenv):
         exit(1)
 
 
-
-def update_requirements():
-    """Check hitchreqs.txt match what's installed via pip freeze. If not, update."""
-    pip = path.join(hitchdir.get_hitch_directory_or_fail(), "virtualenv", "bin", "pip")
-    hitchreqs_filename = path.join(hitchdir.get_hitch_directory_or_fail(), "..", "hitchreqs.txt")
-    pip_freeze = check_output([pip, "freeze"]).decode('utf8').split('\n')
-    hitchreqs_handle = ""
-    with open(hitchreqs_filename, "r") as hitchreqs_handle:
-        hitchreqs = hitchreqs_handle.read().split('\n')
-
-    if not sorted(pip_freeze) == sorted(hitchreqs):
-        call([pip, "install", "-r", "hitchreqs.txt"])
-
-    pip_freeze = check_output([pip, "freeze"]).decode('utf8')
-
-    with open("hitchreqs.txt", "w") as hitchreqs_handle:
-        hitchreqs_handle.write(pip_freeze)
-
-
 def get_pip():
     """Get the file path to the hitch pip."""
     return path.join(hitchdir.get_hitch_directory_or_fail(), "virtualenv", "bin", "pip")
@@ -161,7 +160,6 @@ def get_pip():
 def runpackage(arguments):
     # Generic method to run any installed app in the virtualenv whose name starts with hitch*
     hitchdir.check_hitch_directory_integrity()
-    update_requirements()
     binfile = path.join(hitchdir.get_hitch_directory(), "virtualenv", "bin", "hitch{0}".format(argv[1]))
     command = [binfile, ] + argv[2:]
 
@@ -177,6 +175,7 @@ def runpackage(arguments):
     return_code = process.wait()
     exit(return_code)
 
+
 @command()
 @argument('package', required=True)
 def uninstall(package):
@@ -190,11 +189,17 @@ def uninstall(package):
     with open("hitchreqs.txt", "w") as hitchreqs_handle:
         hitchreqs_handle.write(pip_freeze)
 
+    update_requirements()
+
+
 @command()
 @argument('package', required=True)
 def install(package):
     """Install hitch package."""
     hitchdir.check_hitch_directory_integrity()
+
+    update_requirements()
+
     pip = get_pip()
 
     call([pip, "install", package, "-U", ])
@@ -210,6 +215,9 @@ def install(package):
 def upgrade():
     """Upgrade all installed hitch packages."""
     hitchdir.check_hitch_directory_integrity()
+
+    update_requirements()
+
     pip = get_pip()
     package_list = [
         p for p in check_output([pip, "freeze"]).decode('utf8').split('\n')

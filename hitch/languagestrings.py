@@ -23,11 +23,6 @@ Hitch must have python 3.3 or higher installed to run.
 Your app can run with earlier versions of python, but the tests can't.
 """
 
-HITCH_ALREADY_INITIALIZED = """\
-Hitch has already been initialized in this directory or a directory above it.
-If you wish to re-initialize hitch in this directory, run 'hitch clean' first.
-"""
-
 ERROR_INITIALIZING_HITCH = """\
 \nError initializing hitch. Problem checklist:\n
 * Was there a problem with your internet?
@@ -48,3 +43,6 @@ Hitch has not been initialized in this directory, or any of the directories bene
 SOMETHING_CORRUPTED = """\
 WARNING: Hitch directory was corrupted. Run 'hitch clean' and hitch init again.\n
 """
+
+UPDATING_REQUIREMENTS = """\
+Updating installed packages to bring them in alignment with the contents of hitchreqs.txt\n"""
