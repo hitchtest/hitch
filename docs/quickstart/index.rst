@@ -1,5 +1,5 @@
-1: Creating a skeleton test
-===========================
+Getting started quickly with Hitch
+==================================
 
 This is a basic introduction to getting your first hitch test up and running.
 
@@ -28,7 +28,7 @@ If you don't, run the init script by copying and pasting the following line::
 
 .. note::
 
-    :doc:`/faq/what_does_the_init_script_do` instead.
+    This can be used as a guide to instal hitch instead: :doc:`/faq/what_does_the_init_script_do`
 
 Once the installation has completed, it will ask you a few basic questions about your project,
 mostly requiring a yes or no answer and will then generate a skeleton project template for you.

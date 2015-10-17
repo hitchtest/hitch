@@ -12,4 +12,4 @@ settings.
 
 See also:
 
-* :doc:`api/settings`.
+* :doc:`/api/settings`.
