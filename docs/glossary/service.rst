@@ -19,4 +19,8 @@ For example, the :doc:`postgres_service` runs the initdb command
 in setup to create the database data directory and creates databases
 and users specified in fixtures in poststart.
 
-See also `Service (systems architecture) <https://en.wikipedia.org/wiki/Service_(systems_architecture)>`_.
+See also
+
+* :doc:`hitch_package`
+* :doc:`step_library`
+* `Service (systems architecture) wikpedia page <https://en.wikipedia.org/wiki/Service_(systems_architecture)>`_.
