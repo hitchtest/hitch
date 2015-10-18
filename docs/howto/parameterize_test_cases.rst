@@ -31,7 +31,9 @@ In your all.settings, put the following variable::
       - 3.4.3
       - 3.5.0
 
-This is a list of 3 python versions. This list is made available to jinja2 (jinja2 is basically anything surrounded by { or }).
+This is a list of 3 python versions defined in YAML in the :doc:`/glossary/hitch_settings`.
+
+This list is made available to jinja2, which you can see below (jinja2 is basically anything surrounded by { or }).
 
 Now put a test in the same directory, with the extension .test and make it look something like this::
 
