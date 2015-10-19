@@ -112,6 +112,7 @@ def init(python, virtualenv):
         exit(1)
 
     if hitchdir.hitch_exists():
+        hitchdir.check_hitch_directory_integrity()
         update_requirements()
         exit(0)
 
@@ -137,11 +138,16 @@ def init(python, virtualenv):
             check_call([pip, "install", "-r", "hitchreqs.txt"])
         else:
             check_call([pip, "install", "hitchtest"])
+            check_call([pip, "install", "hitchquickstart"])
 
             pip_freeze = check_output([pip, "freeze"]).decode('utf8')
 
             with open("hitchreqs.txt", "w") as hitchreqs_handle:
                 hitchreqs_handle.write(pip_freeze)
+
+            signal.signal(signal.SIGINT, signal.SIG_IGN)
+            check_call([path.abspath(path.join(".hitch", "virtualenv", "bin", "hitchquickstart")), ])
+            signal.signal(signal.SIGINT, stop_everything)
 
         installpackages()
     except CalledProcessError:
