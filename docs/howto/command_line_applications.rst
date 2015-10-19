@@ -3,10 +3,14 @@ How to test command line applications
 
 .. note::
 
-    This tutorial assumes that you have the :doc:`glossary/hitch_plugin` :doc:`plugins/hitchcli`
+    This tutorial assumes that you have the :doc:`/glossary/hitch_plugin` :doc:`/plugins/hitchcli`
     installed and its step library is set up.
 
     If you followed the quickstart tutorial and said yes to testing a command line app, this should already be done for you.
+
+.. warning::
+
+    This tutorial is a work in progress. It is usable, but more is coming soon.
 
 
 Running a command

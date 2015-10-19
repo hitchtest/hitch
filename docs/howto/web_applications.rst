@@ -1,16 +1,16 @@
-mHow to test web applications
+How to test web applications
 ============================
 
 .. note::
 
-    This tutorial assumes that you have the :doc:`glossary/hitch_plugin` :doc:`plugins/hitchselenium`
+    This tutorial assumes that you have the :doc:`/glossary/hitch_plugin` :doc:`/plugins/hitchselenium`
     installed and its step library is set up.
 
     If you followed the quickstart tutorial and said yes to testing a webapp, this should already be done for you.
 
 .. warning::
 
-    This tutorial is a work in progress. It is not currently complete.
+    This tutorial is a work in progress. It is usable, but more is coming soon.
 
 
 Writing a step that clicks on a button or link
@@ -24,7 +24,7 @@ This is telling hitch to click on an HTML element with the HTML ID "register".
 
 .. note::
 
-    This part is sometimes controversial. If you disagree, read :doc:`faq/why_just_html_ids_and_classes` for the rationale.
+    This part is sometimes controversial. If you disagree, read :doc:`/faq/why_just_html_ids_and_classes` for the rationale.
 
 Now, there's a good chance that:
 
