@@ -12,7 +12,6 @@ https://github.com/hitchtest/hitch/issues/new
 from you. There's a good chance if you're confused that the documentation or
 even the code is deficient in some way and we'd like to fix that.
 
-Support queries are the lifeblood of this framework. Without them it will
-wither and die.
+Support queries are the lifeblood of this framework.
 
 Thanks for helping out!

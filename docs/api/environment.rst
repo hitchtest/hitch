@@ -21,11 +21,6 @@ This feature is based upon the twin principles of :doc:`/glossary/isolation` and
 To use these checks, simply put them in your settings file under the property 'environment'
 or use them in your engine as described.
 
-This list of checks is by no means all that you might need. Additional ideas for environment
-checks are very welcome. If there is one that you want, please raise an issue at
-http://github.com/hitchtest/hitchtest/issues/new
-
-
 
 System Packages
 ---------------
@@ -47,10 +42,6 @@ This check verifies that a unixpackage ( http://github.com/unixpackage/unixpacka
 This is a simple way of checking, in a *UNIX platform indendent* way if a list of
 packages are installed.
 
-The package names used are, by default, Ubuntu package names. Note that the list
-of checkable packages is not very long, but if you want to use one which is not
-currently recognized, you can fork and issue a pull request to this repository:
-http://github.com/unixpackage/unixpackage.github.io
 
 
 Debs
@@ -106,6 +97,10 @@ the specified number of seconds, it fails:
 
 As soon as there is a response, the test will continue.
 
+The package names used are, by default, Ubuntu package names. Note that the list
+of checkable packages is not very long, but if you want to use one which is not
+currently recognized, you can fork and issue a pull request to this repository:
+http://github.com/unixpackage/unixpackage.github.io
 
 
 Free ports
@@ -144,3 +139,16 @@ This check verifies that your system is either 32 bit or 64 bit:
 .. code-block:: yaml
 
   systembits: 64
+
+
+Need another environment check?
+-------------------------------
+
+This list of checks is by no means all that you might need. Additional ideas for environment
+checks are very welcome. If there is one that you want, *please raise an issue* at
+http://github.com/hitchtest/hitchtest/issues/new
+
+There's a good chance I'll be able to release a new version of the software with your
+check within a few days - a week at most.
+
+See also : :doc:`/misc/clarifying_documentation`

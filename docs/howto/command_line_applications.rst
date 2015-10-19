@@ -48,16 +48,16 @@ For control-C, or::
 Waiting for a command to finish
 -------------------------------
 
-To wait for a command to finish successfully (with exit code 0), use the step "finish"::
+To wait for a command to finish successfully, use the step "finish"::
 
     - finish
 
-If you want to verify that it finished with a specific exit code (e.g. 1), add the property 'with code'::
+If you want to verify that it finished with a specific non-zero exit code (e.g. 1), add the property 'with code'::
 
     - finish:
         with code: 1
 
-If you want the command to finish and you don't care which code it exits with, use 'any code' in place of 1::
+If you want the command to finish and you don't care which code it exits with, use 'any' in place of 1::
 
     - finish:
         with code: any
@@ -65,7 +65,7 @@ If you want the command to finish and you don't care which code it exits with, u
 Sending an exit signal to a command
 -----------------------------------
 
-If you want to SIGTERM, SIGINT or even SIGKILL, use the following step::
+If you want to SIGTERM, SIGINT, SIGKILL or any other valid unix signal, use the following step::
 
     - send signal: SIGTERM
 
