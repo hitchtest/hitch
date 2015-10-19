@@ -1,4 +1,4 @@
-How to test web applications
+mHow to test web applications
 ============================
 
 .. note::
@@ -6,7 +6,7 @@ How to test web applications
     This tutorial assumes that you have the :doc:`glossary/hitch_plugin` :doc:`plugins/hitchselenium`
     installed and its step library is set up.
 
-    If you followed the quickstart tutorial, this should already be done for you.
+    If you followed the quickstart tutorial and said yes to testing a webapp, this should already be done for you.
 
 .. warning::
 
@@ -57,7 +57,7 @@ Or the last::
 
     - Click: Last friend link
 
-Or to click on an item that is part of a group which is *also* itself part of a group, you can specify two classes::
+To click on an item that is part of a group which is *also* itself part of a group, you can specify two classes::
 
     - Click: First calendar day-31
 
@@ -67,4 +67,44 @@ Try to keep the test steps readable by using appropriately named classes where p
 Verifying an element exists on the page - e.g. an error message
 ---------------------------------------------------------------
 
-[ TO DO ]
+The same pattern can be used to wait for elements to be visible on the page. e.g.::
+
+    - Wait to appear: first friend-link
+    - Wait to appear: 2nd friend-link
+    - Wait to appear: Last friend-link
+    - Wait to appear: First calendar day-31
+
+This is the recommended approach for items which signify certain things that you want to happen.
+
+If, for example, you are testing for the presence of an error message indicating that a user must enter a ZIP code,
+the following is a good way of doing it::
+
+    - Wait to appear: error-message-zip-code
+
+
+Waiting for text to appear
+--------------------------
+
+Note that waiting for specific text to appear is *not* a good approach for detecting error messages,
+or, indeed, any other kind of text which is decided upon by the application. Why? Translations.
+
+If an application is translated and you test the same scenario by checking for IDs, the test will
+continue to work. If you just check for the presence of text, it will break.
+
+Nonetheless, waiting for text to appear is often a good way to determine if text entered by the user
+in a test shows up in the right place.
+
+Waiting for text to appear also follows the same pattern as above::
+
+    - Wait to contain:
+        item: first username
+        text: django
+    - Wait to appear:
+        item: second username
+        text: django
+    - Wait to appear:
+        item: last username
+        text: django
+    - Wait to appear:
+        item: first user username
+        text: django

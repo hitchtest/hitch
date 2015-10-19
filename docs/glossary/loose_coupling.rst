@@ -11,12 +11,7 @@ See: `Loose coupling wikipedia page <https://en.wikipedia.org/wiki/Loose_couplin
 Applied to tests
 ----------------
 
-Tightly coupled tests are tests that require more rewriting when refactoring
-code.
+See:
 
-Loosely coupled tests can be left the same when refactoring code.
-
-See (TODO):
-
-* Unit testing of integration code: antipattern.
-* Integration testing of algorithmic code: antipattern
+* :doc:`/faq/why_just_html_ids_and_classes`
+* :doc:`/faq/when_should_i_use_unit_tests_and_when_should_i_use_integration_tests`
