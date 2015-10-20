@@ -1,90 +1,140 @@
 Settings
 ========
 
-In your execution engine, self.settings is a dictionary representation of settings
-used to run your test.
+:doc:`/glossary/hitch_settings` are a set of configuration variables used by
+your tests that potentially change test behavior.
 
-These settings are mostly read from your all.settings file - a YAML file.
+Settings are for behaviors for all of your tests that you may want to change
+on a case by case basis or a per-environment basis. They are available via:
 
-Example all.settings:
+* self.settings in :doc:`/glossary/engine.py` and the :doc:`/glossary/ipython` console.
+* All jinja2 templates
+
+With a few exceptions, what these settings mean and what they do is left up to you.
+
+
+Changing settings via the from command line
+-------------------------------------------
+
+You can set settings via the command line by specifying them
+in a snippet of JSON. For example::
+
+  $ hitch test sometests.test --extra '{"failfast":false}'
+
+This will override the default behavior from "stop on on first failure and report" to
+"run all tests and report failures at the end".
+
+This variable is accessible in engine.py and via the IPython shell via self.settings, e.g.::
+
+  In [1]: self.settings
+  Out[1]:
+  {'failfast': False,
+   'engine_folder': '/home/user/django-remindme/django-remindme-tests',}
+
+Or::
+
+  In [1]: self.settings.get("failfast")
+  Out[1]: False
+
+
+Per-environment settings
+------------------------
+
+Some settings you may want to apply consistently to a certain environment or use case. For example:
+
+* TDD (test driven development environment) - browser is configured to be shown to the developer on all tests.
+* CI (continuous integration environment) - browser is configured to run headless on all tests.
+
+Rather than typing all of them in to the command line in JSON, these settings can be set in a YAML file.
+
+Here's an example 'ci.settings' file you might use for a continuous integration environment:
 
 .. code-block:: yaml
 
   python_version: 2.7.3
-  xvfb: false
-  pause_on_failure: true
+  xvfb: true
+  failfast: false
+  pause_on_failure: false
+  pause_on_success: false
 
-Example output of settings during test::
+You can use the settings from this file by running::
 
-  In [1]: self.settings
-  Out[1]:
+    $ hitch test sometests.test --settings ci.settings
+
+Here, self.settings would be::
+
   {'engine_folder': '/home/user/django-remindme/django-remindme-tests',
-   'pause_on_failure': True,
+   'failfast': False,
+   'pause_on_failure': False,
    'python_version': '2.7.3',
    'xvfb': False,
    'quiet': False}
 
 
-Override or add settings from command line
-------------------------------------------
+Override priority
+-----------------
 
-You can override or add settings via the command line by specifying them
-in a snippet of JSON. For example:
+If any settings are set in a settings file *and* on the command line, the command line
+setting will take precedence. E.g.::
 
-Example command used to run test::
+    $ hitch test sometests.test --settings ci.settings --extra '{"failfast":True}'
 
-  $ hitch test stub.test --extra '{"custom_var":1, "xvfb":true}'
+self.settings::
 
-Example output of settings during test::
-
-  In [1]: self.settings
-  Out[1]:
-  {'custom_var': 1,
-   'engine_folder': '/home/user/django-remindme/django-remindme-tests',
-   'pause_on_failure': True,
+  {'engine_folder': '/home/user/django-remindme/django-remindme-tests',
+   'failfast': True,
+   'pause_on_failure': False,
    'python_version': '2.7.3',
-   'xvfb': True,
+   'xvfb': False,
    'quiet': False}
 
 
-Override or add settings from other settings files
---------------------------------------------------
+Global settings
+---------------
 
-You can also store additional settings for different environments or use
-cases in additional YAML files.
+Some settings you will want to apply to all test runs unless specified otherwise.
 
-For example - a jenkins.settings might contain:
+These settings can be put in a YAML file called 'all.settings' which is read implicitly
+if it exists. For example::
 
 .. code-block:: yaml
 
-  xvfb: true
-  pause_on_failure: false
+    python_versions:
+      - 2.7.3
+      - 2.7.10
+      - 3.4.3
+      - 3.5.0
 
-To use::
+This specifies a default list of python versions to test with. However, it can
+be overridden via a specified settings file or with the --extra switch on the command
+line.
 
-  $ hitch test . --settings jenkins.settings
+For example::
 
-The settings dict will then contain::
-
-  {'engine_folder': '/home/user/django-remindme/django-remindme-tests',
-   'pause_on_failure': False,
-   'python_version': '2.7.3',
-   'xvfb': True,
-   'quiet': False}
+    $ hitch test sometests.test --extra '{"python_versions":["2.7.3", "3.5.0"]}'
 
 
-Override Priority
------------------
+Getting settings in engine.py
+-----------------------------
 
-The following priority override applies to all settings:
+To use the settings in engine.py you need to access the settings
+dict. This can be done like so::
 
-* Any properties set on the command line with JSON by --extra are always used first.
-* Any properties set in a YAML settings file specified by --settings are used next.
-* Any properties in the YAML file named "all.settings" are used next.
+    self.settings["python_versions"]
 
-Note that the following settings cannot be set by you. They will always be set by hitch:
+This will either fail if 'python_versions' is not set or return the
+setting as a python variable (e.g. a list in this case).
 
-* engine_folder - this is set by hitch to always be the absolute path containing the .hitch directory.
+Sometimes failure is what you want.
+
+Alternatively, if you want a default to be used in case no setting
+is set, you can access the setting this way instead::
+
+    self.settings.get("python_versions", [])
+
+This will *not* cause the test to fail if python_versions is not set.
+Instead it will just return an empty list.
+
 
 Special settings
 ----------------
@@ -93,5 +143,5 @@ The following are special settings which change the way hitch behaves regardless
 
 * failfast -- this causes all test runs to stop on the first test that fails. Useful for TDD.
 * colorless -- this stops color codes from being output in stacktraces - for systems like Jenkins that cannot interpret them correctly.
-* quiet -- this conceals all output produced by the test. It can be used to make long test logs less unwieldy to view.
-* show_hitch_stacktrace -- by default the stacktrace displayed on errors conceals lines in hitch. This is only for use when debugging hitch itself.
+* quiet -- this conceals output produced by the test. It can be used to make long test logs less unwieldy.
+* show_hitch_stacktrace -- by default the stacktrace displayed on errors conceals lines in hitch. This is for debugging exceptions in hitch itself.
