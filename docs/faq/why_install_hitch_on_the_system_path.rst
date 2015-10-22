@@ -1,27 +1,23 @@
 Why install Hitch on the system path?
 =====================================
 
-The instructions in quickstart tell you to install hitch like so::
+The instructions in quickstart tell you to install hitch on the system path like so::
 
   $ sudo pip install hitch
 
-Or::
+Or (on Mac OS X)::
 
   $ pip install hitch
 
-This *does* go against typical advice on best practice, which is to
-install your python packages in a virtualenv.
+This package *can* be installed in a virtualenv, but there is no point
+to doing so, since:
 
-The reason for doing this is that this package is mainly just a
-bootstrapper for the hitch *testing* virtualenv. It contains just one
-dependency (click), and so will not interfere with other packages on
-your system python.
+* It is just a simple bootstrapper script.
+* It contains none of the actual code to run tests.
+* It has zero dependencies so installing it will not interfere with other system packages.
+* It needs to be available on the system path so that the 'hitch' command can always be used.
 
-Your hitch testing virtualenv contains all of the packages needed
-to test your application, but none of the packages that your application
-needs to run. It is kept separate from your application python
-environment because of the principle of isolation.
+See also:
 
-Your tests should set up a python environment themselves.
-
-See also: :doc:`why_should_my_tests_set_up_their_own_python_environments`.
+* :doc:`why_should_my_tests_set_up_their_own_python_environments`.
+* :doc:`how_do_i_uninstall_hitch_completely`.

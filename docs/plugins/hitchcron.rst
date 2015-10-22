@@ -1,17 +1,28 @@
-Mock Cron Service
-=================
+HitchCron
+=========
 
 .. note::
 
     This documentation applies to the latest version of hitchcron.
 
-The mock cron service is a service that will run a specified command periodically.
+HitchCron is a :doc:`/glossary/hitch_plugin` created to make testing applications that rely upon a cron or cron-like service.
 
-It can be used to mimic the effect of a cron in a production environment.
+It contains:
+
+* A :doc:`/glossary/service` that runs during the whole test that runs a command periodically (typically every second).
+
+
+
+Installation
+------------
 
 To install::
 
     $ hitch install hitchcron
+
+
+Set up Cron
+-----------
 
 To use, define the service after initializing the ServiceBundle object but before starting it:
 

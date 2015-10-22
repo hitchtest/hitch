@@ -2,7 +2,14 @@ Why is my test downloading and compiling software?
 --------------------------------------------------
 
 Hitch often downloads and compiles the software it uses to run your
-test with for two main reasons - 1) it allows you to specify the version
+test with on the first test run.
+
+Often this is software you already have installed on your machine.
+
+This is slow, and yes, slow is annoying. However, it can run unattended
+and the second test run will be much faster, so
+
+for two main reasons - 1) it allows you to specify the version
 of software you are testing with in your test, 2) it allows you to
 test your code with multiple versions of software. For example, you
 can easily write tests with hitch that test your code using python 2.6

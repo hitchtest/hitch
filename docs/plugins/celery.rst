@@ -3,7 +3,7 @@ Celery
 
 .. note::
 
-    This documentation applies to the latest version of hitchpython: version 0.3.5
+    This documentation applies to the latest version of hitchpython.
 
 Install the hitch python package::
 
@@ -13,16 +13,17 @@ To use, define the service after initializing the ServiceBundle object but befor
 
 .. code-block:: python
 
+        
+
         # Service definition in engine's setUp:
         self.services['Celery'] = hitchcelery.CeleryService(
-            version="3.1.17",                                       # Mandatory
-            python="{}/venv/bin/python".format(PROJECT_DIRECTORY),  # Mandatory
-            app="remindme",                                         # Mandatory
-            beat=False,                                             # Optional (default: False)
-            loglevel="INFO",                                        # Optional (default: INFO)
-            concurrency=2,                                          # Optional (default: 2)
-            broker=None,                                            # Optional (default: None)
-            needs=[ self.services['Redis'], ]                       # Optional (default: no prerequisites)
+            python=python_package.python,                     # Mandatory
+            app="remindme",                                   # Mandatory
+            beat=False,                                       # Optional (default: False)
+            loglevel="INFO",                                  # Optional (default: INFO)
+            concurrency=2,                                    # Optional (default: 2)
+            broker=None,                                      # Optional (default: None)
+            needs=[ self.services['Redis'], ]                 # Optional (default: no prerequisites)
         )
 
 

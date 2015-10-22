@@ -59,6 +59,8 @@ To use, define the service after initializing the :doc:`/api/service_bundle`:
         port=15432,                           # Optional (default: 15432)
         users=[postgres_user, ],              # Optional (default: no users)
         databases=[postgres_database, ]       # Optional (default: no databases)
+        encoding='UTF-8',                     # Optional (default: UTF-8)
+        locale='en_US'                        # Optional (default: en_US)
         pgdata=None,                          # Optional location for pgdata dir (default: put in .hitch)
     )
 

@@ -1,20 +1,19 @@
 Hitch
 =====
 
-Hitch is a testing framework for writing integration tests that are:
+Hitch is a testing framework for writing integration tests with an emphasis on:
 
-* Loosely coupled to your code
-* Realistic
-* Readable
-* Reliable
-* Fail fast and fail clearly
+* :doc:`/glossary/test_realism`
+* :doc:`/glossary/test_readability`
+* :doc:`/glossary/loose_coupling`
+* Eliminating the problem of :doc:`/glossary/brittle_tests`
+* Tests that :doc:`/glossary/fail_fast` and :doc:`/glossary/fail_clearly`.
 
-Additionally, the framework aims to let you easily create your own test driven development environment that:
+In addition, the framework creates a :doc:`/glossary/test_driven_development_environment` that:
 
-* Automates its own deployment
-* Requires no system configuration changes to set up
-* Runs without modification on Mac OS X, Ubuntu/Debian, Fedora, CentOS and Arch.
-* Provides first class tools to test and debug a wide variety of languages, frameworks and environments.
+* Automates its own deployment and does not interfere with your system other than to install packages.
+* Runs reliably without modification on Mac OS X, Ubuntu/Debian, Fedora, CentOS and Arch.
+* Provides first class debugging tools.
 
 Contents:
 
@@ -23,6 +22,7 @@ Contents:
 
    quickstart/index
    howto/index
+   plugins/index
    api/index
    misc/index
    faq/index
