@@ -1,7 +1,7 @@
 Hitch API
 =========
 
-Documentation for Hitch core APIs.
+Documentation for core Hitch components.
 
 Contents:
 

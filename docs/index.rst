@@ -6,7 +6,7 @@ Hitch is a testing framework for writing integration tests with an emphasis on:
 * :doc:`/glossary/test_realism`
 * :doc:`/glossary/test_readability`
 * :doc:`/glossary/loose_coupling`
-* Eliminating the problem of :doc:`/glossary/brittle_tests`
+* Minimizing or eliminating the scourge of :doc:`/glossary/brittle_tests`
 * Tests that :doc:`/glossary/fail_fast` and :doc:`/glossary/fail_clearly`.
 
 In addition, the framework creates a :doc:`/glossary/test_driven_development_environment` that:
@@ -21,10 +21,11 @@ Contents:
    :maxdepth: 2
 
    quickstart/index
-   howto/index
    plugins/index
+   howto/index
+   faq/index
    api/index
    misc/index
-   faq/index
-   glossary/index
+
+See the full :doc:`/glossary/index` here.
 

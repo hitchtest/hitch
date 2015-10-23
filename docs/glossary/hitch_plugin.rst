@@ -7,8 +7,8 @@ functionality.
 
 The functionality contained for most plugins is either:
 
-* One or more :doc:`hitch_package`s.
-* One or more :doc:`service`s.
+* One or more :doc:`hitch_package`
+* One or more :doc:`service`
 * A :doc:`step_library`.
 
 The following are all hitch plugins:

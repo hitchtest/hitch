@@ -14,4 +14,4 @@ Applied to tests
 See:
 
 * :doc:`/faq/why_just_html_ids_and_classes`
-* :doc:`/faq/when_should_i_use_unit_tests_and_when_should_i_use_integration_tests`
+* :doc:`/faq/when_should_i_use_a_unit_test_and_when_should_i_use_an_integration_test`

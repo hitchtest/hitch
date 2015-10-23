@@ -2,14 +2,16 @@ When should I use a unit test and when should I use an integration test?
 ========================================================================
 
 Integration tests are tests that surround large software systems that are made up
-of a lot of interconnecting parts. They are not necessarily written in the same
-language as the code they are testing.
+of a lot of interconnecting parts and interact with them as the outside world
+would. They are not necessarily written in the same language as the code
+they are testing.
 
-Unit tests are tests that surround small blocks of code. They are always
-written in the same language as the code they are testing.
+Hitch is a testing framework designed specifically for writing integration tests
+for code written in any language.
 
-Hitch is a testing framework designed specifically for writing high quality
-integration tests for code written in any language.
+Unit tests usually surround smaller blocks of code and directly call the APIs
+of the blocks of code they are testing. They are written in the same language as
+the code they are testing.
 
 py.test and nose are good python unit testing frameworks. Other languages
 have their own equivalents.
@@ -22,7 +24,7 @@ be understood before writing either one.
 When are integration test more useful than unit tests?
 ------------------------------------------------------
 
-Bluntly, integration tests are most useful for testing integration code.
+Integration tests are most useful for testing integration code.
 
 Integration code is the kind of code which is mostly linking systems
 together. Most web apps are good examples of pure integration code -
@@ -80,7 +82,7 @@ It is often the case with legacy code bases that algorithmic/logical code (e.g.
 functions that calculate pricing) and integrational code (e.g. code for storing/retrieving
 data in the database) are thoroughly mixed up and cannot easily be separated.
 
-This is an example of :doc:`glossary/tight_coupling`.
+This is an example of :doc:`/glossary/tight_coupling`.
 
 In such cases, unit tests are of very limited value as well - at least initially.
 

@@ -1,7 +1,7 @@
-Hitch Services Documentation
-============================
+Hitch Plugin Documentation
+==========================
 
-Documentation for Hitch service plugins.
+Documentation for :doc:`/glossary/hitch_plugin`s.
 
 Contents:
 

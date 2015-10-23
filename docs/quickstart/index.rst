@@ -84,7 +84,7 @@ Once the test run is done setting up and running things, if there were no proble
 
     In [1]:
 
-This is the interactive prompt that appears during the pause step. This is an :doc:`glossary/ipython`
+This is the interactive prompt that appears during the pause step. This is an :doc:`/glossary/ipython`
 prompt that can be used to interact with your app, inspect logs and try out test
 steps.
 
@@ -101,7 +101,7 @@ Happy testing!
 
 .. note::
 
-    Was there anything that confused you? Please tell us! Help with :doc:`misc/clarifying_documentation`.
+    Was there anything that went wrong or was confusing? Please tell us! Help with :doc:`/misc/clarifying_documentation`.
 
 
 Further reading
@@ -115,7 +115,18 @@ Advanced topics
 
 * :doc:`/howto/test_driven_development`
 * :doc:`/howto/parameterize_test_cases`
+* :doc:`/howto/external_apis`
 * :doc:`/howto/continuous_integration`
+
+Plugin Documentation
+--------------------
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+
+   /plugins/*
+
 
 .. note::
 
