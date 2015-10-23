@@ -22,11 +22,19 @@ YOU_MUST_HAVE_PYTHON3_INSTALLED = """\
 To use Hitch, you must have python 3 installed on your system
 and available. If your python3 is not on the system path with
 the name python3, specify its exact location using --python.
+
+To install:
+  - On Ubuntu/Debian : sudo apt-get install python3
+  - On Fedora        : sudo yum install python3
+  - On Arch          : sudo pacman -Sy python3
+  - On Mac OS X      : brew install python3
 """
 
 YOU_MUST_HAVE_VERSION_ABOVE_PYTHON33 = """\
 Hitch must have python 3.3 or higher installed to run.
 Your app can run with earlier versions of python, but the tests can't.
+
+You may need to run a sytem upgrade or upgrade your OS.
 """
 
 ERROR_INITIALIZING_HITCH = """\
