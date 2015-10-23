@@ -1,7 +1,7 @@
 Hitch Plugin Documentation
 ==========================
 
-Documentation for :doc:`/glossary/hitch_plugin`s.
+:doc:`/glossary/hitch_plugin` documentation.
 
 Contents:
 

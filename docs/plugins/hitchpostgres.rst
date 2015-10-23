@@ -1,5 +1,5 @@
-Postgres
-========
+HitchPostgres
+=============
 
 .. note::
 

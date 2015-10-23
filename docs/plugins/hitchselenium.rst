@@ -1,5 +1,5 @@
-Selenium
-========
+HitchSelenium
+=============
 
 .. note::
 

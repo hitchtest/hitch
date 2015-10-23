@@ -1,5 +1,5 @@
-Vagrant
-=======
+HitchVagrant
+============
 
 .. note::
 

@@ -1,5 +1,5 @@
-Redis
-=====
+HitchRedis
+==========
 
 .. note::
 
