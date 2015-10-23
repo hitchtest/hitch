@@ -5,7 +5,7 @@ Brittleness is a property of tests which renders them liable to break easily des
 
 Brittleness can lead to :doc:`test_failure_habituation` and :doc:`test_abandonment`.
 
-Solving brittleness in tests is a *hard* engineering problem. `Even Google can't seem to do it right. <http://googletesting.blogspot.ch/2015/04/just-say-no-to-more-end-to-end-tests.html>`_
+Solving brittleness in tests is a *hard* engineering problem. `Even Google has this problem. <http://googletesting.blogspot.ch/2015/04/just-say-no-to-more-end-to-end-tests.html>`_
 
 The following are real life examples of tests failures caused by brittle tests:
 
@@ -18,7 +18,7 @@ Hitch *substantially* minimizes brittleness / false positives with the following
 
 * :doc:`event_oriented_testing`
 * The :doc:`hitch_package`
-* :doc:`environment_checks`
+* :doc:`/api/environment` checks
 * Enforced :doc:`loose_coupling`
 * Enforced :doc:`isolation`
 
@@ -27,5 +27,3 @@ See also:
 * :doc:`indeterminacy`.
 * :doc:`sleep_oriented_testing`
 * :doc:`tightly_coupled_tests`
-
-Are you having a problem with brittle tests? `We can help you <https://hitchtest.com/consulting.html>`_
