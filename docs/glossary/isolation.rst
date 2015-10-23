@@ -14,3 +14,9 @@ Common examples of integration tests that suffer from a lack of isolation includ
 * Files which are created by tests and not destroyed, affecting the behavior of subsequent tests.
 * A lack of control over crucial software which the test relies upon (e.g. using the system package manager's database).
 * Accidentally using the same service from a previous test run because it was not shut down properly.
+
+See:
+
+* :doc:`/glossary/package_isolation`
+* :doc:`/glossary/data_isolation`
+* :doc:`/glossary/process_isolation`
