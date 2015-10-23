@@ -11,8 +11,8 @@ and you discover a problem, that's a bug. Please raise an issue.
 OSes:
 
 * Ubuntu 14.04
-* Mac OS X Mavericks (with brew, Xcode version X)
-* Mac OS X Yosemite (with brew, Xcode version X)
+* Mac OS X Mavericks
+* Mac OS X Yosemite
 * Debian Jessie
 * Fedora 20
 * CentOS 6.4
@@ -46,10 +46,10 @@ to run hitch, that's a feature request. It may happen if you raise an issue.
 .. note::
 
     95% of getting these environments to work involves getting unixpackage to work with them.
-    Please consider helping out on that project.
+    Please consider `helping out <https://github.com/unixpackage/unixpackage/blob/master/CONTRIBUTING.rst>`_
+    with it if you'd like to one of these flavors of UNIX / environments supported.
 
-This is a list of environments that probably aren't happening for the forseeable
-future due to a combination of hard and not worth the hassle:
+This is a list of environments that probably aren't happening in the near future but may happen one day:
 
 * Cygwin
 * Windows
