@@ -10,6 +10,12 @@ Create hitch virtualenv using specific virtualenv
 
 YOU_MUST_HAVE_VIRTUALENV_INSTALLED = """\
 You must have virtualenv installed to use hitch.
+
+To install:
+  - On Ubuntu/Debian : sudo apt-get install python-virtualenv
+  - On Fedora        : sudo yum install python-virtualenv
+  - On Arch          : sudo pacman -Sy python-virtualenv
+  - On Mac OS X      : pip install --upgrade virtualenv
 """
 
 YOU_MUST_HAVE_PYTHON3_INSTALLED = """\
