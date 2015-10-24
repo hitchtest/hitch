@@ -7,11 +7,11 @@ Hitch
 
 Hitch is a UNIX-based testing framework for writing integration tests with an emphasis on:
 
-* Minimizing and eliminating `brittle tests <https://hitchtest.readthedocs.org/en/latest/glossary/brittle_tests.rst>`_
-* `Test readability <https://hitchtest.readthedocs.org/en/latest/glossary/test_readability.rst>`_
-* `Loose coupling <https://hitchtest.readthedocs.org/en/latest/glossary/loose_coupling.rst>`_
-* `Test realism <https://hitchtest.readthedocs.org/en/latest/glossary/test_realism.rst>`_
-* Tests that `fail fast <https://hitchtest.readthedocs.org/en/latest/glossary/fail_fast.rst>`_ and `fail clearly <https://hitchtest.readthedocs.org/en/latest/glossary/fail_clearly.rst>`_
+* Minimizing and eliminating `brittle tests <https://hitchtest.readthedocs.org/en/latest/glossary/brittle_tests.html>`_
+* `Test readability <https://hitchtest.readthedocs.org/en/latest/glossary/test_readability.html>`_
+* `Loose coupling <https://hitchtest.readthedocs.org/en/latest/glossary/loose_coupling.html>`_
+* `Test realism <https://hitchtest.readthedocs.org/en/latest/glossary/test_realism.html>`_
+* Tests that `fail fast <https://hitchtest.readthedocs.org/en/latest/glossary/fail_fast.html>`_ and `fail clearly <https://hitchtest.readthedocs.org/en/latest/glossary/fail_clearly.html>`_
 
 Available plugins
 -----------------
@@ -19,12 +19,12 @@ Available plugins
 Hitch comes with a variety of plugins to aid you to realistically testing various
 kinds of software, components and scenarios, including:
 
-* `Python <https://hitchtest.readthedocs.org/en/latest/plugins/hitchpython.rst>`_ (includes Django and Celery service definitions)
-* `Postgresql <https://hitchtest.readthedocs.org/en/latest/plugins/hitchpostgres.rst>`_
-* `Redis <https://hitchtest.readthedocs.org/en/latest/plugins/hitchredis.rst>`_
-* `Web apps (using selenium) <https://hitchtest.readthedocs.org/en/latest/plugins/hitchselenium.rst>`_
+* `Python <https://hitchtest.readthedocs.org/en/latest/plugins/hitchpython.html>`_ (includes Django and Celery service definitions)
+* `Postgresql <https://hitchtest.readthedocs.org/en/latest/plugins/hitchpostgres.html>`_
+* `Redis <https://hitchtest.readthedocs.org/en/latest/plugins/hitchredis.html>`_
+* `Web apps (using selenium) <https://hitchtest.readthedocs.org/en/latest/plugins/hitchselenium.html>`_
 * Command line apps (using pexpect)
-* `Cron <https://hitchtest.readthedocs.org/en/latest/plugins/hitchcron.rst>`_
+* `Cron <https://hitchtest.readthedocs.org/en/latest/plugins/hitchcron.html>`_
 * MySQL
 * RabbitMQ
 * Elastic Search
