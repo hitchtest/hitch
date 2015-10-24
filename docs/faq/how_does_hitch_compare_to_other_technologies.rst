@@ -1,93 +1,196 @@
 How does Hitch compare to other technologies?
 =============================================
 
+Cucumber/Behave/RSpec/Behat/Behave
+----------------------------------
 
-Cucumber/Behave/RSpec/Behat
----------------------------
-
-Cucumber, RSpec, Behat and [123] are all keyword driven test automation
+Cucumber, RSpec, Behat and Behave and are all keyword driven test automation
 frameworks that run automated acceptance tests. They contain an interpreter
-for translating high level test cases to code. Some also contain
-pre-included steps, similar to hitch :doc:`/glossary/step_library`.
+for executing high level test cases written in Gherkin.
 
-Hitch performs a similar function, with its own test description language,
-although it does not require the use of regular expressions for step
-translation.
+Hitch follows a similar approach but has its own equivalent to
+Gherkin: :doc:`/glossary/hitch_test_description_language`.
 
-* hitchselenium
+Unlike Gherkin it does not use its own syntax - its syntax
+is built upon YAML.
+
+Test cases written with Hitch test should usually be less verbose
+and more to the point, although still ideally maintaining
+readability.
+
+Gherkin example from the Cucumber website (223 characters; English-like):
+
+.. code-block:: gherkin
+
+    Feature: Division
+    In order to avoid silly mistakes
+    Cashiers must be able to calculate a fraction
+
+    Scenario: Regular numbers
+        * I have entered 3 into the calculator
+        * I press divide
+        * I have entered 2 into the calculator
+        * I press equal
+        * The result should be 1.5 on the screen
+
+Hitch equivalent (113 characters; not English-like):
+
+.. code-block:: yaml
+
+    - name: Division
+      description: Cashier calculates a fraction
+      scenario:
+        - Enter: 3
+        - Press: divide
+        - Enter: 2
+        - Press: equal
+        - Result: 1.5
+
+Step-to-code regular expression translation is also unnecessary in Hitch
+sidestepping `potential traps like this. <https://stackoverflow.com/questions/1186547/regular-expressions-in-cucumber-steps>`_
+
+.. note::
+
+    This pitfall is `recognized by Cucumber in issue #1. <https://github.com/cucumber/cucumber/issues/1>`_
+
+    The python tool behave gives you `three different parser options <https://pythonhosted.org/behave/tutorial.html#step-parameters>`_
+    as a way to deal with it. There are other `suggested <http://laxmareddy.com/cucumber-step-definitions-regular-expressions-matching-steps/>`_
+    `workarounds <http://chrismcmahonsblog.blogspot.sg/2013/09/magic-strings-and-regular-expressions.html>`_ too.
+
+The above three steps are implemented as follows in Hitch:
+
+.. code-block:: python
+
+    def enter(self, number):
+        # code that enters a number
+
+    def press(self, key):
+        # code that presses a key
+
+    def result(self, number):
+        assert displayed_result == number
+
+More complex data can also be cleanly encoded into steps and preconditions. Anything that is valid YAML is allowed.
+
+You can write a complex step like this:
+
+.. code-block:: yaml
+
+    - Send mail:
+        From address: Receiver <to@todomain.com>
+        To address: Sender <from@fromdomain.com>
+        Body:
+          From: Receiver <to@todomain.com>
+          To: Sender <from@fromdomain.com>
+          Subject: Test email for "HitchSMTP"
+          Content: |
+            http://www.google.com
+            Another link: http://yahoo.com
+            Another link: https://www.google.com.sg/?gfe_rd=cr&ei=2X4mVebUFYTDuATVtoHoAQ#q=long+long+long+long+long+long+url
+
+Which would trigger a python method call equivalent to the following:
+
+.. code-block:: python
+
+    self.send_mail(
+        from_address="Receiver <to@todomain.com>",
+        to_address="To address: Sender <from@fromdomain.com>",
+        body={
+            "From" : "Receiver <to@todomain.com>",
+            "To" : "Sender <from@fromdomain.com>",
+            "Subject" : "Test email for \"HitchSMTP\""
+            "Content" : (
+                    "http://www.google.com\n"
+                    "Another link: http://yahoo.com\n"
+                    "Another link: https://www.google.com.sg/?gfe_rd=cr&ei=2X4mVebUFYTDuATVtoHoAQ#q=long+long+long+long+long+long+url"
+                )
+            }
+        )
+
+Where reading the data in the step code :doc:`/glossary/execution_engine` is still straightforward:
+
+.. code-block:: python
+
+    self.send_mail(self, from_address, to_address, body)
+        content = body.get("content")
+
+
+The above applies to the following packages:
+
 * hitchtest
 
-Gherkin
--------
+Hitch also provides plugins to perform many more test and development related tasks, saving on boilerplate (see :doc:`/plugins/index`).
 
-Gherkin is the language which is used by Cucumber, RSpect, Behat and
-many others.
+Hitch does *not* provide:
 
-Hitch uses an equivalent: :doc:`/glossary/hitch_test_description_language`,
-although unlike Gherkin it does not invent its own syntax - it borrows its
-syntax from YAML.
-
-Test cases written with the Hitch test
-description language are between ~30% shorter on average due to the
-lower syntactic overhead.
-
-Due to Hitch being built upon YAML, which is an extensible metalanguage
-that can represent data of indefinitely high depth and complexity, the
-hitch steps and preconditions can also contain more complex data.
+* Bindings to write the execution engine in languages other than python. This is not roadmapped and not possible currently.
+* Plugins to easily test other languages and frameworks (e.g. Java, node, Ruby, etc.). This possible but not easy currently and is roadmapped.
 
 Docker/Docker Compose
 ---------------------
 
-Docker is a pseudo-virtualization technology that provides
-system :doc:`/glossary/isolation` using the Linux kernel feature
-cgroups and copy-on-write filesystems. (and ???)
+Docker is a lightweight virtualization technology that provides
+system :doc:`/glossary/isolation` using cgroups and kernel
+namespaces.
 
 Docker can be used to develop software in, test software in and
 deploy software in. By running the same container in all three
 environments, development and testing can achieve a greater
-degree of :doc:`/glossary/realism`.
+degree of :doc:`/glossary/test_realism` thus avoiding many
+'surprise' production bugs.
 
-However, the isolation and realism is not as high as "true
-virtualization" (VirtualBox, Xen, VMWare) provides. The same
-container running on different systems can, and probably will,
-exhibit different behavior due to different versions of the linux
-kernel and libc.
+Nonetheless, the isolation and realism is not as high as "true
+virtualization" (VirtualBox, Xen, VMWare) provided via kernel
+emulation.
+
+The same Docker container running on different systems
+can (and probably will, for many projects eventually),
+exhibit different behavior due to different versions of the
+linux kernel or libc in development, testing and production
+environments (TODO : verify libc differences??).
 
 Due to the reliance on Linux kernel features for isolation,
-docker does not work on Mac OS X or BSD platforms.
+docker also does not work on Mac OS X or BSD platforms
+without running it in a heavyweight virtual machine.
 
-Hitch achieves isolation and realism using a different approach,
-although one that achieves similar results.
+Hitch can run docker containers, as it can any other
+process (a plugin to make this easier is coming soon).
 
-See how hitch achieves the following:
+If you deploy docker containers in your production
+environment, this is a recommended approach since it
+will bring a greater level of :doc:`/glossary/test_realism`.
+
+If you do *not* deploy docker containers in your
+production environment, you may want to avoid using
+docker for development and test environments.
+
+Hitch achieves a similar, although lower level of
+isolation and realism using a different approach:
 
 * :doc:`/glossary/package_isolation`
 * :doc:`/glossary/data_isolation`
 * :doc:`/glossary/process_isolation`
+* :doc:`/glossary/environment_isolation`
 
-The above applies to the following packages
+You can, for instance, run the exact same database version,
+python version and redis version that you do in production
+on your development machine.
+
+[ TO DO : docker-compose and starting services bug ]
+
+The above applies to the following packages:
 
 * hitchserve
 * hitchtest
 * All hitch plugins
 
+.. note::
 
-Django Tests
-------------
-
-Hitch was first created to test Django applications (although it has
-since expanded).
-
-py.test/nose/unittest2
-----------------------
-
-py.test, nose, unittest and unittest2 are all unit test frameworks.
-
-[ TO DO : parameterization, easier readability, boilerplate to handle services, isolation features, loosely coupled, muliple services ]
+    You can also run hitch *in* docker. It is regularly tested with the latest version.
 
 
-Django Tests
-------------
+Built-in Django Testing Framework
+---------------------------------
 
 Django already comes with four official classes for testing web apps, each of which test at a progressively higher level:
 
@@ -96,19 +199,98 @@ Django already comes with four official classes for testing web apps, each of wh
 * TestCase - a low level unit tester which performs the above and also loads fixtures and adds django specific assertions.
 * LiveServerTestCase - a higher level TransactionTestCase which runs the django web server to allow for the use of selenium.
 
-See : https://docs.djangoproject.com/en/1.8/topics/testing/tools/
+See : https://docs.djangoproject.com/en/1.8/topics/testing/tools/ for details.
 
-Hitch tests at a higher level than all of these. Unlike Django, it shuns the use of mock objects, preferring the use
-of mock services.
+Hitch tests at a higher level than all of these.
 
-You can test Celery alongside Django, too, which is very hard to do with LiveServerTestCase.
+Hitch is not significantly slower than running individual selenium tests using LiveServerTestCase
+(it can be faster, in fact). It cannot run tests in parallel, however (LiveServerTestCase can).
 
-Hitch tests will be mostly slower than Django tests, but they are more realistic and more loosely coupled. Hitch tests
-need know very little about the code which they run. In principle, a complete suite of test cases could be converted
-to run on an entirely different framework just by changing a few lines of code in the engine.py file.
+Hitch is *loosely coupled* to Django. The practical upshot of this is that if you want to *rewrite
+your whole application* in a different framework - even a different language - the number of lines of code
+you would have to change in the engine to port the tests over should be very low (for the example
+app it would require a change to just *seven* lines of code for it to run the same test against flask).
+
+Unlike Django, Hitch shuns the use of mock objects, using mock services to perform a similar function. For example,
+if you want to test sending an email, you configure Django to send a real email to the mock SMTP server rather
+than using the mock SMTP client.
+
+LiveServerTestCase will also *only* run Django as a service.
+
+Realistically running Celery as part of your test is simple with Hitch, since it is run as just
+another service. Running additional services alongside one another is easy with Hitch.
+
+
+See :doc:`/glossary/tight_coupling_and_speed_vs_loose_coupling_and_realism`
+
+
+Tox, PyEnv and Virtualenv
+-------------------------
+
+Tox is a small, popular python framework that can run unit tests in multiple python environments.
+It can be used to run unit tests with multiple versions of python if those versions are installed.
+
+PyEnv is a small application which can download and compile specific versions of python and
+run them alongside one another.
+
+Virtualenv is a tool for creating a python environment where you can install an isolated
+group of packages which you can use to run or test an application that depends upon them.
+
+Hitch can supplant tox for integration tests (See : :doc:`/howto/parameterize_test_cases`).
+
+Hitch *bundles* pyenv and uses it to build a python virtualenv(s) for you.
+
+It does this with two lines of code:
+
+.. code-block:: python
+
+    # Define the version of python you want
+    python_package = PythonPackage(version="3.4.3")
+
+    # Installs python 3.4.3 into ~/.hitchpkg (if it isn't already present)
+    # Creates virtualenv in .hitch folder (if it doesn't already exist)
+    python_package.build()
+
+    # Python virtualenv you can use with your project:
+    python_package.python == "/path/to/your/project/tests/.hitch/py3.4.3/bin/python"
+    python_package.pip == "/path/to/your/project/tests/.hitch/py3.4.3/bin/pip"
+
+
+The above applies to the following packages:
+
+* hitchpython
+* python-build
+
+
+.. note::
+
+    Hitch *also* uses virtualenv to isolate *itself* and the code it runs the
+    :doc:`/glossary/execution_engine` with. This is a virtualenv created with
+    your system's python 3.
+
+
+py.test/nose/unittest2
+----------------------
+
+py.test, nose, unittest and unittest2 are all unit test frameworks, although they
+are often used to write integration tests.
+
+See :doc:`/faq/when_should_i_use_a_unit_test_and_when_should_i_use_an_integration_test`
+
+[ TO DO : parameterization, readability, boilerplate to handle services, isolation features, loosely coupled, muliple services ]
+
 
 
 Robot Framework
 ---------------
 
-TO DO
+[ TO DO ]
+
+
+Other technologies?
+-------------------
+
+If you'd like to see a comparison with other technologies here or would like to correct
+something said above, raising a ticket is welcome:
+
+https://github.com/hitchtest/hitch/issues/new
