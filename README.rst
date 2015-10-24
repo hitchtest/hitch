@@ -7,11 +7,11 @@ Hitch
 
 Hitch is a UNIX-based testing framework for writing integration tests with an emphasis on:
 
-* Test realism
-* Test readability
-* Loose coupling
-* Minimizing or eliminating brittle tests
-* Tests that fail fast and fail clearly
+* Minimizing and eliminating `brittle tests <https://hitchtest.readthedocs.org/en/latest/glossary/brittle_tests.rst>`_
+* `Test readability <https://hitchtest.readthedocs.org/en/latest/glossary/test_readability.rst>`_
+* `Loose coupling <https://hitchtest.readthedocs.org/en/latest/glossary/loose_coupling.rst>`_
+* `Test realism <https://hitchtest.readthedocs.org/en/latest/glossary/test_realism.rst>`_
+* Tests that `fail fast <https://hitchtest.readthedocs.org/en/latest/glossary/fail_fast.rst>`_ and `fail clearly <https://hitchtest.readthedocs.org/en/latest/glossary/fail_clearly.rst>`_
 
 Available plugins
 -----------------
@@ -19,37 +19,43 @@ Available plugins
 Hitch comes with a variety of plugins to aid you to realistically testing various
 kinds of software, components and scenarios, including:
 
-* Python code (including Django and Celery)
-* Postgresql
-* Redis
-* Web apps (using selenium)
+* `Python <https://hitchtest.readthedocs.org/en/latest/plugins/hitchpython.rst>`_ (includes Django and Celery service definitions)
+* `Postgresql <https://hitchtest.readthedocs.org/en/latest/plugins/hitchpostgres.rst>`_
+* `Redis <https://hitchtest.readthedocs.org/en/latest/plugins/hitchredis.rst>`_
+* `Web apps (using selenium) <https://hitchtest.readthedocs.org/en/latest/plugins/hitchselenium.rst>`_
 * Command line apps (using pexpect)
-* Cron
+* `Cron <https://hitchtest.readthedocs.org/en/latest/plugins/hitchcron.rst>`_
 * MySQL
 * RabbitMQ
 * Elastic Search
 
-Read more here: https://hitchtest.readthedocs.org/en/latest/plugins/
+`Plugin documentation <https://hitchtest.readthedocs.org/en/latest/plugins/>`_
 
 Getting started
 ---------------
 
-See the quickstart tutorial on how to get started testing an existing project:
+See the `quickstart tutorial <https://hitchtest.readthedocs.org/en/latest/quickstart/index.html>` on how to
+get started testing an existing project.
 
-https://hitchtest.readthedocs.org/en/latest/quickstart/index.html
-
-Also check out https://github.com/pydanny/cookiecutter-django if you want to start a
-new Django project and need something to test it with.
+Also check out `cookiecutter-django <https://github.com/pydanny/cookiecutter-django>`
+if you want to start a new Django project with tests.
 
 Status
 ------
 
 Hitch is currently in beta.
 
-It is tested on Mac OS X Yosemite, Ubuntu, Debian, Fedora and Arch Linux. It does not currently work on Windows.
+It is regression tested on:
 
-See : https://hitchtest.readthedocs.org/en/latest/misc/tested_on.html for details about how the framework itself is tested.
+* Operating Systems : Mac OS X Yosemite, Ubuntu, Debian, Fedora and Arch Linux.
+* Python versions : 3.5.0, 3.4.3, 3.4.0 and 3.3.0 `(what about python 2?) <https://hitchtest.readthedocs.org/en/latest/faq/what_about_python2.html>`
 
+It does not currently work on Windows.
+
+
+
+See `tested on <https://hitchtest.readthedocs.org/en/latest/misc/tested_on.html>` for more details on
+how the framework is tested (with itself, naturally).
 
 Contents of this project
 ------------------------
@@ -57,6 +63,5 @@ Contents of this project
 This project contains:
 
 * The code for the bootstrapper script
-* Documentation for the whole project (hosted at readthedocs: https://hitchtest.readthedocs.org/en/latest/)
-
-To see the code for other components, see: https://github.com/hitchtest/
+* Documentation for the whole project (`hosted at readthedocs <https://hitchtest.readthedocs.org/en/latest/>`)
+* Code for other components at: https://github.com/hitchtest/
