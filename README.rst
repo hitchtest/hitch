@@ -34,10 +34,10 @@ kinds of software, components and scenarios, including:
 Getting started
 ---------------
 
-See the `quickstart tutorial <https://hitchtest.readthedocs.org/en/latest/quickstart/index.html>` on how to
+See the `quickstart tutorial <https://hitchtest.readthedocs.org/en/latest/quickstart/index.html>`_ on how to
 get started testing an existing project.
 
-Also check out `cookiecutter-django <https://github.com/pydanny/cookiecutter-django>`
+Also check out `cookiecutter-django <https://github.com/pydanny/cookiecutter-django>`_
 if you want to start a new Django project with tests.
 
 Status
@@ -48,13 +48,13 @@ Hitch is currently in beta.
 It is regression tested on:
 
 * Operating Systems : Mac OS X Yosemite, Ubuntu, Debian, Fedora and Arch Linux.
-* Python versions : 3.5.0, 3.4.3, 3.4.0 and 3.3.0 `(what about python 2?) <https://hitchtest.readthedocs.org/en/latest/faq/what_about_python2.html>`
+* Python versions : 3.5.0, 3.4.3, 3.4.0 and 3.3.0 `(what about python 2?) <https://hitchtest.readthedocs.org/en/latest/faq/what_about_python2.html>`_
 
 It does not currently work on Windows.
 
 
 
-See `tested on <https://hitchtest.readthedocs.org/en/latest/misc/tested_on.html>` for more details on
+See `tested on <https://hitchtest.readthedocs.org/en/latest/misc/tested_on.html>`_ for more details on
 how the framework is tested (with itself, naturally).
 
 Contents of this project
@@ -63,5 +63,5 @@ Contents of this project
 This project contains:
 
 * The code for the bootstrapper script
-* Documentation for the whole project (`hosted at readthedocs <https://hitchtest.readthedocs.org/en/latest/>`)
-* Code for other components at: https://github.com/hitchtest/
+* Documentation for the whole project (`hosted at readthedocs <https://hitchtest.readthedocs.org/en/latest/>`_)
+* Code for other components is at: https://github.com/hitchtest/
