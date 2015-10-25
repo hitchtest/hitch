@@ -3,27 +3,21 @@ Brittle Tests
 
 Brittleness is a property of tests which renders them liable to break easily despite the lack of bugs in the code.
 
+Both :doc:`integration_testing` and :doc:`unit_testing` suffer from brittleness, although it is
+usually a much bigger problem with with integration tests.
+
 Brittleness can lead to :doc:`test_failure_habituation` and :doc:`test_abandonment`.
 
-Solving brittleness in tests is a *hard* engineering problem. `Even Google has this problem. <http://googletesting.blogspot.ch/2015/04/just-say-no-to-more-end-to-end-tests.html>`_
+There are three major causes of brittleness in tests:
 
-The following are real life examples of tests failures caused by brittle tests:
+* :doc:`tight_coupling` in tests` (applies more to unit testing)
+* A lack of test :doc:`isolation`. (applies more to integration testing)
+* :doc:`sleep_oriented_testing` (applies more to integration testing)
+* :doc:`indeterminacy` (applies more to integration testing)
 
-* Running a system upgrade upgrades the version of python from 2.6 to 2.7, which breaks code that is reliant upon the system python, breaking the test.
-* A "sleep" step which waits for an email to be sent before checking for its arrival fails when run on a different machine owing to that machine taking longer to send the email.
-* A test which uses a mock object to mock and SMTP client object which breaks if one SMTP client is swapped out with a different client.
-* A test that passes on one machine but fails on another because a certain system package was not installed.
+The exhibition of brittleness means that a test has a *bug*.
 
-Hitch *substantially* minimizes brittleness / false positives with the following features:
+However, solving those bugs is a hard engineering problem. Hard enough that
+`even Google has trouble with it. <http://googletesting.blogspot.ch/2015/04/just-say-no-to-more-end-to-end-tests.html>`_.
 
-* :doc:`event_oriented_testing`
-* The :doc:`hitch_package`
-* :doc:`/api/environment` checks
-* Enforced :doc:`loose_coupling`
-* Enforced :doc:`isolation`
-
-See also:
-
-* :doc:`indeterminacy`.
-* :doc:`sleep_oriented_testing`
-* :doc:`tightly_coupled_tests`
+Hitch provides boilerpate and features to *substantially* minimize brittle tests (see the causes listed above for details).

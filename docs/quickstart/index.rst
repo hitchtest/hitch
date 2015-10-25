@@ -3,6 +3,36 @@ Getting started quickly with Hitch
 
 This is a basic introduction to getting your first hitch test up and running.
 
+Install prerequisites
+---------------------
+
+You should have a reasonably up to date Ubuntu, Debian, Arch, Fedora or Mac.
+
+On Ubuntu/Debian::
+
+    $ sudo apt-get install python3 python-pip python-virtualenv
+    $ sudo pip install --upgrade hitch
+
+On Mac OS X::
+
+    $ brew install python python3
+    $ pip install --upgrade hitch virtualenv
+
+On Arch::
+
+    $ sudo pacman -Sy python python-virtualenv
+    $ sudo pip install --upgrade hitch
+
+On Fedora/RHEL/CentOS::
+
+    $ sudo yum install python3 python-virtualenv python-pip python3
+    $ sudo pip install --upgrade hitch
+
+.. note::
+
+    The 'hitch' package (the bootstrapper) is a small python package with no dependencies.
+
+
 Create your test directory
 --------------------------
 
@@ -18,23 +48,18 @@ If you already have a tests directory you can call it something else.
 Create the hitch environment
 ----------------------------
 
-If you have hitch installed already, run the following command::
+To initialize a hitch environment, run hitch init in your tests directory::
 
   ~/yourproject/tests$ hitch init
 
-If you don't, run the init script by copying and pasting the following line::
+This will:
 
-  ~/yourproject/tests$ curl -sSL https://hitchtest.com/init.sh > init.sh ; chmod +x init.sh ; ./init.sh
+* Install any necessary system packages required to run hitch.
+* Create a .hitch directory, create a python 3 virtualenv in it and install all the necessary packages to run hitch tests there.
+* Ask you some basic questions about the project which you are testing.
+* Create a skeleton hitch project template for you to use based upon the answers.
 
-.. note::
-
-    This can be used as a guide to instal hitch instead: :doc:`/faq/what_does_the_init_script_do`
-
-Once the installation has completed, it will ask you a few basic questions about your project,
-mostly requiring a yes or no answer and will then generate a skeleton project template for you.
-
-Apart from installing all of the required packages and creating a .hitch directory,
-the following files are created in your tests directory:
+The skeleton template will include all of the following:
 
 * :doc:`/glossary/hitchreqs.txt`
 * :doc:`/glossary/engine.py`
@@ -54,21 +79,27 @@ You can now run the stub test. Try running it in test driven development mode::
 
   $ hitch test stub.test --settings tdd.settings
 
-The first time you run this command it may take a while (up to 25 minutes depending upon what you configured).
-
-Time for coffee?
-
-While you're at it, check out the hitch subreddit and subscribe to the twitter feed!
+The first time you run this command it *may take a while* (up to 25 minutes depending upon what you answered).
 
 .. note::
 
     :doc:`/faq/why_does_the_first_test_run_take_so_long`
 
+This might be a good time to take a break.
+
+While you're at it, subscribe to the `hitch subreddit <https://reddit.com/r/hitchtest>`_ and
+`twitter feed <https://twitter.com/testhitch>`_ for updates and news.
+
+
 
 Back?
 -----
 
-Once the test run is done setting up and running things, if there were no problems, you should see this::
+.. note::
+
+    If the stub test failed, please `raise an issue <https://github.com/hitchtest/hitch/issues/new>`_.
+
+Once the test run is done setting up, if there were no problems, you should see this::
 
     Python 3.4.3 (default, Jul 28 2015, 18:20:59)
     Type "copyright", "credits" or "license" for more information.
@@ -89,7 +120,8 @@ prompt that can be used to interact with your app, inspect logs and try out test
 steps.
 
 The components you selected during the set up should also be running. For example, if you
-chose postgres, postgres will be running.
+chose postgres, the latest version of postgres will have been installed in the ~/.hitchpkg
+directory and it will be running and accessible.
 
 To exit, simply hit ctrl-D.
 
