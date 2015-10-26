@@ -12,7 +12,7 @@ Features
 * Readable :doc:`/glossary/hitch_test_description_language` that doesn't require you to write regular expressions.
 * Built-in :doc:`/glossary/service_orchestration` library for running groups of services (databases, webservers, microservices) together.
 * Built-in :doc:`/glossary/step_library` for common tasks (interacting with browsers, command line & emails).
-* Provides a :doc:`/glossary/test_driven_development_environment` with first class debugging tools.
+* Provides a suitable environment for  :doc:`/glossary/acceptance_test_driven_development` complete with debugging tools.
 
 Plugins
 -------

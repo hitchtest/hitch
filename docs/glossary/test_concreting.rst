@@ -26,6 +26,10 @@ Test concreting on good, clean interfaces is not a problem.
 Hitch is explicitly built with loose coupling in mind in order to
 help mitigate the effect of test concreting.
 
+The effect of test concreting can also happen in the absence of
+automated tests, via the *implied testing* by users using the
+software in production.
+
 See also:
 
 * :doc:`/faq/why_just_html_ids_and_classes`
