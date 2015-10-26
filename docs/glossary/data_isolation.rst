@@ -1,13 +1,27 @@
 Data Isolation
 ==============
 
-For the files which those packages interact with, hitch directs
-those packages to store the data in the .hitch directory by default.
+Data isolation is a form of test :doc:`isolation` that
+helps protect integration tests from being affected by the
+current state of *data files* on the machine.
 
-Thus all state that your tests rely upon - whether it is python
-virtualenvs or the postgres data directory - is stored in that
-directory and that directory only.
+Lack of isolation is a common source of :doc:`/glossary/brittle_tests`.
 
-Deleting that directory with "hitch clean" and running "hitch
-init" and "hitch test" again ensures a clean slate when running
-any tests.
+Data isolation is an especially common problem for integration
+tests that make use of databases.
+
+The hitch database plugins maintain data isolation by creating
+the database data directory *from scratch* at the beginning of
+each test run before starting the service.
+
+This helps provide a strong guarantee that previous test runs
+will not affect subsequent test runs.
+
+Hitch stores data files in the :doc:`/glossary/hitch_directory`.
+
+See also:
+
+* :doc:`/glossary/package_isolation`
+* :doc:`/glossary/environment_isolation`
+* :doc:`/glossary/process_isolation`
+* :doc:`/faq/how_does_hitch_compare_to_other_technologies`

@@ -1,29 +1,27 @@
 Why is my test downloading and compiling software?
 --------------------------------------------------
 
-Hitch often downloads and compiles the software it uses to run your
-test with on the first test run.
+Hitch usually downloads and compiles the software (e.g. python/postgres)
+it uses to run your test with on the first test run.
 
-Often this is software you already have installed on your machine.
+Often this is software you may already have installed on your machine.
 
-This is slow, and yes, slow is annoying. However, it can run unattended
-and the second test run will be much faster, so
+This is done to:
 
-for two main reasons - 1) it allows you to specify the version
-of software you are testing with in your test, 2) it allows you to
-test your code with multiple versions of software. For example, you
-can easily write tests with hitch that test your code using python 2.6
-and python 3.3 even if your system comes with python 2.7 by default.
+* Maintain :doc:`/glossary/package_isolation`.
+* Cut down on :doc:`/glossary/brittle_tests`.
+* Allow a greater level of :doc:`/glossary/test_realism`.
 
-Specifying the version of software is also an important means of
-reducing integration test brittleness. Tests run on different machines
-(and even different OSes) can largely be relied upon to fail or
-pass together. It also somewhat prevents system software upgrades from
-breaking your tests.
+Examples of where this helps (with python):
 
-Lastly, specifying the version means that you can test with the exact
-versions of software that you use in production, thus keeping your
-tests as realistic as possible.
+* Upgrading your system will not cause behavior changes in your tests because the version of python has changed.
+* You can develop and test against the exact same version of python that you use on production.
+* You can tweak the version in your tests before running a full test run to give confidence that upgrading your version of python in production will not cause bugs.
+* You can trivially test your code against *multiple* versions of python on the same test run (see :doc:`/howto/parameterize_test_cases`.).
+
+While it is inconvenient to download and compile software on the first
+test run, there is a substantial benefit to taking this appraoch.
+
 
 See also:
 

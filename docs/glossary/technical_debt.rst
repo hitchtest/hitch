@@ -13,6 +13,5 @@ Technical debt falls into one of the following three categories:
 * Non-:doc:`DRY` code.
 
 Technical debt usually *compounds* owing to the positive feedback loop
-caused by :doc:`code_fear`. It is an example of a :doc:`vicious_cycle`.
-
-Are you having a problem with technical debt? `We can help you <https://hitchtest.com/consulting.html>`_
+caused by :doc:`code_fear` and :doc:`test_concreting`. It is an example of
+a :doc:`vicious_cycle`.

@@ -1,7 +1,7 @@
 Service Bundle
 ==============
 
-A service bundle is a :doc:`hitchserve` object which runs one or more services together
+A service bundle is a :doc:`/glossary/hitchserve` object which runs one or more services together
 so that, as a group, they can be tested.
 
 It does the following and more:

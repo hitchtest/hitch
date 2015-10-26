@@ -9,6 +9,7 @@ lower level.
 While lower level testing minimizes the combinatorial explosion, it also means
 writing more tightly coupled tests.
 
+Combinatorial explosions can also be mitigated by strengthening the typing of your code.
 
 See also:
 
