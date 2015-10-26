@@ -37,7 +37,12 @@ In your test, define the redis package you will use:
     # Downloads & installs redis to ~/.hitchpkg if not already installed
     redis_package.build()
 
-To use, define the service after initializing the :doc:`/api/service_bundle`:
+
+To use, define the service after initializing the :doc:`/glossary/service_bundle`:
+
+.. note::
+
+    See also: :doc:`/api/generic_service_api`
 
 .. code-block:: python
 

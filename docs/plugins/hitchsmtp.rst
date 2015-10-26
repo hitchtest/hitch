@@ -21,7 +21,11 @@ To install::
 Set up HitchSMTP
 ----------------
 
-To use, define the service after initializing the :doc:`/api/service_bundle`:
+.. note::
+
+    See also: :doc:`/api/generic_service_api`
+
+To use, define the service after initializing the :doc:`/glossary/service_bundle`:
 
 .. code-block:: python
 

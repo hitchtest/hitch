@@ -17,7 +17,11 @@ If it is not already installed, install the hitch vagrant package::
 Setup
 -----
 
-To use, define the service after initializing the :doc:`/api/service_bundle`:
+.. note::
+
+    See also: :doc:`/api/generic_service_api`
+
+To use, define the service after initializing the :doc:`/glossary/service_bundle`:
 
 Like so:
 

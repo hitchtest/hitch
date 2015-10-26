@@ -30,6 +30,10 @@ Install the hitch selenium plugin like so::
 Set up the Firefox service
 --------------------------
 
+.. note::
+
+    See also: :doc:`/api/generic_service_api`
+
 To use, define the service after initializing the :doc:`/glossary/service_bundle`:
 
 .. code-block:: python

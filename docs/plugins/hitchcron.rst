@@ -24,7 +24,11 @@ To install::
 Set up Cron
 -----------
 
-To use, define the service after initializing the ServiceBundle object but before starting it:
+.. note::
+
+    See also: :doc:`/api/generic_service_api`
+
+To use, define the service after initializing the :doc:`/glossary/service_bundle` object but before starting it:
 
 .. code-block:: python
 

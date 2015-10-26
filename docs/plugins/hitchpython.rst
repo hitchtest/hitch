@@ -46,10 +46,14 @@ in your :doc:`/glossary/test_setup`:
 Run Django Service
 ------------------
 
+.. note::
+
+    See also: :doc:`/api/generic_service_api`
+
 hitchpython also contains a service class that can be used to run
 Django in your test.
 
-To use, define the service after initializing the :doc:`/api/service_bundle`
+To use, define the service after initializing the :doc:`/api/service_bundle` but before starting it:
 
 .. code-block:: python
 
@@ -84,7 +88,7 @@ Run Celery Service
 hitchpython also contains a service class that can be used to run
 Celery during your test.
 
-To use, define the service after initializing the :doc:`/api/service_bundle`:
+To use, define the service after initializing the :doc:`/glossary/service_bundle`:
 
 
 .. code-block:: python

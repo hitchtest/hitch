@@ -40,7 +40,11 @@ In your test, define the postgres installation you will use, e.g. a system postg
     postgres_package.build()
 
 
-To use, define the service after initializing the :doc:`/api/service_bundle`:
+To use, define the service after initializing the :doc:`/glossary/service_bundle` but before starting it:
+
+.. note::
+
+    See also: :doc:`/api/generic_service_api`
 
 .. code-block:: python
 
