@@ -11,7 +11,7 @@ Common problems with integration testing are:
 * :doc:`/glossary/brittle_tests`
 * Maintaining :doc:`test_realism`
 * Maintaining :doc:`test_readability`
-* Enforcing doc:`loose_coupling`
+* Enforcing loose doc:`coupling`
 * Building tests that :doc:`/glossary/fail_fast` and :doc:`/glossary/fail_clearly`.
 * Speed
 

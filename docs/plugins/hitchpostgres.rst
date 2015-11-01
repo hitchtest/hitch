@@ -9,7 +9,7 @@ HitchPostgres is a :doc:`/glossary/hitch_plugin` created to make testing applica
 
 It contains:
 
-* A :doc:`/glossary/hitch_package` to download and install postgresql.
+* A :doc:`/glossary/hitch_package` to download and install specified version(s) of postgresql.
 * A :doc:`/glossary/service` to set up a test-specific postgresql environment and run postgresql.
 
 Note: the postgresql service destroys and sets up a new database during each test run in order
@@ -26,7 +26,7 @@ First, install the the plugin in your tests directory::
 Set up postgres
 ---------------
 
-In your test, define the postgres installation you will use, e.g. a system postgres:
+In your test, define the version of postgres that you want to test with:
 
 .. code-block:: python
 
@@ -54,7 +54,7 @@ To use, define the service after initializing the :doc:`/glossary/service_bundle
     # Define a postgresql database for your service to set up
     postgres_database = hitchpostgres.PostgresDatabase(
         name="databasename",                  # Mandatory
-        owner=newpguser,                      # Mandatory
+        owner=postgres_user,                  # Mandatory
         dump="dumps/yourdump.sql"             # Optional (default: create empty database)
     )
 

@@ -82,7 +82,7 @@ It is often the case with legacy code bases that algorithmic/logical code (e.g.
 functions that calculate pricing) and integrational code (e.g. code for storing/retrieving
 data in the database) are thoroughly mixed up and cannot easily be separated.
 
-This is an example of :doc:`/glossary/tight_coupling`.
+This is an example of tight :doc:`/glossary/coupling`.
 
 In such cases, unit tests are of very limited value as well - at least initially.
 

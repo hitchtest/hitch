@@ -13,11 +13,7 @@ Causes of code fear
 
 Code fear is a problem caused largely by:
 
-* :doc:`technical_debt`, meaning:
-** A lack of tests and a lack of :doc:`test_quality`
-** :doc:`tight_coupling` of code.
-** Non-:doc:`DRY` code.
-* :doc:`surprise_requirements`
+* :doc:`technical_debt`
 * A culture of blame surrounding bugs
 * Time pressure
 

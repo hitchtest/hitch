@@ -1,23 +1,25 @@
 Brittle Tests
 =============
 
-Brittleness is a property of tests which renders them liable to break easily despite the lack of bugs in the code.
+Brittleness is a property of tests which renders them likely to break easily
+despite the lack of bugs in the code.
 
-Both :doc:`integration_testing` and :doc:`unit_testing` suffer from brittleness, although it is
-usually a much bigger problem with with integration tests.
+Brittleness can lead in extreme cases to :doc:`test_failure_habituation` and
+:doc:`test_abandonment`.
 
-Brittleness can lead to :doc:`test_failure_habituation` and :doc:`test_abandonment`.
+There are six major causes of brittleness in tests:
 
-There are three major causes of brittleness in tests:
+* A lack of :doc:`data_isolation`.
+* A lack of :doc:`environment_isolation`.
+* A lack of :doc:`process_isolation`.
+* A lack of :doc:`package_isolation`.
+* Tight :doc:`coupling` between tests and code.
+* :doc:`sleep_oriented_testing`.
 
-* :doc:`tight_coupling` in tests` (applies more to unit testing)
-* A lack of test :doc:`isolation`. (applies more to integration testing)
-* :doc:`sleep_oriented_testing` (applies more to integration testing)
-* :doc:`indeterminacy` (applies more to integration testing)
+Hitch implements features and a project structure to help protect your tests
+against all six sources of brittle test bugs while :doc:`integration_testing`.
 
-The exhibition of brittleness means that a test has a *bug*.
+See also:
 
-However, solving those bugs is a hard engineering problem. Hard enough that
-`even Google has trouble with it. <http://googletesting.blogspot.ch/2015/04/just-say-no-to-more-end-to-end-tests.html>`_.
-
-Hitch provides boilerpate and features to *substantially* minimize brittle tests (see the causes listed above for details).
+* `Non-determinism by Martin Fowler <http://martinfowler.com/articles/nonDeterminism.html>`_
+* `Google not-so-wisely calling their own brittle tests a 'fact of life' <http://googletesting.blogspot.ch/2015/04/just-say-no-to-more-end-to-end-tests.html>`_

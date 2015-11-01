@@ -18,3 +18,6 @@ Bugs in the application that can cause indeterminacy are often caused by:
 
 * Race conditions.
 * Lack of isolation.
+
+
+See http://martinfowler.com/articles/nonDeterminism.html

@@ -5,7 +5,7 @@ Test readability is the idea that a test should be easily read by programmers
 and non programmers alike.
 
 Hitch takes the approach that readability should be a by-product of simplicity,
-careful design and :doc:`/glossary/loose_coupling` and that readability is
+careful design and loose :doc:`/glossary/coupling` and that readability is
 a factor indicating a high :doc:`/glossary/test_quality`.
 
 Test readability should mean that:

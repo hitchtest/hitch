@@ -133,38 +133,13 @@ This lets you uninstall plugin packages from your environment. For example::
 It will also update hitchreqs.txt afterwards.
 
 
-
 hitch upgrade
 -------------
 
-This will attempt to upgrade all hitch plugin packages in your environment to the latest
-version available. Once done it will update hitchreqs.txt with the new version numbers.
+See : :doc:`/howto/upgrade_hitch`
 
-It is recommended that you run this command periodically to gain access to new features
-and bugfixes. I'd recommend this as a periodic upgrade procedure (say, every few weeks
-at the beginning of a sprint):
-
-* Check out the latest version of your code with tests that you know are passing.
-* Run hitch upgrade
-* Run all of the tests.
-* If they all pass, commit and push the updated hitchreqs.txt to your repository.
-* If there is a problem, either fix and re-run or don't commit the updated hitchreqs.txt.
-
-Note that this command does not upgrade the bootstrapper. To upgrade that (which
-is a good idea to also do periodically), you need to run the following command::
-
-  $ sudo pip install --upgrade hitch
-
-
-.. note::
-
-    Despite continuous regression testing of all hitch plugin packages and their
-    dependencies, there is a small chance that something may break when you
-    upgrade.
-
-    If something does break when you upgrade the plugin packages you should
-    revert the changes to hitchreqs.txt and re-run hitch init to get the old
-    versions back.
+This command will upgrade all of the plugins installed in your hitch directory
+and save all of their newly fixed versions to hitchreqs.txt.
 
 
 hitch clean

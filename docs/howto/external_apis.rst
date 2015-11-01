@@ -20,7 +20,7 @@ APIs like this in your test scenarios by starting a :doc:`/glossary/mock_service
 using hitch to listen to it.
 
 This can help you maintain a high level of :doc:`/glossary/test_realism` and
-:doc:`/glossary/loose_coupling` in your tests while avoiding the expense
+loose :doc:`/glossary/coupling` in your tests while avoiding the expense
 and inconvenience of calling the real API.
 
 

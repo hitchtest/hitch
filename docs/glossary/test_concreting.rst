@@ -17,7 +17,7 @@ refactor the interface.
 
 The negative effects of test concreting can be avoided by:
 
-* Explicitly designing tests with :doc:`loose_coupling` in mind.
+* Explicitly designing tests with loose :doc:`coupling` in mind.
 * Perpetually refactoring code in order to make it more loosely coupled.
 * *Only* surrounding code interfaces with tests once those interfaces are clean and have a low likelihood of changing.
 

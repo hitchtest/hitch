@@ -26,10 +26,10 @@ deficiency which will damage the quality of the tests produced.
 Why this opinionated approach is important #1: loose coupling
 -------------------------------------------------------------
 
-:doc:`/glossary/loose_coupling` is the general idea that software components should know
+Loose :doc:`/glossary/coupling` is the general idea that software components should know
 as little about each another as possible.
 
-The components we're looking at here are "tests" and "web app".
+The components we're looking at here are "tests" and "your web app".
 
 With this approach, what the test 'knows' about the web application should be restricted
 to the HTML classes and IDs, so it is more loosely coupled than other approaches.

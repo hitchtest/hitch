@@ -29,7 +29,7 @@ This is telling hitch to click on an HTML element with the HTML ID "register".
 Now, there's a good chance that:
 
 * Your HTML element does not have that ID - in which case you should *change the HTML itself* so that it does have that ID.
-* That button has a different HTML ID - in which case you should use that ID instead (bookmark :doc:`/howto/refactoring_your_tests` for later).
+* That button has a different HTML ID - in which case you should use that ID instead (bookmark :doc:`/howto/refactor_your_tests` for later).
 
 
 

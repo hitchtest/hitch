@@ -39,27 +39,10 @@ learning how to program in a turing complete language like python.
 Jinja2 adds additional complexity, but it helps you to prevent your
 test suite from becoming repetitive. See: :doc:`/glossary/DRY`.
 
-Again, using Jinja2 is not a powerful language. It is more powerful
+Again, Jinja2 is not a powerful language. It is more powerful
 than YAML but less powerful than python/java/ruby/etc. and should be
 something that a non programmer could pick up and use productively
 with a minimum of training.
-
-
-Why YAML instead of Gherkin?
-----------------------------
-
-Some readers may be familiar with Gherkin, which follows the same
-pattern. It is another "intentionally dumb" (i.e. non turing complete)
-language used in Cucumber, Behave, etc.
-
-The reason I "reinvented the wheel" and chose to develop my own YAML based
-language rather than using Gherkin was because of the following:
-
-* Terseness - Gherkin requires you to write more for equivalent test cases than is strictly necessary. Hitch is minimalist.
-* Ability to present many layers of complex, structured data - Gherkin allows you to include tables, equivalent to a list of dicts in hitch/YAML, but it won't let those contain lists or dicts.
-* Less cumbersome syntax - the syntax for Cucumber, especially when presenting complex data (e.g. tables) is more complex to write than YAML syntax.
-* No need for regular expressions - since the difference between step names and their data is encoded in syntax, there is no need for developers to write regular expressions to accomodate the "pseudo-English" style of Gherkin.
-
 
 Related reading
 ---------------

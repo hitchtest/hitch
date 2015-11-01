@@ -24,7 +24,7 @@ See :doc:`/tested_on` for details.
 
 Just follow the 3 step directions on https://hitchtest.com/ to run the test on your environment.
 
-If it works, please consider editing and adding it to https://github.com/hitchtest/hitch/blob/master/docs/tested_on.rst
+If it works, please consider editing and adding it to https://github.com/hitchtest/hitch/blob/master/docs/misc/tested_on.rst
 or raising an issue with the details.
 
 If it doesn't work, please raise an issue and copying and paste the output you saw.
@@ -55,7 +55,7 @@ seem obvious to the user. I'd really like to see more of these.
 Hitch is substantially reliant upon this project, but it still needs a lot
 of (mostly sysadmin-y non-programming) work.
 
-See https://github.com/unixpackage/unixpackage/blob/master/CONTRIBUTING.rst for details.
+See https://github.com/hitchtest/hitch/blob/master/CONTRIBUTING.rst for details.
 
 
 Contributing code
