@@ -7,18 +7,18 @@ would. They are not necessarily written in the same language as the code
 they are testing.
 
 Hitch is a testing framework designed specifically for writing integration tests
-for code written in any language.
+for code written in any language on the UNIX platform.
 
 Unit tests usually surround smaller blocks of code and directly call the APIs
-of the blocks of code they are testing. They are written in the same language as
+of the blocks of code they are testing. They are written in the *same* language as
 the code they are testing.
 
 py.test and nose are good python unit testing frameworks. Other languages
 have their own equivalents.
 
 Both unit tests and integration tests *can* catch bugs in *any* kind of code.
-However, they both have different trade offs and those trade offs should
-be understood before writing either one.
+However, they both have different trade offs and those trade offs, which
+you should bear in mind before writing either one.
 
 
 When are integration test more useful than unit tests?
@@ -34,12 +34,12 @@ payment gateways and all manner of other APIs.
 Integration tests that either use or *accurately mock* all of these components
 together can mimic the effect of scenarios that traverse all of them and
 uncover bugs that occur along the way. These are realistic tests
-(see :doc:`test_realism`).
+(see :doc:`/glossary/test_realism`).
 
 Unit tests that test the same kind of code usually do so by making
-extensive use of *mock objects*. Mock objects are not only unrealistic
-representations of real objects, using them in your tests tightly couples
-your code to your tests.
+extensive use of mock objects. Mock objects are *not only* unrealistic
+representations of real objects (almost by definition), using them in
+your tests *tightly couples* your code to your tests (see :doc:`/glossary/coupling`).
 
 Thus mock objects could be considered a 'code smell'. Extensive use of
 them tends to indicate that you should have written an integration test
@@ -57,22 +57,25 @@ This is *very often not a problem* - computing power is very cheap
 these days, after all, and feedback on automated tests does not
 have to be instantaneous or even quick to be vitally useful.
 
-Also: you can optimize for speed. You can't optimize for unrealistic.
+You can also optimize for speed (for instance, by parallelizing the test runs).
 
-However, for some scenarios a unit test is no less realistic than an
+You can't optimize for unrealistic. You can only toss it away.
+
+However, for *some scenarios* a unit test is *no less realistic* than an
 equivalent integration test. Code that is almost entirely *logical*
-rather than integrational is well suited to unit tests.
+rather than integrational is usually well suited to unit tests, for instance.
 
 Such code can include:
 
 * Algorithms that perform complex calculations
 * Algorithms that are parsing text or other input
 * Algorithms that do hard computing problems
-* Code that is largely functional
+* Functional code without side effects
 
 The relative cheapness of running unit tests also makes it possible to
 apply tools such as Haskell's quickcheck / Python's Hypothesis to cover
-more input scenarios to functions than a human could even imagine.
+more input scenarios to functions than a human could even imagine in
+a short space of time.
 
 
 What about code where algorithmic and logical code is thoroughly mixed together?
@@ -93,7 +96,7 @@ another.
 
 Once the logical code and the integration code are separated and talk
 to one another across tight, well defined API boundaries, unit tests
-become useful again.
+become useful again on the logical code.
 
 See also:
 

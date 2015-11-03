@@ -1,5 +1,5 @@
-Why was settings.yml removed?
-=============================
+Why is hitch so fast?
+=====================
 
 There are two main reasons why Hitch is generally faster than other testing
 frameworks: parallelization and built in epoll/kqueue triggers.

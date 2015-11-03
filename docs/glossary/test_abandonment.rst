@@ -2,7 +2,7 @@ Test abandonment
 ================
 
 Test abandonment is the final stage of :doc:`test_failure_habituation` when
-tests become so unmaintained and ignored that they effectively become
+tests become so unmaintained and ignored that their results effectively become
 meaningless.
 
 Test abandonment is usually paired with an increased reliance on different

@@ -31,5 +31,3 @@ Effects of code fear
 
 Code fear instigates a :doc:`vicious_cycle` of technical debt.
 
-Are you having a problem with code fear? `We can help you <https://hitchtest.com/consulting.html>`_
-
