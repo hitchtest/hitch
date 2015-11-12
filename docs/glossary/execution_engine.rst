@@ -11,3 +11,4 @@ See also:
 
 * :doc:`hitch_settings`
 * :doc:`/api/engine_api`.
+* `Test execution engine wikipedia page <https://en.wikipedia.org/wiki/Test_execution_engine>`_

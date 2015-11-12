@@ -21,6 +21,7 @@ and users specified in fixtures in poststart.
 
 See also
 
+* :doc:`service_bundle`
 * :doc:`hitch_package`
 * :doc:`step_library`
 * `Service (systems architecture) wikpedia page <https://en.wikipedia.org/wiki/Service_(systems_architecture)>`_.

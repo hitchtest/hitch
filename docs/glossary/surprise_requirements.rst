@@ -2,7 +2,7 @@ Surprise requirements
 =====================
 
 Surprise requirements are requirements which are not covered by functional
-tests and which developers are *unaware of*.
+tests which developers are *unaware of*.
 
 It is a common problem on legacy code bases which have had significant developer
 turnover. Developers who implemented functionality and later leave not only
@@ -16,6 +16,7 @@ functionality.
 
 "surprise requirements" can be reduced or eliminated by:
 
-* Increasing :doc:`test_coverage`
+* Increasing :doc:`test_coverage` and :doc:`test_quality`.
+* Using :doc:`automated_acceptance_tests`
 * Improving documentation.
 * Reducing developer turnover.

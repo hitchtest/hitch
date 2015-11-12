@@ -1,8 +1,8 @@
 Test Concreting
 ===============
 
-Test concreting is when tests lock down code interfaces by strongly
-disincentivizing developers from refactoring them.
+Test concreting is when tests lock down code interfaces by discouraging
+developers from refactoring them.
 
 It is a common cause of :doc:`technical_debt`. Tests surrround
 badly designed interfaces, yet they give a level of confidence in the
@@ -37,3 +37,4 @@ See also:
 * :doc:`code_fear`
 * :doc:`high_level_testing`
 * :doc:`low_level_testing`
+* :doc:`tightly_coupled_testing`
