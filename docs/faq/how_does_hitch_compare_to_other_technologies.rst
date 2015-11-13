@@ -192,7 +192,7 @@ The above applies to the following packages:
 Built-in Django Testing Framework
 ---------------------------------
 
-Django already comes with four official classes for testing web apps, each of which test at a progressively higher level:
+Django already comes with four official classes for unit testing web apps, each of which test at a progressively higher level:
 
 * SimpleTestCase - a low level unit tester for Django views.
 * TransactionTestCase - a low level unit tester for Django views which also rolls back the database.
@@ -201,27 +201,17 @@ Django already comes with four official classes for testing web apps, each of wh
 
 See : https://docs.djangoproject.com/en/1.8/topics/testing/tools/ for details.
 
-Hitch tests at a higher level than all of these.
+Hitch serves as an effective drop in replacement for all of these. While slower, tests written
+using hitch should exhibit a greater degree of :doc:`/glossary/test_realism`, :doc:`/glosary/isolation`
+and looser :doc:`/glossary/coupling`.
 
-Hitch is not significantly slower than running individual selenium tests using LiveServerTestCase
-(it can be faster, in fact). It cannot run tests in parallel, however (LiveServerTestCase can).
+Practical benefits:
 
-Hitch is *loosely coupled* to Django. The practical upshot of this is that if you want to *rewrite
-your whole application* in a different framework - even a different language - the number of lines of code
-you would have to change in the engine to port the tests over should be very low (for the example
-app it would require a change to just *seven* lines of code for it to run the same test against flask).
-
-Unlike Django, Hitch shuns the use of mock objects, using mock services to perform a similar function. For example,
-if you want to test sending an email, you configure Django to send a real email to the mock SMTP server rather
-than using the mock SMTP client.
-
-LiveServerTestCase will also *only* run Django as a service.
-
-Realistically running Celery as part of your test is simple with Hitch, since it is run as just
-another service. Running additional services alongside one another is easy with Hitch.
-
-
-See :doc:`/glossary/tight_coupling_and_speed_vs_loose_coupling_and_realism`
+* You can run a celery service alongside the test.
+* Hitch test maintains stricter database isolation.
+* It runs all services with faketime, allowing you to mock the forward passage of time via your tests.
+* Looser coupling means that if you refactor or rewrite your application code, you should only need minimal changes to your tests.
+* Hitch tests can more easily be made to be :doc:`/glossary/business_readable`.
 
 
 Tox, PyEnv and Virtualenv
