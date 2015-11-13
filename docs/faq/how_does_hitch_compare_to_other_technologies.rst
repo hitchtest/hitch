@@ -202,7 +202,7 @@ Django already comes with four official classes for unit testing web apps, each 
 See : https://docs.djangoproject.com/en/1.8/topics/testing/tools/ for details.
 
 Hitch serves as an effective drop in replacement for all of these. While slower, tests written
-using hitch should exhibit a greater degree of :doc:`/glossary/test_realism`, :doc:`/glosary/isolation`
+using hitch should exhibit a greater degree of :doc:`/glossary/test_realism`, :doc:`/glossary/isolation`
 and looser :doc:`/glossary/coupling`.
 
 Practical benefits:
