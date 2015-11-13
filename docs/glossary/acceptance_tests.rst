@@ -6,8 +6,7 @@ as :doc:`acceptance_tests`.
 
 When automated acceptance tests that are both :doc:`business_readable`
 and executable, they can eliminate :doc:`requirements_angst`
-as well as giving a better high level overview of what features
-are done and which features have yet to be finished.
+as well as giving a better high level overview of :doc:`feature_completion`.
 
 Acceptance testing is usually also:
 
