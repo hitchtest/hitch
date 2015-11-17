@@ -31,7 +31,7 @@ def read(*parts):
     return codecs.open(os.path.join(os.path.abspath(os.path.dirname(__file__)), *parts), 'r').read()
 
 setup(name="hitch",
-      version="0.5.6",
+      version="0.5.7",
       description="Bootstrapper for hitchtest - the loosely coupled integration testing framework",
       long_description=read('README.rst'),
       classifiers=[
