@@ -129,7 +129,8 @@ def init(python, virtualenv):
         check_call([
             virtualenv, ".hitch/virtualenv", "--no-site-packages", "--distribute", "-p", python3
         ])
-        check_call([pip, "install", "-U", "pip"])
+        check_call([pip, "install", "--upgrade", "pip"])
+        check_call([pip, "install", "--upgrade", "setuptools"])
         check_call([pip, "install", "unixpackage", "hitchsystem"])
 
         installpackages()
