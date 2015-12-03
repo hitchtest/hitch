@@ -1,29 +1,26 @@
 Isolation
 =========
 
-Isolation is a property of tests that prevents system state from 'contaminating' the
-test environment.
+Isolation is a property of tests that prevents their behavior from being affected by the state
+of the system running them. It is a large and underappreciated problem when integration testing.
 
-*Lack* of isolation is usually the cause of :doc:`/glossary/brittle_tests`.
-
-Tests that show a high degree of isolation strictly control their own environment wherever
-possible and where they cannot, they :doc:`/glossary/fail_fast` and :doc:`/glossary/fail_clearly`.
+Non-isolated integration tests are often referred to as :doc:`/glossary/brittle_tests`.
 
 Common examples of 'brittle' integration tests suffering from a lack of isolation include:
 
 * Databases that are changed by one test and then re-used in subsequent tests.
-* Files which are created by tests and not destroyed, affecting the behavior of subsequent tests.
-* A lack of control over crucial software which the test relies upon (e.g. because system package manager software was used).
-* Accidentally using the same service from a previous test run because it was not shut down properly.
+* Files which are created by tests and not destroyed which affect the behavior of subsequent tests.
+* A system package manager upgrading a crucial piece of software that the test relies upon, breaking it.
+* A stray process monopolizing a network port used by the test.
 
-Hitch maintains three types of isolation:
+Radical isolation is a primary goal of Hitch. Hitch achieves this by controlling as much
+of the environment as is feasible and running a suite of checks for the rest.
 
 * :doc:`/glossary/package_isolation`
 * :doc:`/glossary/data_isolation`
 * :doc:`/glossary/process_isolation`
+* :doc:`/glossary/environment_isolation`
 
-Strict isolation in integration tests is analogous to the concept of strict typing in programming
-languages.
 
 See also:
 

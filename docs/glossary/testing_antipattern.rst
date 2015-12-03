@@ -11,3 +11,4 @@ Examples:
 * :doc:`sleep_oriented_testing`
 * :doc:`tightly_coupled_testing`
 * :doc:`test_failure_habituation`
+* :doc:`unit_overtesting`
