@@ -3,6 +3,7 @@ Contributors
 
 * Jon Hadfield @jonhadfield
 * Omer Katz @omerkatz
+* Flavio Curella @fcurella
 
 
 Additional thanks to
