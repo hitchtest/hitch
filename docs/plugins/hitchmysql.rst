@@ -58,7 +58,7 @@ To use, define the service after initializing the :doc:`/glossary/service_bundle
         dump="dumps/yourdump.sql"             # Optional (default: create empty database)
     )
 
-    self.services['MySQL'] = hitchpostgres.PostgresService(
+    self.services['MySQL'] = hitchmysql.MySQLService(
         mysql_package=mysql_package,       # Mandatory
         port=13306,                        # Optional (default: 13306)
         users=[mysql_user, ],              # Optional (default: no users)
