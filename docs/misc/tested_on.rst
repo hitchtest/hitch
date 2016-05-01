@@ -11,8 +11,10 @@ and you discover a problem, that's a bug. Please raise an issue.
 OSes:
 
 * Ubuntu 14.04
+* Ubuntu 15.10
 * Mac OS X Mavericks
 * Mac OS X Yosemite
+* Mac OS X Mavericks
 * Debian Jessie
 * Fedora 20
 * CentOS 6.4
@@ -67,11 +69,8 @@ If you have access to one of these, *please* try out the example project
 and submit a pull request adding your environment if it works or raise
 an issue if it doesn't:
 
-* Mac OS X El Capitan
-* Variations on Mac OS X Yosemite/Mavericks (e.g. with different versions of Xcode)
 * Red Hat
 * Ubuntu/Debian based distros like Trisquel, Kali or Mint
 * Red Hat based distros like Oracle Linux
-* Basically any Linux system not mentioned above
+* Linux systems not mentioned above
 * Any continuous integration system not mentioned above
-* Any Linux system mentioned above but a slightly different version
